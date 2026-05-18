@@ -1,0 +1,12 @@
+,,,,,,,,,
+,Tâches,,,,,Estimation (en jours),,Début estimé,03/03/2026
+,Initialisation du projet en local,,,,,1,,Fin estimée,18/03/2026
+,Développement,Back-Office,Wordpress,Enregistrement des données du formulaire,Connexion avec une base Oracle,"0,5",,,
+,,,,,Création du script de sauvegarde des données,1,,,
+,,,,Intégration du formulaire,Désign,2,,,
+,,,,,Sauvegarde des données,1,,,
+,,Front-Office,Angular,Intégration de la page,,2,,,
+,Tests ISM,,,,,1,,,
+,Tests utilisateurs / Développement des retours,,,,,2,,,
+,Mise en production,,,,,"0,5",,,
+,,,,,,11,,,

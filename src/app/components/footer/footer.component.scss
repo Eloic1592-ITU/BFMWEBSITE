@@ -1,0 +1,134 @@
+/* Style for footer */
+@import "../../../assets/scss/variables";
+
+.main-footer {
+    background-color: $primary;
+    padding-top: 25px;
+
+    .footer-about {
+        padding: 0 15px;
+
+        figure {
+            text-align: center;
+
+            @media (min-width: 768px) {
+                text-align: left;
+            }
+        }
+
+        @media (min-width: 768px) {
+            padding: 0;
+        }
+
+        p {
+            font-weight: $font-light;
+            font-size: 12px;
+            color: #90a9bb;
+            line-height: 2;
+            margin-bottom: 24px;
+        }
+    }
+
+    .social-app {
+        margin-top: 25px;
+        padding: 0 15px 30px;
+
+        @media (min-width: 768px) {
+            margin-top: 56px;
+            padding: 0;
+        }
+
+        h4 {
+            font-weight: $font-light;
+            font-size: 12px;
+            color: #90a9bb;
+            text-transform: uppercase;
+        }
+
+        .btn-app {
+            display: inline-block;
+            margin-right: 25px;
+        }
+    }
+
+    .menu-footer {
+        padding-top: 15px;
+        padding-left: 15px;
+
+        @media (min-width: 768px) {
+            padding-top: 30px;
+            padding-left: 0;
+        }
+
+        h4 {
+            font-size: 14px;
+            font-weight: $font-semibold;
+            color: #4298cc;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+
+            li {
+                line-height: 1.2;
+                margin-bottom: 5px;
+
+                a {
+                    color: #fff;
+                    font-weight: $font-light;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+.cookie {
+    background: #8cbfcc;
+    font-weight: $font-semibold;
+    padding: 10px 0;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    @media (min-width: 992px) {
+        padding: 20px 0;
+    }
+    p {
+        color: #FFF;
+        font-size: 12px;
+        @media (min-width: 480px) {
+            font-size: 14px;
+        }
+        @media (min-width: 992px) {
+            float: left;
+            width: 82%;
+
+        }
+    }
+    a {
+        color: #FFF;
+        border-bottom: 1px solid #000;
+        &:hover {
+            color: #000;
+        }
+    }
+    .btn {
+        display: block;
+        width: 90px;
+        font-size: 12px;
+        margin: 10px auto 0;
+        @media (min-width: 992px) {
+            float: right;
+            width: 138px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 0;
+        }
+        &:hover {
+            background-color: #ce8921;
+            color: #ffff;
+        }
+    }
+}

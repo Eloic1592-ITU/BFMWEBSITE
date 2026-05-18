@@ -1,0 +1,65 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    / <a [routerLink]="['/texte-reglementaire/page/1']" title="Offres d'emploie">Lois et Règlements </a> / {{title}}
+</div>
+
+<div class="page-content">
+    <h1>{{title}}</h1>
+    <ng-container *ngIf="contentData?.length > 0">
+        <ng-container *ngFor="let itemSection of contentData">
+
+            <section class="RTE-standard" *ngIf="itemSection.type == 'RTE-standard'">
+                <div [innerHTML]="itemSection.content| safe:'html' "></div>
+            </section>
+
+            <section class="RTE-download" *ngIf="itemSection.type == 'RTE-download'">
+                <h2>{{itemSection?.title}}</h2>
+                Téléchargable sur : <a [routerLink]="[itemSection.link]" title="Rapport Annuel"><img
+                    src="assets/images/picto-pdf.png" width="56" height="55"></a>
+            </section>
+
+            <section class="RTE-connexe" *ngIf="itemSection.type == 'RTE-connexe'">
+                <figure>
+                    <img src="{{itemSection.image}}">
+                </figure>
+                <p class="titre">{{itemSection.title}}</p>
+                <div [innerHTML]="itemSection.content| safe:'html' "></div>
+            </section>
+
+            <section class="RTE-accordion" *ngIf="itemSection.type == 'RTE-accordion'">
+                <h2>{{itemSection.title}}</h2>
+                <accordion closeOthers="true">
+                    <accordion-group *ngFor="let itemAccordeon of itemSection?.content">
+                        <div accordion-heading class="clearfix">
+                            {{itemAccordeon.title}} <i class="bfm-icon-arrow_drop_down"></i>
+                        </div>
+                        <div class="panel-inner-content">
+                            <div [innerHTML]="itemAccordeon.content| safe:'html' "></div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </section>
+
+            <!-- mettre les slider -->
+            <section class="RTE-slider" *ngIf="itemSection.type == 'RTE-slider'">
+                <h2>{{itemSection.title}}</h2>
+
+                <div class="gallery">
+                    <app-gallery [data]="itemSection?.content"></app-gallery>
+                </div>
+            </section>
+        </ng-container>
+
+    </ng-container>
+
+    <section class="RTE-footer  nav-social d-flex">
+        <ng-container *ngIf="!viewPartage">
+            <div class="social">Partager sur : <a [routerLink]="[]" shareButton="facebook" title="Facebook"><i
+                    class="bfm-icon-facebook"></i></a> <a [routerLink]="[]" shareButton="twitter" title="Twitter"><i
+                    class="bfm-icon-twitter"></i></a> <a [routerLink]="[]" shareButton="google" title="Google plus"><i
+                    class="bfm-icon-googleplus"></i></a> <a [routerLink]="[]" shareButton="email" title="Mail to"><i
+                    class="bfm-icon-envelope"></i></a></div>
+        </ng-container>
+        <div class="print">Imprimer : <a [routerLink]="[]" shareButton="print" title="print"><i
+                class="bfm-icon-printer-text"></i></a></div>
+    </section>
+</div>

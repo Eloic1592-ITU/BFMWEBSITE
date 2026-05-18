@@ -1,0 +1,123 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a> / Recherche
+</div>
+<div class="page-content search-results">
+    <h1>Résultat de la recherche</h1>
+    <div class="form-wrapper search-wrapper">
+        <form (submit)="doReSearch()">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Recherche" aria-label="Recherche" [(ngModel)]="queryString" [ngModelOptions]="{standalone: true}" required>
+                <div class="input-group-append">
+                    <button class="btn" type="submit">&nbsp;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<p class="total-item" *ngIf="queryString">
+    <strong>{{itemsCount}}</strong> Résultat<ng-container *ngIf="itemsCount >1;">s</ng-container>
+</p>
+<hr class="separator">
+<div class="list-result">
+    <div>
+        <div class="filtre-wrapper"  *ngIf="(itemsCount > 0 && isFirstLoad) || (!isFirstLoad) ;">
+            <h2 (click)="isFilterClose = !isFilterClose" [attr.aria-expanded]="!isFilterClose">FILTER PAR <i class="bfm-icon-arrow_drop_down"></i></h2>
+            <div class="filter-dropdown" [collapse]="isFilterClose">
+                <div class="filter-types">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div>
+                                <h3>TYPE DE CONTENU :</h3>
+                                <ul class="row">
+                                    <li *ngFor="let postype of posttypes" class="col-md-6">
+                                        <span class="pt_nombre">({{postype.count}})</span>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="check_pt custom-control-input" value="{{postype.key}}" id="pt_{{postype.key}}" (change)="changePostTypeFilter($event,postype.key)" [checked]="checkList(postype.key)" />&nbsp;<label class="custom-control-label" for="pt_{{postype.key}}">{{postype.title}}</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>DATE DE PUBLICATION :</h3>
+                            <ul>
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <span class="pt_nombre">({{after_week}})</span>
+                                        <input type="checkbox" class="check_date custom-control-input" value="week" name="check_date" id="check_date_1" (change)="changeDateFilter($event,'week')" [(ngModel)]="weekChecked" />&nbsp;
+                                        <label class="custom-control-label" for="check_date_1">Moins d'une semaine</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <span class="pt_nombre">({{after_month}})</span>
+                                        <input type="checkbox" class="check_date custom-control-input" value="month" name="check_date" id="check_date_2" (change)="changeDateFilter($event,'month')" [(ngModel)]="monthChecked" />&nbsp;
+                                        <label class="custom-control-label" for="check_date_2">Moins d'un mois</label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="custom-control custom-radio">
+                                        <span class="pt_nombre">({{after_year}})</span>
+                                        <input type="checkbox" class="check_date custom-control-input" value="year" name="check_date" id="check_date_3" (change)="changeDateFilter($event,'year')" [(ngModel)]="yearChecked" />&nbsp;
+                                        <label class="custom-control-label" for="check_date_3">Moins d'un an</label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-wrapper text-right">
+                    <button class="btn btn-reset" type="reset" (click)="initFilter()">Réinitialiser</button>
+                </div>
+            </div>
+        </div>
+        <div class="actus" *ngIf="itemsCount > 0; else empty_result">
+            <ul *ngIf="contentData?.length > 0;">
+                <li *ngFor="let item of contentData">
+                    <a href="{{item.post_link}}" class="wrapper-list">
+                        <div class="day">
+                            <!-- jour -->
+                            <p class="date">{{ item.post_day  }}</p>
+                            <!-- jour -->
+                            <!-- mois -->
+                            <p class="month">{{ item.post_month }}</p>
+                            <!-- mois -->
+                            <!-- annee -->
+                            <p class="year">{{ item.post_year }}</p>
+                            <!-- annee -->
+
+                        </div>
+                        <div class="text-content">
+
+                            <!-- Categories de themes et type de texte-->
+                            <div class="type">
+                                <p>
+                                    {{item.post_type_title}}
+                                </p>
+                            </div>
+                            <!-- Categories de themes et type de texte-->
+
+                            <!--titre-->
+                            <p>{{item.post_title}}</p>
+                            <!--titre-->
+                        </div>
+                    </a>
+                </li>
+          </ul>
+            <div class="row" *ngIf="itemsCount > itemsPerPage ">
+                <div class="col-xs-12 col-12 d-none d-xl-block">
+                    <pagination class="justify-content-center" page="currentPage" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage" [nextText]="nextText" [previousText]="previousText" [firstText]="firstText" [lastText]="lastText" [boundaryLinks]="true" [maxSize]="maxSize"></pagination>
+                </div>
+                
+                <!-- Pagination pour mobile  --> 
+                <div class="col-xs-12 col-12 d-block d-xl-none">
+                  <div class="pager-mobile">
+                    <pagination class="justify-content-center" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage"   [nextText]="mobileNextText" [previousText]="mobilePreviousText" [firstText]="mobileFirstText" [lastText]="mobileLastText" [boundaryLinks]="true" [maxSize]="mobileMaxSize" ></pagination>
+                  </div>
+                </div>
+                <!-- For mobile  -->
+
+            </div>
+        </div>
+    </div>
+    <ng-template #empty_result >Aucun résultat</ng-template>
+</div>

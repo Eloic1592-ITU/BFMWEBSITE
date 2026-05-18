@@ -1,0 +1,57 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a [routerLink]="[item.url]" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content inflation">
+    <h1>{{title}}</h1>
+    <section>
+        <form [formGroup]="filterYearForm" (ngSubmit)="onSubmitFilter(filterYearForm.value)">
+        <label>Choisir l'année de début :</label>
+        <div class="form-wrapper select-wrapper">
+            <select class="form-control" formControlName="yearFilter">
+                <option value="">Sélectionnez</option>
+                <option *ngFor="let year of years" value={{year}} [selected]="year == yearSelected ">{{year}}</option>
+            </select>
+            <button class="btn btn-with-icon" type="submit" [disabled]="!filterYearForm.valid">Consulter <i
+                class="bfm-icon-arrow_drop_right"></i></button>
+            <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                <ng-container *ngIf="loader">
+                    <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                </ng-container>
+            </div>
+        </div>
+        </form>
+
+    </section>
+    <p>&nbsp;</p>
+    <p *ngIf="yearSelected" class="date">Année {{yearSelected}}</p>
+    <hr>
+    <section class="result" *ngIf="tabToShow?.length > 0;">
+    <table width="100%" align="center" class="table">
+        <thead>
+            <tr>
+                <th align="center">Date de mise en vigueur</th>
+                <th align="center">Taux directeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tabLigne  of tabToShow" [class]="tabLigne.MOYENNE ===1 ? 'moyenne': ''">
+            <td [attr.data-label]="'Date de mise en vigueur'">{{tabLigne.D_VIGUEUR}}</td>
+            <td [attr.data-label]="'Taux directeur'">{{tabLigne.TAUX}} %</td>
+            </tr>
+        </tbody>
+
+    </table>
+    </section>
+
+    <span class="error-message" *ngIf="yearSelected && tabToShow?.length == 0">Depuis le <strong>{{dataNotElement.D_VIGUEUR}}</strong> au <strong>{{yearSelected}}</strong>, le taux demeure inchangé à <strong>{{dataNotElement.TAUX}} %</strong></span>
+</div>

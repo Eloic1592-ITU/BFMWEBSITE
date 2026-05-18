@@ -1,0 +1,45 @@
+{
+    "code": "espace-echange",
+    "message": "Espace echange - Accueil",
+    "data": {
+        "status": 200,
+        "data": {
+            "title": "Espace echange",
+            "categories": [
+                {
+                    "categorie": "Nouvelle gamme de billet 2017",
+                    "description": "Nulla commodo enim augue, sit amet blandit velit posuere aliquam.",
+                    "sujets": 25,
+                    "url": "/espace-echange/cat-1",
+                    "date": {
+                        "day": "5",
+                        "month": "Juin",
+                        "year": "2018"
+                    }
+                },
+                {
+                    "categorie": "Question aux sujets des chèques",
+                    "description": "Donec ut ante gravida est accumsan suscipit. Nullam at mauris tristique, laoreet dui eget, eleifend nulla.",
+                    "sujets": 9999,
+                    "url": "/espace-echange/cat-2",
+                    "date": {
+                        "day": "19",
+                        "month": "Mai",
+                        "year": "2018"
+                    }
+                },
+                {
+                    "categorie": "Politique monétaire et de change",
+                    "description": "Donec ut ante gravida est accumsan suscipit. Nullam at mauris tristique, laoreet dui eget, eleifend nulla.",
+                    "sujets": 123,
+                    "url": "/espace-echange/cat-3",
+                    "date": {
+                        "day": "22",
+                        "month": "Jan",
+                        "year": "2018"
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,85 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a> /  <a [routerLink]="[urlBaseEchange]" title="{{title}}">{{title}}</a>   / {{theme}}
+</div>
+<div class="page-content page-echange">
+    <h1>{{title}}</h1>
+    <div class="header-with-btn d-flex justify-content-between align-items-end mb-4">
+        <h2>{{theme}}</h2>
+        <p class="btn-wrapper"><button class="btn btn-with-icon" type="submit" (click)="createNewSujet();">CRÉER UN SUJET SUR CE THÈME <i class="bfm-icon-arrow_drop_right"></i></button></p>
+    </div>
+    <div class="echange-wrapper">
+        <ul class="liste-echange liste-categories" *ngIf="itemsCount > 0; else empty_sujet">
+            <li class="liste-item wrapper-list d-flex" *ngFor="let sujet of listSujets">
+                <div class="liste-texte">
+                    <div class="d-flex">
+                        <figure><img src="assets/images/man.svg" width="65" height="65" *ngIf="sujet.sex === 'm'"><img src="assets/images/girl.svg" width="65" height="65" *ngIf="sujet.sex === 'f'"></figure>
+                        <div>
+                            <h2 class="titre-cat">{{ sujet.user }}</h2>
+                            <div class="desc-cat">{{ sujet.sujet }}</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <p class="date">posté le <span>{{ sujet.date }}</span></p>
+                        <p class="link-wrapper"><i class="bfm-icon-arrow_drop_right icon-left icon-secondary"></i> <a [routerLink]="[sujet.url]" title="consulter" class="link-icon link-secondary"><ng-container *ngIf="sujet.echange >0; else empty_echange">Consulter les échanges</ng-container><ng-template #empty_echange >Échanger sur le sujet</ng-template></a></p>
+                    </div>
+                </div>
+                <div class="liste-info d-flex">
+                    <span class="nombre">{{ sujet.echange }}</span> Echange<ng-container *ngIf="sujet.echange >1;">s</ng-container>
+                </div>
+            </li>
+        </ul>
+        <ng-template #empty_sujet >Aucun sujet à discuter pour l'instant</ng-template>
+        <a name="form-resp" #formResp></a>
+        <div class="border-top border-bottom pt-3 pb-0 mb-4" *ngIf="itemsCount > itemsPerPage ">
+            <div class="row">
+                <div class="col-xs-12 col-12">
+                   <pagination class="justify-content-center" page="currentPage" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage" [nextText]="nextText" [previousText]="previousText" [firstText]="firstText" [lastText]="lastText" [boundaryLinks]="true" [maxSize]="maxSize"></pagination>
+                </div>
+            </div>
+        </div>
+        <p class="btn-wrapper"><button class="btn btn-with-icon" type="submit" (click)="createNewSujet();">CRÉER UN SUJET SUR CE THÈME <i class="bfm-icon-arrow_drop_right"></i></button></p>
+        <section class="form-reponses" *ngIf="formIsOpen">
+            <hr class="separator">
+            <form>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>VOTRE PSEUDO *</label>
+                            <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="pseudo"></div>
+                            <!--<p *ngFor="let validation of account_validation_messages.name">
+                                <span class="error-message" *ngIf="contactForm.get('name').hasError(validation.type) && (contactForm.get('name').dirty || contactForm.get('name').touched)">{{validation.message}}</span>
+                            </p>-->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>SEXE*</label>
+                            <div class="form-wrapper select-wrapper">
+                                <select class="form-control"  formControlName="sex">
+                                    <option value="">Sélectionner</option>
+                                    <!-- <option *ngFor="let item of listMetier| keys " value="{{item.key}}">{{item.value}}</option>-->
+                                </select>
+                            </div>
+                            <!--<p *ngFor="let validation of account_validation_messages.lastname">
+                                <span class="error-message" *ngIf="contactForm.get('lastname').hasError(validation.type) && (contactForm.get('lastname').dirty || contactForm.get('lastname').touched)">{{validation.message}}</span>
+                            </p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>VOTRE SUJET *</label>
+                            <div class="form-wrapper">
+                                <textarea class="form-control textarea" rows="10" formControlName="message"></textarea>
+                                <p class="obligatoires">* Mention obligatoire</p>
+                            </div>
+                            <div class="form-wrapper text-right">
+                                <button class="btn btn-with-icon" type="submit">ENVOYER <i class="bfm-icon-arrow_drop_right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

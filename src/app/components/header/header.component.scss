@@ -1,0 +1,69 @@
+/* */
+@import "../../../assets/scss/variables";
+.main-header {   
+
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 100%;
+    box-shadow: 0 0 18px 5px rgba(0,0,0,0.5);
+
+    .container-fluid {
+        background: #fff;
+        position: relative;
+    }
+
+    @media (min-width: 992px) {
+        position: static;
+
+        .container-fluid {
+            background: none;
+        }
+    }
+    
+}
+
+.bg-header {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: none;
+    overflow:hidden;
+    @media (min-width: 992px) {
+        display: block;
+        width: 46%;
+        height: 100%;
+        left: 35%;
+        position: absolute;
+        top: 0;
+    }
+    @media (min-width: 1200px) {
+        width: 54%;
+        left: 30%;
+    }
+}
+
+.logo-header {
+    display: block;
+    width: auto;
+    margin: 15px 0;
+    text-align: center;
+
+    img {
+        max-width: 100%;
+    }
+
+    @media (min-width: 992px) {
+        display: inline-block;
+        margin: 20px 0;
+    }
+}
+.header-right {
+    display: none;
+
+    @media (min-width: 992px) {
+        display: block;
+    }
+}
+
+

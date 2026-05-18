@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Countdown</title>
+    <link rel="stylesheet" href="./assets/flip.min.css" />
+    <link rel="stylesheet" href="./assets/countdown.css" />
+  </head>
+  <body>
+    <div class="countdown" id="countdown">
+      <div class="countdown-head">
+        <img src="./assets/bfm50logo.png" alt="bfm50logo" class="bfm50logo" />
+        <div id="remainingDays"></div>
+      </div>
+      <div class="tick" data-did-init="handleTickInit">
+        <div
+          data-repeat="true"
+          data-layout="horizontal center fit"
+          data-transform="preset(d, h, m, s) -> delay"
+        >
+          <div class="tick-group">
+            <div
+              data-key="value"
+              data-repeat="true"
+              data-transform="pad(00) -> split -> delay"
+            >
+              <span data-view="flip"></span>
+            </div>
+
+            <span data-key="label" data-view="text" class="tick-label"></span>
+          </div>
+        </div>
+      </div>
+      <a class="countdown-link" href="" target="_blank"></a>
+    </div>
+
+    <div id="live_dor" style="display: none;">
+      <iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/l8PMl7tUDIE?si=G6ShFnC1k4U7vWvY&amp;autoplay=1&amp;loop=1&amp;autopause=1" 
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen="" 
+        __idm_id__="458753">
+      </iframe>
+    </div>
+
+    <script>
+      // Définir la date de fin
+      const _jour = "02";
+      const _mois = "05";
+      const _annee = "2024";
+
+      // Date test
+      // const _jour = "24";
+      // const _mois = "04";
+      // const _annee = "2024";
+
+      function handleTickInit(tick) {
+        var nextYear = new Date().getFullYear() + 1;
+
+        Tick.count.down(`${_annee}-${_mois}-${_jour}T14:52:00+03:00`).onupdate =
+          function (value) {
+            tick.value = value;
+          };
+      }
+
+      // Récupérer la date actuelle en temps UTC
+      const now = new Date();
+      const currentUTCDateTime =
+        now.getTime() + now.getTimezoneOffset() * 60 * 1000;
+
+      // Décalage horaire de Madagascar par rapport à l'heure UTC (en millisecondes)
+      const timezoneOffset = 3 * 60 * 60 * 1000; // UTC+3
+
+      // Ajouter le décalage horaire de Madagascar pour obtenir l'heure locale à Madagascar
+      const localDateTime = currentUTCDateTime + timezoneOffset;
+
+      // Initialiser la date de fin avec la nouvelle heure locale de Madagascar
+      const endTime = new Date(localDateTime);
+
+      // Définir la date à : Année, (mois - 1), jour
+      endTime.setFullYear(_annee, _mois - 1, _jour);
+
+      // Définir l'heure à 17:00:00.000
+      endTime.setHours(14, 52, 0, 0);
+
+      function updateCountdownText() {
+        const remainingDaysElement = document.getElementById("remainingDays");
+        var remainingDays = Math.floor(
+          (endTime - new Date()) / (1000 * 60 * 60 * 24)
+        );
+        
+        var liveDorElement = document.getElementById("live_dor");
+        var countdownElement = document.getElementById("countdown");
+
+        if (remainingDays < 0) {
+          liveDorElement.style.width = "100%";
+          liveDorElement.style.height = "206px";
+
+          const apiUrl = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/get_or_validation';
+
+          // Make a GET request
+          fetch(apiUrl)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              if(data.status === "1" ) {
+                
+
+                remainingDaysElement.textContent = `Jour-J`;
+                const countdownLink = document.querySelector("a.countdown-link");
+                countdownLink.style.position = "absolute";
+                countdownLink.style.width = "100%";
+                countdownLink.style.height = "100%";
+                countdownLink.style.zIndex = "100";
+                countdownLink.setAttribute("href", "https://pieces-monnaies-or-50.bfm.mg/public/index.php/");
+
+                liveDorElement.style.display = "none";
+                countdownElement.style.display = "flex";
+                
+              } else {
+                liveDorElement.style.display = "flex";
+                countdownElement.style.display = "none";
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+        } else {
+          liveDorElement.style.display = "none";
+          countdownElement.style.display = "flex";
+
+          if (remainingDays == 0) {
+            remainingDaysElement.textContent = `J`;
+          } else {
+            remainingDaysElement.textContent = `J-${remainingDays}`;
+          }
+        }
+      }
+
+      updateCountdownText();
+
+      // Calculer le nombre de jours restants
+      const days = Math.floor((endTime - new Date()) / (1000 * 60 * 60 * 24));
+
+      // Mettre à jour le texte des jours restants toutes les 24 heures
+      setInterval(updateCountdownText, 1000);
+    </script>
+
+    <script src="./assets/flip.min.js"></script>
+  </body>
+</html>

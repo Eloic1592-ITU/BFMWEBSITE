@@ -1,0 +1,63 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a [routerLink]="[item.url]" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content inflation">
+    <h1>{{title}}</h1>
+    <section class="RTE-standard" *ngIf=" descriptionPage !=''">
+        <div [innerHTML]="descriptionPage| safe:'html' "></div>
+    </section>
+    <section>
+        <form [formGroup]="filterYearForm" (ngSubmit)="onSubmitFilter(filterYearForm.value)">
+        <label>Choisir l'année de début :</label>
+        <div class="form-wrapper select-wrapper">
+            <select class="form-control" formControlName="yearFilter">
+                <option value="">Sélectionnez</option>
+                <option *ngFor="let year of years" value={{year}} [selected]="year == yearSelected ">{{year}}</option>
+            </select>
+            <button class="btn btn-with-icon" type="submit" [disabled]="!filterYearForm.valid">Consulter <i
+                class="bfm-icon-arrow_drop_right"></i></button>
+            <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                <ng-container *ngIf="loader">
+                    <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                </ng-container>
+              </div>
+        </div>
+        </form>
+
+    </section>
+    <!--<span *ngIf="yearSelected">Année {{yearSelected}}</span>-->
+    <hr>
+    <section class="result">
+        <table width="100%" align="center" class="table">
+            <thead *ngIf="tabHead">
+                <tr>
+                    <th>{{tabHead.LIBELLE}}</th>
+                    <th align="center">{{tabHead.ENSEMBLE}}</th>
+                    <th align="center">{{tabHead.PRODLOCAL}}</th>
+                    <th align="center">{{tabHead.PRODSEMIMP}}</th>
+                    <th align="center">{{tabHead.PRODIMPORT}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tabLigne  of tabToShow" [class]="tabLigne.MOYENNE ===1 ? 'moyenne': ''">
+                    <td [attr.data-label]="tabHead.LIBELLE">{{tabLigne.LIBELLE}}</td>
+                    <td [attr.data-label]="tabHead.ENSEMBLE">{{tabLigne.ENSEMBLE}}</td>
+                    <td [attr.data-label]="tabHead.PRODLOCAL">{{tabLigne.PRODLOCAL}}</td>
+                    <td [attr.data-label]="tabHead.PRODSEMIMP">{{tabLigne.PRODSEMIMP}}</td>
+                    <td [attr.data-label]="tabHead.PRODIMPORT">{{tabLigne.PRODIMPORT}}</td>
+                </tr>
+            </tbody>
+
+        </table>
+    </section>
+</div>

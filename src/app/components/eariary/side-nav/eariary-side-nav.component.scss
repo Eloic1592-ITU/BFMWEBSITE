@@ -1,0 +1,81 @@
+/* ===== SIDE NAV ===== */
+.side-nav {
+    position: fixed;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Vertical connecting line */
+.side-nav::before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 16px;
+    bottom: 16px;
+    width: 1px;
+    background: var(--gray-200);
+    pointer-events: none;
+}
+
+.side-nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.4s ease;
+}
+
+/* Hover highlight */
+.side-nav-item:hover { opacity: 0.8; }
+
+.side-nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-200);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.side-nav-item:hover .side-nav-dot {
+    background: var(--gray-400);
+    transform: scale(1.3);
+}
+
+.side-nav-item.active .side-nav-dot {
+    background: var(--teal);
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 0 3px rgba(0, 75, 76, 0.15);
+}
+
+.side-nav-label {
+    position: absolute;
+    left: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: color 0.4s ease, font-weight 0.3s ease;
+}
+
+.side-nav-item:hover .side-nav-label {
+    color: var(--gray-600) !important;
+}
+
+/* Zoom élevé / petites largeurs : cacher complètement la side-nav */
+@media (max-width: 1280px) {
+    .side-nav {
+        display: none;
+    }
+}

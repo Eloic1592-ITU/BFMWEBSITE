@@ -1,0 +1,58 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content">
+    <h1>{{title}}</h1>
+    <ng-container *ngIf="contentData?.length > 0">
+        <ng-container *ngFor="let itemSection of contentData">
+            <section class="RTE-standard" *ngIf=" itemSection?.type == 'RTE-standard'">
+                <div [innerHTML]="itemSection.content| safe:'html' "></div>
+            </section>
+            <!--<section class="RTE-download"  *ngIf="itemSection?.type == 'RTE-download'">
+                <h2>{{itemSection?.title}}</h2>
+                Téléchargable sur : <a href="{{itemSection?.link}}" title="Rapport Annuel"><img src="assets/images/picto-pdf.png" width="56" height="55"></a>
+            </section>-->
+            <section class="RTE-connexe" *ngIf="itemSection?.type == 'RTE-connexe'">
+                <figure>
+                    <img src="{{itemSection.image}}">
+                </figure>
+                <p class="titre">{{itemSection.title}}</p>
+                <div [innerHTML]="itemSection.content| safe:'html' "></div>
+            </section>
+            <section class="RTE-accordion"   *ngIf="itemSection?.type == 'RTE-accordion'">
+                <h2>{{itemSection.title}}</h2>
+                <accordion closeOthers="true">
+                    <accordion-group  *ngFor="let itemAccordeon of itemSection?.content">
+                        <div accordion-heading class="clearfix">
+                            {{itemAccordeon.title}} <i class="bfm-icon-arrow_drop_down"></i>
+                        </div>
+                        <div class="panel-inner-content">
+                            <div [innerHTML]="itemAccordeon.content| safe:'html' "></div>
+                        </div>
+                    </accordion-group>
+                </accordion>
+            </section>
+            <!-- mettre les slider -->
+            <section class="RTE-slider"   *ngIf="itemSection?.type == 'RTE-slider'">
+                <h2>{{itemSection.title}}</h2>
+                <app-gallery [data]="itemSection?.content" ></app-gallery>
+            </section>
+        </ng-container>
+    </ng-container>
+    <section class="RTE-footer nav-social d-flex">
+        <ng-container *ngIf="!viewPartage">
+            <div class="social">Partager sur :  <a href="https://www.facebook.com/sharer/sharer.php?u={{url}}" title="Facebook" target="_blank"><i class="bfm-icon-facebook"></i></a> <a href="https://twitter.com/intent/tweet?url={{url}}" title="Twitter" target="_blank"><i class="bfm-icon-twitter"></i></a> <a href="https://plus.google.com/share?url={{url}}" title="Google plus" target="_blank"><i class="bfm-icon-googleplus"></i></a> <a href="mailto:?subject=[Mailto BFM] Partage de contenu&body={{title}}: %0A {{url}}%0A%0AL'équipe BFM,"><i class="bfm-icon-envelope"></i></a></div>
+        </ng-container>
+        <div class="print">Imprimer :  <a [routerLink]="[]" shareButton="print" title="Print"><i class="bfm-icon-printer-text"></i></a></div>
+    </section>
+</div>

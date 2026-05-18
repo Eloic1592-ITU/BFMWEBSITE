@@ -1,0 +1,143 @@
+@import "../../../assets/scss/variables";
+
+@import "../cours-devises/cours-devises.component.scss";
+.cours-du-mid{
+    .result {
+        .nav-pills {
+            flex-direction: column;
+
+            @media (min-width: 768px) {
+                flex-direction: row;
+                margin: 10px -1px;
+                padding:0;
+            }
+
+            .nav-item {
+                margin-bottom: 5px;
+                &:before{
+                    content: ""!important;
+                }
+
+                @media (min-width: 768px) {
+                    padding-left: 1px;
+                    padding-right: 1px;
+                    margin-bottom: 0;
+                }
+
+                .nav-link {
+                    background-color: #90a9bb;
+                    color: #fff;
+                    font-weight: $font-semibold;
+                    font-size: 14px;
+                    padding: 9px 16px;
+
+                    &.active {
+                        background-color: $secondary;
+                    }
+                }
+            }
+        }
+
+        .tab-pane {
+            //background-color: #eff4f7;
+            //border: 1px solid #dae3e8;
+            margin-top: -5px;
+
+            @media (min-width: 768px) {
+                margin-top: -1px;
+            }
+            .link-all {
+                padding: 0 30px 15px;
+                text-align: right;
+            }
+        }
+        .legend {
+            padding-top: 10px;
+            display: flex;
+            justify-content: center;
+
+            p {
+                font-size: 13px;
+                font-weight: $font-light;
+                color: #4b555c;
+                margin: 0 0 10px;
+            }
+        }
+    }
+}
+
+.loadWrapper{
+    background: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0px;
+    left:0px;
+    z-index: 99999;
+    .loader-element{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        img{
+            height: 70px;
+        }
+    }
+}
+.down-file {
+   /* display: flex;
+    justify-content: end;
+    align-items: center;
+    min-width: 270px;*/
+    margin-bottom: 20px;
+    text-align: center;
+    @media (min-width: 768px) {
+       float: left;
+       width:60%;
+       text-align: left;
+    }
+    a {
+        background: #e1eaf0;
+        color: #293034;
+        display: block;
+        font-size: 14px;
+        padding: 10px 20px;
+        /*width: 100%;
+        align-items: center;*/
+        span {
+            flex: 1 auto;
+        }
+        .text {
+            overflow:hidden;
+        }
+        .icon {
+            margin-left: 5px;
+            text-align: right;
+        }
+        i {
+            font-size: 25px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        &:hover {
+            background: #90a9bb;
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}
+
+.loading-wrapper {
+    .ajax-loader {
+        position: absolute;
+        top: 0;
+        right: 210px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 30;
+    }
+}
+
+
+

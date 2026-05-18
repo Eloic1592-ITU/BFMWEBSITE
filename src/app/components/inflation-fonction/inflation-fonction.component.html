@@ -1,0 +1,89 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} /</a>
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content inflation">
+    <h1>{{title}}</h1>
+    <section class="RTE-standard" *ngIf=" descriptionPage !=''">
+        <div [innerHTML]="descriptionPage| safe:'html' "></div>
+    </section>
+    <section>
+        <form [formGroup]="filterYearForm" (ngSubmit)="onSubmitFilter(filterYearForm.value)">
+        <label>Choisir l'année de début :</label>
+        <div class="form-wrapper select-wrapper">
+            <select class="form-control" formControlName="yearFilter">
+                <option value="">Sélectionnez</option>
+                <option *ngFor="let year of years" value={{year}} [selected]="year == yearSelected ">{{year}}</option>
+            </select>
+            <button class="btn btn-with-icon" type="submit" [disabled]="!filterYearForm.valid">Consulter <i
+                class="bfm-icon-arrow_drop_right"></i></button>
+            <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                <ng-container *ngIf="loader">
+                    <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                </ng-container>
+              </div>
+        </div>
+        </form>
+
+    </section>
+    <p>&nbsp;</p>
+    <p *ngIf="yearSelected" class="date">Année {{yearSelected}}</p>
+    <hr>
+    <section class="result">
+         <table  width="100%" align="center" class="table">
+            <thead *ngIf="tabHead1">
+                <tr>
+                    <th>{{tabHead1.LIBELLE}}</th>
+                    <th align="center">{{tabHead1.ENSEMBLE}}</th>
+                    <th align="center">{{tabHead1.PROD_ALIM_BOIS_TAB}}</th>
+                    <th align="center">{{tabHead1.TISSU_VETEMENT}}</th>
+                    <th align="center">{{tabHead1.LOGT_ET_COMBUST}}</th>
+                    <th align="center">{{tabHead1.AM_EQMENA_ENTC_M}}</th>
+                    <th align="center">{{tabHead1.SANTE}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tabLigne1  of tabToShow1" [class]="tabLigne1.MOYENNE ===1 ? 'moyenne': ''">
+                    <td [attr.data-label]="tabHead1.LIBELLE">{{tabLigne1.LIBELLE}}</td>
+                    <td [attr.data-label]="tabHead1.ENSEMBLE">{{tabLigne1.ENSEMBLE}}</td>
+                    <td [attr.data-label]="tabHead1.PROD_ALIM_BOIS_TAB">{{tabLigne1.PROD_ALIM_BOIS_TAB}}</td>
+                    <td [attr.data-label]="tabHead1.TISSU_VETEMENT">{{tabLigne1.TISSU_VETEMENT}}</td>
+                    <td [attr.data-label]="tabHead1.LOGT_ET_COMBUST">{{tabLigne1.LOGT_ET_COMBUST}}</td>
+                    <td [attr.data-label]="tabHead1.AM_EQMENA_ENTC_M">{{tabLigne1.AM_EQMENA_ENTC_M}}</td>
+                    <td [attr.data-label]="tabHead1.SANTE">{{tabLigne1.SANTE}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%" align="center" class="table">
+            <thead *ngIf="tabHead2">
+                <tr>
+                    <th align="center">{{tabHead2.LIBELLE}}</th>
+                    <th align="center">{{tabHead2.TRANSPORTS}}</th>
+                    <th align="center">{{tabHead2.LOISIR_SPEC_CULT}}</th>
+                    <th align="center">{{tabHead2.ENSEIGNEMENT}}</th>
+                    <th align="center">{{tabHead2.HOTEL_CAFE_REST}}</th>
+                    <th align="center">{{tabHead2.AUTRES_BIEN_SERV}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tabLigne2  of tabToShow2" [class]="tabLigne2.MOYENNE ===1 ? 'moyenne': ''">
+                    <td [attr.data-label]="tabHead2.LIBELLE">{{tabLigne2.LIBELLE}}</td>
+                    <td [attr.data-label]="tabHead2.TRANSPORTS">{{tabLigne2.TRANSPORTS}}</td>
+                    <td [attr.data-label]="tabHead2.LOISIR_SPEC_CULT">{{tabLigne2.LOISIR_SPEC_CULT}}</td>
+                    <td [attr.data-label]="tabHead2.ENSEIGNEMENT">{{tabLigne2.ENSEIGNEMENT}}</td>
+                    <td [attr.data-label]="tabHead2.HOTEL_CAFE_REST">{{tabLigne2.HOTEL_CAFE_REST}}</td>
+                    <td [attr.data-label]="tabHead2.AUTRES_BIEN_SERV">{{tabLigne2.AUTRES_BIEN_SERV}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

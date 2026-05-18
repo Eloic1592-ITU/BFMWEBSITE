@@ -1,0 +1,115 @@
+{
+    "code": "submenu",
+    "message": "Liste des sous-menus",
+    "data": {
+        "status": 200,
+        "data": [
+            {
+                "id": 5,
+                "url": "http://localhost/bfm/srcs/admin/",
+                "title": "Accueil",
+                "slug": "accueil",
+                "post_id": "5",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 68,
+                "url": "#",
+                "title": "BFM",
+                "slug": "bfm",
+                "post_id": "68",
+                "type": "custom",
+                "description": "",
+                "image": "",
+                "child": [
+                    {
+                        "id": 69,
+                        "url": "/",
+                        "title": "Page d'accueil",
+                        "slug": "bfm",
+                        "post_id": "25"
+                    },
+                    {
+                        "id": 70,
+                        "url": "/page-d-exemple/",
+                        "title": "Page d’exemple",
+                        "slug": "bfm",
+                        "post_id": "2"
+                    }
+                ]
+            },
+            {
+                "id": 6,
+                "url": "/page-d-exemple/",
+                "title": "Politique monétaire & de change",
+                "slug": "politique-monetaire-de-change",
+                "post_id": "2",
+                "type": "post_type",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 108,
+                "url": "#",
+                "title": "Suppervision bancaire et financière",
+                "slug": "suppervision-bancaire-et-financiere",
+                "post_id": "108",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 103,
+                "url": "#",
+                "title": "Système de paiement",
+                "slug": "systeme-de-paiement",
+                "post_id": "103",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 104,
+                "url": "#",
+                "title": "Marché",
+                "slug": "marche",
+                "post_id": "104",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 105,
+                "url": "#",
+                "title": "Stabilité financière",
+                "slug": "stabilite-financiere",
+                "post_id": "105",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 106,
+                "url": "#%20",
+                "title": "Billets & monnaies",
+                "slug": "billets-monnaies",
+                "post_id": "106",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            },
+            {
+                "id": 107,
+                "url": "#",
+                "title": "Statistiques & publication",
+                "slug": "statistiques-publication",
+                "post_id": "107",
+                "type": "custom",
+                "description": "",
+                "image": ""
+            }
+        ]
+    }
+}

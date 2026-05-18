@@ -1,0 +1,33 @@
+{
+    "code": "cours-devises",
+    "message": "Cours des devises",
+    "data": {
+        "status": 200,
+        "data": [
+            {
+                "devises": "Euros",
+                "min": "3 820,00",
+                "max": "3 910,00",
+                "mid": "3 860,24"
+            },
+            {
+                "devises": "Dollars US",
+                "min": "3 120,00",
+                "max": "3 240,00",
+                "mid": "3 190,56"
+            },
+            {
+                "devises": "Livre Sterling",
+                "min": "4 374,00",
+                "max": "4 474,00",
+                "mid": "4 432,13"
+            },
+            {
+                "devises": "Franc Suisse",
+                "min": "3 250,00",
+                "max": "3 520,00",
+                "mid": "3 232,95"
+            }
+        ]
+    }
+}

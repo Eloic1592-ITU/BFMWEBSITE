@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+  margin-block: 16px;
+}
+
+header img {
+  width: 68px;
+}
+
+header .title {
+  text-align: center;
+  color: #24679b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-direction: 8px;
+}
+
+header .title h1 {
+  font-size: 16px;
+}
+
+header .title h3 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+header .title h3 b {
+  font-weight: 800;
+}
+
+header .stats {
+  display: flex;
+  justify-content: center;
+}
+
+header .stats .stats-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+header .stats .date {
+  color: #24679b;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+header .stats .graph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+header .stats .graph span {
+  font-size: 12px;
+}
+
+/* Main Content */
+main img {
+  width: 100%;
+}

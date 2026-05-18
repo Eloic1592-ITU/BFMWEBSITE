@@ -1,0 +1,93 @@
+
+@import "../cours-devises/cours-devises.component.scss";
+
+.form-wrapper {
+	&.select-wrapper {
+		select {
+			-webkit-appearance: inherit;
+			  -moz-appearance: inherit;
+			  appearance: inherit;
+		}
+	}
+}
+
+.wrapper-download {
+	margin-top: 20px;
+}
+
+.down-file {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 270px;
+    margin-bottom: 5px;
+    @media (min-width: 768px) {
+    	float: left;
+        min-width:320px;
+    }
+	a {
+		background: #e1eaf0;
+	    color: #293034;
+	    font-size: 14px;
+	    padding: 10px 20px;
+	    width: 100%;
+	    display: flex;
+	    align-items: center;
+	    span {
+	    	flex: 1 auto;
+	    }
+		.text {
+			overflow:hidden;
+		}
+		.icon {
+			margin-left: 5px;
+			text-align: right;
+		}
+		i {
+		    font-size: 25px;
+		    margin-right: 5px;
+		    vertical-align: middle;
+		}
+		&:hover {
+			background: #90a9bb;
+			color: #fff;
+			text-decoration: none;
+		}
+	}
+}
+
+.bouton-zoom {
+	position: fixed;
+	top: 70%;
+	z-index: 100;
+	.btn {
+		background-color: #e1eaf0;
+	    font-size: 16px;
+	    font-weight: 600;
+	    color: #212529;
+	    margin-right: 3px;
+	    width: 25px;
+	    height: 25px;
+	    padding: 0;
+	    line-height: 25px;
+	    border: none;
+	    &:hover {
+	    	background-color: #004877;
+	    	color: #fff;
+	    }
+	}
+}
+
+
+.modal{
+	.rectification{
+		max-width: inherit;
+		width: 80%!important;
+		margin: 1.75rem auto!important;
+	}
+}
+.bouton-zoom{
+	img{
+		width: 30px;
+	}
+}

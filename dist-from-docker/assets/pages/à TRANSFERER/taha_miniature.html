@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Miniature - TAHA</title>
+    <link rel="stylesheet" href="taha_miniature.css" />
+  </head>
+  <body style="overflow: hidden;">
+    <header>
+      <header class="container">
+        <img src="taha_logo.png" alt="logo" />
+        <div class="title">
+          <h1>TAHA</h1>
+          <h3>
+            (<b>T</b>aha mi<b>A</b>ntoka ny <b>H</b>erin'ny <b>A</b>riary)
+          </h3>
+        </div>
+        <div class="stats">
+          <div class="stats-content">
+            <div class="graph">
+              <img src="taha_side_donut.png" alt="graph" />
+              <span id="dernierTauxRef"></span>
+            </div>
+            <h2 class="date" id="dernierDateTauxRef" ></h2>
+          </div>
+        </div>
+      </header>
+    </header>
+    <main style="position: relative; width: 410px; left: -40px;">
+      <canvas id="moisChart" width="800" height="400"></canvas>
+    </main>
+
+    <script src="taha_chart.js"></script>
+
+    <script>
+
+      const apiUrl2 =
+        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire";
+        // Make a GET request
+        fetch(apiUrl2)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            var items = data.data.data;
+            document.getElementById("dernierDateTauxRef").innerHTML = convertirFormatDate(items.D_DATE);
+            document.getElementById("dernierTauxRef").innerHTML = items.TAUX+" %";
+
+          });      
+    </script>
+
+
+    <script src="ChartHelper.js"></script>
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+
+        // Appelle la fonction async à l'intérieur d'une IIFE (Immediately Invoked Function Expression)
+        (async () => {
+              await generateChartFromAPI(
+                "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=30&order=DESC",
+                "moisChart"
+              );
+        })();
+      });
+    </script>
+    <canvas id="moisChart" width="600" height="400"></canvas>
+</body>
+</html>

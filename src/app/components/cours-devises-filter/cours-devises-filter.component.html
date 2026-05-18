@@ -1,0 +1,116 @@
+<div class="page-content cours-du-mid filter">
+    <section>
+        <div class="row">
+            <div class="col-sm-12" *ngIf="elementRechercheTaux!==undefined && elementRechercheTaux['fileAttached'].length > 0 ">
+                <div class="RTE-standard" *ngIf="(elementRechercheTaux|json) != '{}' && elementRechercheTaux?.descriptionFile != ''">
+                    <div [innerHTML]="elementRechercheTaux.descriptionFile| safe:'html' "  class="text-left"></div>
+                </div>
+            </div>
+           <div class="col-sm-12">
+                <ng-container *ngIf="elementRechercheTaux && (elementRechercheTaux|json) != '{}' && (elementRechercheTaux['fileAttached'] | json) !='{}' ">
+                    <div class="down-file" *ngFor="let fileAttach of elementRechercheTaux['fileAttached']">
+                        <a href="{{fileAttach.url}}" title="{{ 'Télécharger ' + fileAttach.title}}" *ngIf="fileAttach != '' && fileAttach?.url != ''"><span class="text">{{ 'Télécharger ' + fileAttach.title}}</span> <span class="icon"> <i class="{{fileAttach.class}}"></i> ({{fileAttach.filesize}})</span></a>
+                     </div>
+                </ng-container>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="down-file">
+                    <a href="/admin/wp-admin/admin-post.php?action=exportDernierCours"  title="Télécharger le dernier cours de devise">
+                        <span class="text">Télécharger le cours de devise du {{dateDernierDevise | date : 'dd/MM/yyyy' }}</span>
+                        <span class="icon"><i class="bfm-icon-excel"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <form [formGroup]="filterDateFilterForm" (ngSubmit)="onSubmitFiltreDate(filterDateFilterForm.value); loader = true;">
+            <label>&Eacute;volution du cours de change entre :</label>
+            <div class="form-wrapper">
+                <div class="wrap-datePicker">
+                    <div class="row">
+                        <div class=" col-sm-3">
+                            <div class="datePicker">
+                                <input class="form-control" style="float:none" [(ngModel)]="modelDebut" ngx-mydatepicker name="reactiveFormsDate" formControlName="dateFilterDebut" [options]="optionDateDebut" #dp="ngx-mydatepicker" autocomplete="off" (click)="dp.toggleCalendar()"/>
+                            </div>
+                        </div>
+                        <div class="col-sm-1">
+                            <p class="sep">et :</p>
+                        </div>
+                        <div class=" col-sm-3">
+                            <div class="datePicker">
+                                <input class="form-control" style="float:none" [(ngModel)]="modelFin" ngx-mydatepicker name="reactiveFormsDate" formControlName="dateFilterFin" [options]="optionDateFin" #dx="ngx-mydatepicker" autocomplete="off" (click)="dx.toggleCalendar()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="selectData">
+                    <select class="form-control" [(ngModel)]="dataSelected" formControlName="filterData">
+                        <option [selected]="dataSelected == ''" value="">Séléctionnez</option>
+                        <ng-container *ngFor="let item of dataFilter">
+                            <option value={{item.code}} [selected]="item.code == dataSelected ">{{item.label}}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <p *ngFor="let validation of account_validation_messages.filterData">
+                    <span class="error-message"
+                          *ngIf="filterDateFilterForm.get('filterData').hasError(validation.type) && (filterDateFilterForm.get('filterData').dirty || filterDateFilterForm.get('filterData').touched)">{{validation.message}}</span>
+                </p>
+            </div>
+
+            <div class="form-wrapper">
+                <button class="btn btn-with-icon" type="submit" [disabled]="!filterDateFilterForm.valid">Consulter <i
+                        class="bfm-icon-arrow_drop_right"></i></button>
+                <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                    <ng-container *ngIf="loader">
+                        <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </form>
+
+    </section>
+    <hr>
+    <section class="result">
+        <div>
+            <ngb-tabset *ngIf="dataCoursMid?.length > 0 || grapheCoursMid?.length > 0 ">
+                <ngb-tab title="Résultat en tableau" *ngIf="dataCoursMid?.length > 0">
+                    <ng-template ngbTabContent>
+                        <table width="50%" class="table">
+                            <thead>
+                            <th style="text-align: center;" colspan="4">{{filterElement}}</th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of dataCoursMid">
+                                <td >{{item.key | date:'dd/MM/yyyy'}}</td>
+                                <td align="right"><i class="bfm-icon-arrow_drop_down" *ngIf="dataCoursMidMin[item.key]"></i>{{dataCoursMidMin[item.key]}}</td>
+                                <td align="right"><i class="bfm-icon-arrow_drop_up" *ngIf="dataCoursMidMax[item.key]"></i>{{dataCoursMidMax[item.key]}}</td>
+                                <td align="right">{{item.value}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="Résultat en graphe">
+                    <ng-template ngbTabContent>
+                        <canvas baseChart width="400" height="200"
+                                [datasets]="coeffChartData"
+                                [labels]="coeffChartLabels"
+                                [options]="chartOptions"
+                                [colors]="chartColors"
+                                [chartType]="chartType">
+                        </canvas>
+                        <div class="legend">
+                            <p>
+                                Axe X : Date de mise en vigueur<br>
+                                Axe y : Cours de référence en Ariary
+                            </p>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+            <ng-container *ngIf="dataFilter && dataFilter.length == 0"><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-container>
+            <ng-container *ngIf="dataCoursMid?.length == 0 && grapheCoursMid?.length == 0 && dataSelected !=''">Aucun resultats pour ces filtres.</ng-container>
+        </div>
+    </section>
+</div>

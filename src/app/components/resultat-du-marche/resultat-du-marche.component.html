@@ -1,0 +1,86 @@
+<!--date-->
+<h2 *ngIf="dateNow != ''">En date du {{dateNow | date : 'd LLLL yyyy' }}</h2>
+<!--date-->
+
+
+
+<!--cours de devises-->
+<!---devise--->
+<!--<ng-container *ngIf="referenceUsd.length > 0">-->
+    <ng-container *ngFor="let data of referenceUsd; let i=index">
+        <div class="result-marche">
+            <div class="timeliner-element">
+                <!--title-->
+                <ng-container *ngIf="i==0">
+                    <!--title-->
+                    <h2>{{data['key']}}</h2>
+                    <!--title-->
+                    <!--volume-->
+                    <div class="timeliner-content">
+                        <p>{{data['value']}}</p>
+                    </div>
+                    <!--volume-->
+                </ng-container>
+                <ng-container *ngIf="i > 0">
+                    <div class="timeliner-content">
+                        <p>{{data['key']}} : {{ data['value'] }}</p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <!--title-->
+    </ng-container>
+<!--</ng-container>-->
+
+<!--<ng-container *ngIf="referenceEur.length > 0">-->
+    <div class="result-marche">
+        <div class="timeliner-element">
+            <ng-container *ngFor="let data of referenceEur; let i=index">
+                <ng-container *ngIf="i==0">
+                    <!--title-->
+                    <h2>{{data['key']}}</h2>
+                    <!--title-->
+                    <!--volume-->
+                    <div class="timeliner-content">
+                        <p>{{data['value']}}</p>
+                    </div>
+                    <!--volume-->
+                </ng-container>
+                <ng-container *ngIf="i > 0">
+                    <p>{{data['key']}} : {{ data['value'] }}</p>
+                </ng-container>
+                  
+            </ng-container>
+        </div>
+    </div>
+    <!----devise---->
+
+<!--</ng-container>-->
+<ng-container *ngIf="referenceEur.length == 0 && referenceUsd.length == 0 && contentDevise?.length == 0 "><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-container>
+<!--cours de devises-->
+<div class="taux-change" *ngIf="contentDevise?.length > 0">
+    <p class="title">Taux de change de référence</p>
+    <div *ngFor=" let item of contentDevise">
+        <p class="curr-val">{{ item.devises }} : <span>Ar</span> {{ item.mid }}</p>
+    </div>
+</div>
+
+
+<table class="table table-currency-top" *ngIf="contentDevise?.length > 0">
+    <thead>
+    <tr>
+        <th>&nbsp;</th>
+        <th>Plus Bas</th>
+        <th>Plus haut</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let devise of contentDevise">
+        <td data-label="" class="curr-name pl-2">{{devise.devises}}</td>
+        <td data-label="Plus bas"><i class="bfm-icon-arrow_drop_down"></i> <span>Ar</span> {{devise.min}}</td>
+        <td data-label="Plus haut"><i class="bfm-icon-arrow_drop_up"></i> <span>Ar</span> {{devise.max}}</td>
+    </tr>
+    </tbody>
+</table>
+
+

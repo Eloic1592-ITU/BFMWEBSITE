@@ -1,0 +1,49 @@
+.contact-form {
+    padding: 0 15px;
+    @media (min-width: 768px) {
+        padding: 0;
+    }
+    .form-wrapper {
+        .btn {
+            display: inline-block;
+            min-width: 195px;
+        }
+        .form-control.ng-touched.ng-invalid{
+            border: 1px solid #f00!important;
+        }
+        .obligatoires{
+            color: #919191;
+            font-size: 12px;
+        }
+
+    }
+    span.error-message{
+        color:#f00;
+        font-size: 12px;
+        display: block;
+        margin-top: -20px;
+    }
+}
+.confirm-form{
+    color:#fff;
+    background-color: #004877;
+    text-align: center;
+    .modal-footer{
+        border: none!important;
+        .btn{
+            background-color: #ce8921;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            width: 100%;
+            max-width: 200px;
+        }
+    }
+}
+.modal-dialog {
+    position: absolute;
+    min-width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)!important;
+}

@@ -1,0 +1,84 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a [routerLink]="[item.url]" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content inflation">
+    <h1>{{title}}</h1>
+    <section class="RTE-standard" *ngIf=" descriptionPage !=''">
+        <div [innerHTML]="descriptionPage| safe:'html' "></div>
+    </section>
+    <section>
+        <form [formGroup]="filterYearForm" (ngSubmit)="onSubmitFilter(filterYearForm.value)">
+        <label>Choisir l'année de début :</label>
+        <div class="form-wrapper select-wrapper">
+            <select class="form-control" formControlName="yearFilter">
+                <option value="">Sélectionnez</option>
+                <option *ngFor="let year of years" value={{year}} [selected]="year == yearSelected ">{{year}}</option>
+            </select>
+            <button class="btn btn-with-icon" type="submit" [disabled]="!filterYearForm.valid">Consulter <i
+                class="bfm-icon-arrow_drop_right"></i></button>
+            <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                <ng-container *ngIf="loader">
+                    <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                </ng-container>
+              </div>
+        </div>
+        </form>
+
+    </section>
+    <!--<span *ngIf="yearSelected">Année {{yearSelected}}</span>-->
+    <hr>
+    <section class="result">
+        <table width="100%" align="center" class="table">
+            <thead *ngIf="tabHead1">
+                <tr>
+                    <th>{{tabHead1.LIBELLE}}</th>
+                    <th align="center">{{tabHead1.ENSEMBLE}}</th>
+                    <th align="center">{{tabHead1.PRODVIVR_N_T}}</th>
+                    <th align="center">{{tabHead1.PRODVIVR_T_N_RIZ}}</th>
+                    <th align="center">{{tabHead1.PRODVIVR_T_RIZ}}</th>
+                    <th align="center">{{tabHead1.PRODMANUFIND}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tabLigne1  of tabToShow1" [class]="tabLigne1.MOYENNE ===1 ? 'moyenne': ''">
+                <td [attr.data-label]="tabHead1.LIBELLE">{{tabLigne1.LIBELLE}}</td>
+                <td [attr.data-label]="tabHead1.ENSEMBLE">{{tabLigne1.ENSEMBLE}}</td>
+                <td [attr.data-label]="tabHead1.PRODVIVR_N_T">{{tabLigne1.PRODVIVR_N_T}}</td>
+                <td [attr.data-label]="tabHead1.PRODVIVR_T_N_RIZ">{{tabLigne1.PRODVIVR_T_N_RIZ}}</td>
+                <td [attr.data-label]="tabHead1.PRODVIVR_T_RIZ">{{tabLigne1.PRODVIVR_T_RIZ}}</td>
+                <td [attr.data-label]="tabHead1.PRODMANUFIND">{{tabLigne1.PRODMANUFIND}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table width="100%" align="center" class="table">
+            <thead  *ngIf="tabHead2">
+                <tr>
+                    <th>{{tabHead2.LIBELLE}}</th>
+                    <th align="center">{{tabHead2.PRODMANUFART}}</th>
+                    <th align="center">{{tabHead2.SERVPUBL}}</th>
+                    <th align="center">{{tabHead2.SERVPRIV}}</th>
+                    <th align="center">{{tabHead2.PPN}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tabLigne2  of tabToShow2" [class]="tabLigne2.MOYENNE ===1 ? 'moyenne': ''">
+                <td [attr.data-label]="tabHead2.LIBELLE">{{tabLigne2.LIBELLE}}</td>
+                <td [attr.data-label]="tabHead2.PRODMANUFART">{{tabLigne2.PRODMANUFART}}</td>
+                <td [attr.data-label]="tabHead2.SERVPUBL">{{tabLigne2.SERVPUBL}}</td>
+                <td [attr.data-label]="tabHead2.SERVPRIV">{{tabLigne2.SERVPRIV}}</td>
+                <td [attr.data-label]="tabHead2.PPN">{{tabLigne2.PPN}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

@@ -1,0 +1,119 @@
+<!-- https://angular-templates.io/tutorials/about/angular-forms-and-validations -->
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a> / Nous contacter
+</div>
+<div class="page-content contact-form">
+    <h1>NOUS CONTACTER </h1>
+    <p class="text-intro">Votre avis nous intéresse.<br>Faites nous part de vos questions, idées, remarques.</p>
+    <div>
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmitContact(contactForm.value); loaderElement();">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>NOM *</label>
+                        <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="name"></div>
+                        <p *ngFor="let validation of account_validation_messages.name">
+                            <span class="error-message" *ngIf="contactForm.get('name').hasError(validation.type) && (contactForm.get('name').dirty || contactForm.get('name').touched)">{{validation.message}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>PRÉNOM *</label>
+                        <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="lastname"></div>
+                        <p *ngFor="let validation of account_validation_messages.lastname">
+                            <span class="error-message" *ngIf="contactForm.get('lastname').hasError(validation.type) && (contactForm.get('lastname').dirty || contactForm.get('lastname').touched)">{{validation.message}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>ADRESSE E-MAIL *</label>
+                        <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="email"></div>
+                        <p *ngFor="let validation of account_validation_messages.email">
+                            <span class="error-message" *ngIf="contactForm.get('email').hasError(validation.type) && (contactForm.get('email').dirty || contactForm.get('email').touched)">{{validation.message}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>VOTRE MÉTIER *</label>
+                        <div class="form-wrapper select-wrapper">
+                            <select class="form-control"  formControlName="job">
+                                <option value="">Sélectionner</option>
+                                <option *ngFor="let item of listMetier| keys " value="{{item.key}}">{{item.value}}</option>
+                            </select>
+                        </div>
+                        <p *ngFor="let validation of account_validation_messages.job">
+                            <span class="error-message" *ngIf="contactForm.get('job').hasError(validation.type) && (contactForm.get('job').dirty || contactForm.get('job').touched)">{{validation.message}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label>SUJET DU MESSAGE *</label>
+                        <div class="form-wrapper select-wrapper">
+                            <select class="form-control"  formControlName="subject">
+                                <option value="">Sélectionner</option>
+                                <option *ngFor="let item of listMessage| keys " value="{{item.key}}">{{item.value}}</option>
+                            </select>
+                        </div>
+                        <p *ngFor="let validation of account_validation_messages.subject">
+                            <span class="error-message" *ngIf="contactForm.get('subject').hasError(validation.type) && (contactForm.get('subject').dirty || contactForm.get('subject').touched)">{{validation.message}}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label>VOTRE MESSAGE *</label>
+                        <div class="form-wrapper">
+                            <textarea class="form-control textarea" rows="10" formControlName="message"></textarea>
+                            <p class="obligatoires">* Mention obligatoire</p>
+                        </div>
+                        <p *ngFor="let validation of account_validation_messages.message">
+                            <span class="error-message" *ngIf="contactForm.get('message').hasError(validation.type) && (contactForm.get('message').dirty || contactForm.get('message').touched)">{{validation.message}}</span>
+                        </p>
+                        <div class="form-wrapper text-center">
+                            <ngx-recaptcha2 #captchaElem
+                                            [size]="changeSize"
+                                            [hl]="setLanguage"
+                                            [theme]="changeTheme"
+                                            [type]="changeType"
+                                            (expire)="handleExpire()"
+                                            (load)="handleLoad()"
+                                            (success)="handleSuccess($event)">
+                            </ngx-recaptcha2>
+                        </div>
+                        <p *ngIf="errorCaptcha !='' ">
+                            <span class="error-message">{{errorCaptcha}}</span>
+                        </p>
+                        <div class="form-wrapper text-center">
+                            <button class="btn btn-with-icon" type="submit" [disabled]="!contactForm.valid">ENVOYER <i class="bfm-icon-arrow_drop_right"></i></button>
+                            <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                                <ng-container *ngIf="loader">
+                                    <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="confirm-form">
+        <div class="modal-body">
+            Merci, votre message a bien été envoyé, nous reviendrons vers vous rapidement.
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">FERMER</button>
+        </div>
+    </div>
+</ng-template>

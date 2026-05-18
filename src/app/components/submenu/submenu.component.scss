@@ -1,0 +1,83 @@
+@import "../../../assets/scss/variables";
+
+.submenu-sidebar {
+    background-color: #eff4f7;
+
+    h2 {
+        font-weight: normal;
+        font-size: 16px;
+        color: #4b555c;
+        text-transform: uppercase;
+        padding: 10px 30px 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0 0 30px;
+        margin: 0;
+
+        li {
+            a.nav-link {
+                padding: 4px 30px;
+                font-size: 14px;
+                color: $primary-light;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &.active {
+                    color: $secondary;
+                }
+            }
+
+            .dropdown-toggle::after {
+                display: none;
+            }
+
+            .dropdown-menu {
+                position: static;
+                float: none;
+                background-color: $primary-light;
+
+                ul {
+                    padding-bottom: 0;
+                }
+
+                a {
+                    color: #fff;
+
+                    &:before {
+                        content: '- ';
+                    }
+                }
+            }
+
+            &.dropdown {
+                position: relative;
+
+                i {
+                    position: absolute;
+                    top: 7px;
+                    left: 7px;
+                    color: $primary-light;
+
+                    &.bfm-icon-expand {
+                        display: none;
+                    }
+                }
+
+                &.show {
+                    i.bfm-icon-expand {
+                        display: block;
+                    }
+
+                    i.bfm-icon-collapse {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+
+<app-loader></app-loader>
+<ng-template [ngIf]="isMobile" [ngIfElse]="desktop">
+    <!-- MAIN -->
+    <div class="main mobile-app">
+        <div class="navbar-wrapper">
+            <app-menu [mobile]="isMobile"></app-menu>
+        </div>
+        <div class="container-fluid">
+            <div class="main-content">
+                <router-outlet (activate)="onActivate($event)"></router-outlet>
+            </div>
+        </div>
+    </div>
+    <!-- /MAIN -->
+</ng-template>
+<ng-template #desktop>
+    <!--The content below is only a placeholder and can be replaced.-->
+    <!--HEADER -->
+    <app-header></app-header>
+    <!--/HEADER -->
+    <!-- MAIN -->
+    <div class="main" [class.eariary-page]="isFullWidth">
+        <div class="navbar-wrapper" sticky>
+            <app-menu></app-menu>
+        </div>
+        <div class="container-fluid" [class.eariary-fullwidth]="isFullWidth">
+            <div class="row">
+                <div [ngClass]="isFullWidth ? 'col-md-12' : 'col-md-8'">
+                    <div class="main-content">
+                        <router-outlet (activate)="onActivate($event)"></router-outlet>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex" *ngIf="!isFullWidth">
+                    <app-sidebar></app-sidebar>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /MAIN -->
+    <!--FOOTER -->
+    <app-footer></app-footer>
+    <!--/FOOTER -->
+</ng-template>
+<notifier-container></notifier-container>
+<a href="javascript:;" title="Haut de la page" class="scrolltop" (click)="scrollToTop()"><i class="bfm-icon-arrow_drop_up"></i></a>

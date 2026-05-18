@@ -1,0 +1,16 @@
+<div class="main-header">
+    <div class="container-fluid">
+        <div class="bg-header" [ngStyle]="{'background-image': ' url(' + headerComponents?.logo_header_transverse + ')'}"></div>
+        <div class="row">
+            <div class="col-lg-9">
+                <a [routerLink]="['/']" class="logo-header" title="Page d'accueil"><img src="{{ headerComponents?.logo_header }}" alt="Banque Centrale de Madagascar"></a>
+            </div>
+            <div class="col-lg-3">
+                <div class="header-right">
+                    <app-socials></app-socials>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

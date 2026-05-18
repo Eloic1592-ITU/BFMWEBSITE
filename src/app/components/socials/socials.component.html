@@ -1,0 +1,4 @@
+<div class="nav-social">
+	<p>Suivez-nous sur :</p>
+    <a *ngFor="let socialItem of shareList" href="{{socialItem | values}}" target="_blank" title="{{socialItem | keys}}"><i class="bfm-icon-{{socialItem | keys}}"></i></a>
+</div>

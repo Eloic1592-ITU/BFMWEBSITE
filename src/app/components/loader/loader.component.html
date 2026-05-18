@@ -1,0 +1,12 @@
+<ng-template [ngIf]="isMobile" [ngIfElse]="desktop">
+    <div class="loader">
+        <div class="loader-text">
+            <figure><img src="assets/images/logo-inv.png"></figure>
+            <p class="message">Chargement en cours ...</p>
+            <img src="assets/images/mobile-loader.svg" width="100">
+        </div>
+    </div>
+</ng-template>
+<ng-template #desktop>
+    <div class="loader"><img src="assets/images/loader2-1s-200px.svg" width="200" class="img-loader"></div>
+</ng-template>

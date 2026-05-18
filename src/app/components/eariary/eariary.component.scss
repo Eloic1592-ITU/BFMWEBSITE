@@ -1,0 +1,141 @@
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Brand Colors */
+  --teal: #004b4c;
+  --teal-light: #006b6c;
+  --blue: #1670bf;
+  --blue-light: #3b8ed4;
+  --olive: #979925;
+  --olive-light: #b0b235;
+  --red: #cb3125;
+  --coral: #df717e;
+
+  /* Neutrals */
+  --white: #ffffff;
+  --off-white: #f8f9fc;
+  --gray-50: #f1f3f8;
+  --gray-100: #e4e7ee;
+  --gray-200: #c9cdd8;
+  --gray-400: #8b90a0;
+  --gray-600: #4a4e5c;
+  --gray-800: #1e2230;
+  --gray-900: #0f1119;
+
+  /* Semantic */
+  --primary: var(--teal);
+  --primary-light: var(--teal-light);
+  --secondary: var(--blue);
+  --accent: var(--olive);
+  --danger: var(--red);
+  --highlight: var(--coral);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--teal) 0%, var(--blue) 100%);
+  --gradient-warm: linear-gradient(135deg, var(--coral) 0%, var(--red) 100%);
+  --gradient-fresh: linear-gradient(135deg, var(--teal) 0%, var(--olive) 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.12);
+  --shadow-teal: 0 8px 30px rgba(0, 75, 76, 0.2);
+  --shadow-blue: 0 8px 30px rgba(22, 112, 191, 0.2);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Maven Pro", "Poppins", sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 12px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #0496a8 0%, #00799e 100%);
+  color: white;
+  box-shadow: 0 8px 30px rgba(4, 150, 168, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 36px rgba(4, 150, 168, 0.5);
+}
+
+.btn-lg {
+  padding: 16px 40px;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ===== ANIMATIONS ===== */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

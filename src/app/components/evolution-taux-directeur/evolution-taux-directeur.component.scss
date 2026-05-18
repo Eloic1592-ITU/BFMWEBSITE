@@ -1,0 +1,9 @@
+@import "../cours-devises/cours-devises.component.scss";
+
+.inflation {
+	.form-wrapper {
+		&.select-wrapper {
+			overflow: visible;
+		}
+	}
+}

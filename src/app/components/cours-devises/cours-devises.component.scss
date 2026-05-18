@@ -1,0 +1,276 @@
+@import "../../../assets/scss/variables";
+
+.cours-du-mid,
+.inflation {
+	padding: 0 15px;
+    @media (min-width: 768px) {
+        padding: 0;
+    }
+    h2 {
+    	font-size: 24px;
+    	color: #4298cc;
+    	margin-bottom: 16px;
+    }
+
+    label {
+		font-size: 16px;
+		font-weight: $font-semibold;
+	}
+	.form-wrapper {
+		.form-control {
+			display: inline-block;
+			vertical-align: middle;
+			@media (min-width: 768px) {
+				width: 360px;
+			}
+		}
+		.btn {
+			margin-top: 10px;
+			padding: 4px 26px 4px 45px;
+			@media (min-width: 769px) {
+				margin-left: 30px;
+				margin-top: -1px;
+			}
+		}
+	}
+
+	.result {
+		p {
+			font-weight: $font-semibold;
+		}
+	}
+    table {
+		th {
+			border:none;
+			text-transform: uppercase;
+			vertical-align: top;
+		}
+		th,td {
+			strong {
+				font-weight: $font-semibold;
+			}
+			i {
+				font-size: 22px;
+				vertical-align: middle;
+				&.bfm-icon-arrow_drop_up {
+					color: #609829;
+				}
+				&.bfm-icon-arrow_drop_down {
+					color: #bf4f34;
+				}
+				&.bfm-icon-arrow_drop_right {
+					color: #4298cc;
+				}
+			}
+		}
+	}
+
+}
+
+.first-table {
+	margin: 20px 0;
+	table {
+		th,
+		td {
+			padding: 10px 1px;
+		}
+		td {
+			font-size: 11px;
+		}
+	}
+}
+
+
+@media screen and (max-width: 768px)   {
+	hr {
+		display: none;
+	}
+
+	table, thead, tbody, th, td, tr {
+		display: block;
+	}
+
+	section.result {
+		padding: 10px 5px;
+	}
+
+	section.result table thead tr {
+		background-color: transparent;
+		border:none;
+		padding: 0;
+	}
+
+	section.result table thead tr th {
+		background-color: #00afd4;
+		border: none;
+		margin-bottom: 5px;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		position: relative;
+		text-align: center;
+		text-decoration: none;
+		text-transform: uppercase;
+		display: none;
+	}
+
+	section.result table thead tr th a {
+		text-decoration: none!important;
+	}
+
+	section.result table {
+		border: none;
+		padding: 0;
+	}
+
+	section.result table tr {
+		background-color: #eff4f7;
+		border: 1px solid #c8d5de;
+		margin-bottom: 15px;
+		padding: 0 15px;
+	}
+
+	section.result .table td {
+		background: #eff4f7;
+		border: none;
+		border-bottom: 1px solid #c8d5de;
+		font-size: 12px;
+		position: relative;
+		padding-right: 0;
+		padding-left: 0;
+		padding-top: 7px;
+		padding-bottom: 7px;
+		text-align: right;
+		overflow:hidden;
+	}
+
+	section.result .table td:before {
+		content: attr(data-label);
+		font-weight: bold;
+		font-size: 12px;
+		float: left;
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 50%;
+		padding-right: 10px;
+		text-align: left;
+	}
+
+	section.result .table td:last-of-type {
+		border-bottom: none;
+	}
+
+}
+.filter {
+    .form-wrapper {
+        .datePicker,
+        .selectData {
+            margin-bottom: 16px;
+            input {
+                &.form-control {
+                    background:#e1eaf0 url("../../../assets/images/icon-calandar.jpg") right 50% no-repeat;
+                    cursor: pointer;
+                    width: 100%;
+                }
+            }
+        }
+        .selectData {
+            .form-control {
+                width: 100%;
+                @media (min-width: 768px) {
+                    width: 424px;
+                }
+            }
+        }
+        .btn {
+            margin-left: 0;
+        }
+        p {
+            &.sep {
+                margin-top: 8px;
+                padding: 0;
+                text-align: center;
+            }
+        }
+    }
+
+    .ngxmdp {
+        table {
+            margin-bottom: 0;
+            td {
+                border-bottom: none;
+                padding: 0;
+            }
+            &.caltable {
+                height: auto;
+            }
+        }
+        .header {
+            height: 38px;
+        }
+        .weekdaytitle {
+            background: #e1eaf0;
+            color: #4b555c;
+            padding: 10px 7px;
+        }
+        .daycell,
+        .monthcell,
+        .yearcell {
+            color: #4b555c;
+        }
+
+        .datevalue {
+            padding: 5px;
+        }
+
+        .selector {
+            border:1px solid #afb8be;
+            border-radius: 0;
+        }
+        .selectorarrow {
+            &:before {
+                border-bottom-color:#afb8be;
+            }
+        }
+        .headertodaybtn {
+            border:1px solid #afb8be;
+            border-radius:0;
+            padding: 10px;
+            height: inherit;
+            .ngxmdpicon {
+                margin-right: 10px;
+            }
+        }
+
+        .headerbtn,
+        .headermonthtxt,
+        .headertodaybtn,
+        .headeryeartxt,
+        .yearchangebtn {
+            color: #4b555c;
+        }
+
+        .selectedday .datevalue,
+        .selectedmonth .monthvalue,
+        .selectedyear .yearvalue {
+            background-color: #ce8921;
+            color: #fff;
+            border-radius: 0;
+        }
+
+        .currmonth {
+            background-color: transparent;
+        }
+
+        .highlight {
+            color: #f42c2c;
+        }
+    }
+}
+
+.error-message {
+    color: red;
+}
+.devise-journalier{
+	display: flex;
+}

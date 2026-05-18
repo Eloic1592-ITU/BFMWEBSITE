@@ -1,0 +1,70 @@
+{
+    "code": "page-standard",
+    "message": "Page <nom de la page>",
+    "data": {
+        "status": 200,
+        "data": {
+            "submenu": {
+                "parent": "124",
+                "items": [
+                    {
+                        "id": 5,
+                        "url": "http://localhost/bfm/srcs/admin/",
+                        "title": "Accueil",
+                        "slug": "accueil",
+                        "post_id": "5",
+                        "type": "custom",
+                        "description": "",
+                        "image": ""
+                    },
+                    {
+                        "id": 68,
+                        "url": "#",
+                        "title": "BFM",
+                        "slug": "bfm",
+                        "post_id": "68",
+                        "type": "custom",
+                        "description": "",
+                        "image": "",
+                        "child": [
+                            {
+                                "id": 69,
+                                "url": "/politique-de-confidentialite",
+                                "title": "Politique de confidentialité",
+                                "slug": "bfm",
+                                "post_id": "25"
+                            },
+                            {
+                                "id": 70,
+                                "url": "/page-d-exemple/",
+                                "title": "Page d’exemple",
+                                "slug": "bfm",
+                                "post_id": "2"
+                            }
+                        ]
+                    },
+                    {
+                        "id": 6,
+                        "url": "/page-d-exemple/",
+                        "title": "Page d’exemple",
+                        "slug": "page-dexemple",
+                        "post_id": "2",
+                        "type": "post_type",
+                        "description": "",
+                        "image": ""
+                    }
+                ]
+            },
+            "content":[
+                {
+                    "section-type": "type-section",
+                    "section-content": "SECTION CONTENT"
+                },
+                {
+                    "section-type": "type-section",
+                    "section-content": "SECTION CONTENT"
+                }
+            ]
+        }
+    }
+}

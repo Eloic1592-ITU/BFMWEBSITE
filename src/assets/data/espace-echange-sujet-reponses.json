@@ -1,0 +1,60 @@
+{
+    "code": "espace-echange-sujet",
+    "message": "Espace echange - Responses au sujet",
+    "data": {
+        "status": 200,
+        "data": {
+            "title": "Espace echange",
+            "categorie": "Politique monétaire et de change",
+            "sujet": {
+                "id": 9871,
+                "user": "Utilisateur 126",
+                "sex": "m",
+                "sujet": "Nulla commodo enim augue, sit amet blandit velit posuere aliquam. Tellus nec rutrum aliquet, risus nisi porttitor lacus, eget volutpat leo felis at nunc.",
+                "echange": 25,
+                "date": "6 Juin 2018"
+            },
+            "reponses": [
+                {
+                    "id": 1530,
+                    "user": "Utilisateur 4",
+                    "sex": "m",
+                    "reponse": "Nulla commodo enim augue, sit amet blandit velit posuere aliquam.",
+                    "date": "6 Juin 2018",
+                    "reponses": [
+                        {
+                            "id": 6201,
+                            "user": "Utilisateur 162",
+                            "sex": "m",
+                            "reponse": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consectetur feugiat diam eu lacinia. Vivamus vulputate vestibulum lacus, et porttitor leo lobortis id. Mauris hendrerit sem ac auctor mattis. Maecenas condimentum, tellus nec rutrum aliquet, risus nisi porttitor lacus, eget volutpat leo felis at nunc.",
+                            "date": "9 Juin 2018"
+                        },
+                        {
+                            "id": 7899,
+                            "user": "Utilisateur 999",
+                            "sex": "f",
+                            "reponse": "Cras tincidunt velit tristique egestas consectetur. Nam a luctus leo, eu posuere ante. Nulla ornare aliquet ex, sit amet aliquam eros pretium ac. Vestibulum ut gravida enim. Maecenas erat ipsum, mattis sit amet orci non, luctus aliquam ante. Nam et nisi pharetra, sagittis eros nec, finibus libero.",
+                            "date": "12 Juin 2018"
+                        }
+                    ]
+                },
+                {
+                    "id": 1780,
+                    "user": "Utilisateur 2",
+                    "sex": "f",
+                    "reponse": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam venenatis erat tortor, eget facilisis eros vestibulum et. Aliquam sed elit blandit, pretium lorem eget",
+                    "date": "29 Mai 2018",
+                    "reponses": []
+                },
+                {
+                    "id": 5680,
+                    "user": "Utilisateur 3",
+                    "sex": "f",
+                    "reponse": "Aenean pellentesque ac ligula a rutrum. Nulla facilisi. Etiam eleifend bibendum augue",
+                    "date": "12 Mai 2018",
+                    "reponses": []
+                }
+            ]
+        }
+    }
+}

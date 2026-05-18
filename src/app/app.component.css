@@ -1,0 +1,9 @@
+.eariary-fullwidth {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 100%;
+}
+
+.eariary-fullwidth .main-content {
+    padding: 0;
+}

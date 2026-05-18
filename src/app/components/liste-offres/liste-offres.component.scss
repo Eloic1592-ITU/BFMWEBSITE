@@ -1,0 +1,171 @@
+@import "../../../assets/scss/variables";
+
+.list-offre {
+	padding: 0 15px;
+	@media (min-width: 768px) {
+		padding: 0;
+	}
+
+	ul {
+		&.list {
+			border-bottom: 1px solid #e3ebf1;
+			list-style: none;
+			padding:0;
+			li {
+				border-top: 1px solid #e3ebf1;
+				padding: 13px 0;
+				h2 {
+					color: #4298cc;
+					font-size: 24px;
+					font-weight: $font-semibold;
+					margin-top: 20px;
+					a {
+						color: #4298cc;
+						&:hover {
+							text-decoration: none;
+						}
+					}
+				}
+				p {
+					font-size: 14px;
+					margin: 0;
+					&.type-offre {
+						font-size: 20px;
+						font-weight: $font-semibold;
+						text-transform: uppercase;
+					}
+					&.date {
+						color: #90a9bb;
+						font-size: 14px;
+					}
+					&.secteur, 
+					&.lieu {
+						font-weight: $font-semibold;
+					}
+					&.description {
+						margin-top: 20px;
+					}
+					&.btn-consulter {
+						color: #ce8921;
+						margin-top: 10px;
+						text-align: right;
+						i {
+							font-size: 28px;
+						    vertical-align: -7px;
+						    width: 27px;
+						    display: inline-block;
+						    margin-left: -11px;
+						    color: #ce8921;
+						}
+						a {
+							color: #ce8921;
+						}
+					}
+				}
+			}
+		}
+	}
+	.pagination {
+		display: flex;
+		li {
+			font-size: 14px;
+			margin: 0 5px;
+			a {
+				border:none;				
+				&.page-link {
+					background-color: #eff4f7;
+					color: #90a9bb;
+				}
+			}
+			&.pagination-prev,
+			&.pagination-next {
+				a {
+					background-color: #90a9bb;
+					color: #fff;
+					width: 120px;
+					text-align: center;
+				}
+			}
+			&.active {
+				a {
+					&.page-link {
+						background-color: #ce8921;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	.pager-mobile {
+	ul {
+		&.pagination {
+			li {
+				&.pagination-first {
+					display: initial;
+					a {
+						background-color: transparent;
+						color: #90a9bb;
+						font-size: 0;
+						padding: 5px;
+						width: inherit;
+						&:before {
+							content: "\f100";
+							font-family: FontAwesome;
+						    font-size: 20px;
+						}
+					}
+				} 
+				&.pagination-prev {
+					display: initial;
+					a {
+						background-color: transparent;
+						color: #90a9bb;
+						font-size: 0;
+						padding: 5px;
+						width: inherit;
+						&:before {
+						    content: "\f104";
+						    font-family: FontAwesome;
+						    font-size: 20px;
+						}
+					}
+				}
+				&.pagination-next {
+					display: initial;
+					a {
+						background-color: transparent;
+						color: #90a9bb;
+						font-size: 0;
+						padding: 5px;
+						width: inherit;
+						&:before {
+						    content: "\f105";
+						    font-family: FontAwesome;
+						    font-size: 20px;
+						}
+
+					}
+
+				}
+				&.pagination-last {
+					display: initial;
+					a {
+						background-color: transparent;
+						color: #90a9bb; 
+    					font-size: 0;
+						padding: 5px;
+						width: inherit;
+						&:after {
+						    content: "\f101";
+						    font-family: FontAwesome;
+						    font-size: 20px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+}

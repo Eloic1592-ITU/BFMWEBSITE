@@ -1,0 +1,27 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!--HEADER -->
+<app-header></app-header>
+<!--/HEADER -->
+<!-- MAIN -->
+<div class="main">
+    <div class="navbar-wrapper" sticky>
+        <app-menu></app-menu>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="main-content">
+                    <router-outlet (activate)="onActivate($event)"></router-outlet>
+                </div>
+            </div>
+            <div class="col-md-4 d-flex">
+                <app-sidebar></app-sidebar>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /MAIN -->
+<!--FOOTER -->
+<app-footer></app-footer>
+<!--/FOOTER -->
+

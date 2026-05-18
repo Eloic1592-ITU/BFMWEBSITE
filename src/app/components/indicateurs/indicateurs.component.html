@@ -1,0 +1,217 @@
+<accordion closeOthers="true" class="indicateur-wrapper">
+    <div style="height: 370px;">
+        <div style="width: 100%;height: 330px;">
+            <iframe src="../../assets/pages/taha-main-page/taha_miniature.html" frameborder="0" style="width: 100%;height: 330px;"></iframe>
+            <p class="link-all pr-2"><a href="/taux-reference" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+        </div>    
+        
+    </div>
+    
+    <div>
+        <div class="header-no-accordion clearfix">
+            Taux de change du  {{dateNow | date : 'dd/MM/yyyy' }}
+        </div>
+        <div class="cours-devises">
+            <!--<table class="table table-currency-top" *ngIf="currencies?.length > 0; else other_currencies">-->
+            <!--<tbody>-->
+            <!--<tr *ngFor="let curr of currencies | slice:0:2">-->
+            <!--<td class="curr-name pl-2">{{curr.devises}}</td>-->
+            <!--<td><i class="bfm-icon-arrow_drop_down"></i> <span>Ar</span> {{curr.min}}</td>-->
+            <!--<td><i class="bfm-icon-arrow_drop_up"></i> <span>Ar</span> {{curr.max}}</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <table class="table table-currency-ref"  *ngIf="currencies?.length > 0">
+                <caption class="pl-2">Cours de référence</caption>
+                <tbody>
+                <tr *ngFor="let curr of currencies">
+                    <td class="pl-2">{{curr.devises}}</td>
+                    <td class="curr-val"><span>Ar</span> {{curr.mid}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <ng-container *ngIf="deviseChartLabels && deviseChartLabels.length >0; else other_currencies">
+                <canvas baseChart width="400" height="300"
+                        [datasets]="deviseChartData"
+                        [labels]="deviseChartLabels"
+                        [options]="deviseChartOptions"
+                        [colors]="chartColors"
+                        [chartType]="chartType">
+                </canvas>
+                <div class="legend">
+                    <p>
+                        Axe X : Date de mise en vigueur<br>
+                        Axe y : Cours de référence en Ariary
+                    </p>
+                </div>
+            </ng-container>
+            <ng-template #other_currencies><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-template>
+            <p class="link-all pr-2" *ngIf="infosDescription?.principauxdesciption?.url != '' "><a href="{{infosDescription?.principauxdesciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+            <p class="infos" *ngIf="infosDescription?.principauxdesciption?.desc != '' ">{{infosDescription?.principauxdesciption?.desc}}</p>
+        </div>
+    </div>
+    <!--<accordion-group>-->
+        <!--<div accordion-heading class="clearfix">-->
+            <!--Dernière opération bouclée <i class="bfm-icon-arrow_drop_down"></i>-->
+        <!--</div>-->
+        <!--<div class="cours-devises">-->
+            <!--<div class="accorche" *ngIf="lastUpdate != '' && operationOps?.length > 0">-->
+                <!--<strong>Dernière actualisation :</strong><br>{{lastUpdate}}-->
+            <!--</div>-->
+            <!--<table class="table table-currency-top mb-3" *ngIf="operationOps?.length > 0; else other_operation">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>Devises</th>-->
+                    <!--<th class="pl-2">Cours</th>-->
+                    <!--<th>Montant</th>-->
+                    <!--<th>MATCHING</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr *ngFor="let curr of operationOps">-->
+                    <!--<td>{{curr?.devises}}</td>-->
+                    <!--<td class="pl-2">{{curr.cours}}</td>-->
+                    <!--<td>{{curr.min}}</td>-->
+                    <!--<td> {{curr.max}}</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+            <!--<ng-template #other_operation><p class="warning">Aucune donnée disponible pour le moment, veillez revenir plus tard.</p></ng-template>-->
+            <!--<p class="link-all pr-2" *ngIf="infosDescription?.operationboucledesciption?.url != '' "><a href="{{infosDescription?.operationboucledesciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>-->
+            <!--<p class="infos" *ngIf="infosDescription?.operationboucledesciption?.desc != '' ">{{infosDescription?.operationboucledesciption?.desc}}</p>-->
+        <!--</div>-->
+    <!--</accordion-group>-->
+    <!--
+    <accordion-group>
+        <div accordion-heading class="clearfix">
+            Taux directeur de BFM <i class="bfm-icon-arrow_drop_down"></i>
+        </div>
+        <div class="chart-wrapper">
+            <div  *ngIf="tauxChartData[0]?.data?.length > 0; else other_taux">
+                <h3>Evolution Taux directeur</h3>
+                <canvas baseChart width="400" height="200"
+                        [datasets]="tauxChartData"
+                        [labels]="tauxChartLabels"
+                        [options]="chartOptions"
+                        [colors]="chartColors"
+                        [chartType]="chartType">
+                </canvas>
+                <div class="legend">
+                    <p>
+                        Axe X : Date de mise en vigueur<br>
+                        Axe y : Taux en %
+                    </p>
+                </div>
+            </div>
+            <ng-template #other_taux><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-template>
+            <p class="link-all pr-2" *ngIf="infosDescription?.tauxdrirecteurdesciption?.url != '' "><a href="{{infosDescription?.tauxdrirecteurdesciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+            <p class="infos" *ngIf="infosDescription?.tauxdrirecteurdesciption?.desc != '' ">{{infosDescription?.tauxdrirecteurdesciption?.desc}}</p>
+        </div>
+    </accordion-group>
+    -->
+    <accordion-group>
+        <div accordion-heading class="clearfix">
+            Coefficient des réserves obligatoires <i class="bfm-icon-arrow_drop_down"></i>
+        </div>
+        <div class="chart-wrapper">
+            <div *ngIf="coeffChartData[0]?.data?.length > 0; else other_coeff">
+                <h3>Coefficient des réserves obligatoires</h3>
+                <canvas baseChart width="400" height="200"
+                        [datasets]="coeffChartData"
+                        [labels]="coeffChartLabels"
+                        [options]="chartOptions"
+                        [colors]="chartColors"
+                        [chartType]="chartType">
+                </canvas>
+                <div class="legend">
+                    <p>
+                        Axe X : Date de mise en vigueur<br>
+                        Axe y : Taux en %
+                    </p>
+                </div>
+            </div>
+            <ng-template #other_coeff><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-template>
+            <p class="link-all pr-2" *ngIf="infosDescription?.coeff_desciption?.url != '' "><a href="{{infosDescription?.coeff_desciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+            <p class="infos" *ngIf="infosDescription?.coeff_desciption?.desc != '' ">{{infosDescription?.coeff_desciption?.desc}}</p>
+        </div>
+    </accordion-group>
+    <ng-container  *ngIf="reserveChartData[0]?.data?.length > 0">
+        <accordion-group>
+            <div accordion-heading class="clearfix">
+                Réserves de change de BFM <i class="bfm-icon-arrow_drop_down"></i>
+            </div>
+            <div class="chart-wrapper">
+                <div>
+                    <h3>Reserve de change <br> en milliard de dollars</h3>
+                    <canvas baseChart width="400" height="200"
+                            [datasets]="reserveChartData"
+                            [labels]="reserveChartLabels"
+                            [options]="reserveChartOptions"
+                            [colors]="chartColors"
+                            [chartType]="chartType">
+                    </canvas>
+                    <div class="legend">
+                        <p>
+                            Axe X : Date<br>
+                            Axe y : Axe y : Valeur en milliard de US
+                        </p>
+                    </div>
+                </div>
+                <!--<ng-template #other_reserve><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-template>-->
+                <p class="link-all pr-2" *ngIf="infosDescription?.reserve_change_desciption?.url != '' "><a href="{{infosDescription?.reserve_change_desciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+                <p class="infos" *ngIf="infosDescription?.reserve_change_desciption?.desc != '' ">{{infosDescription?.reserve_change_desciption?.desc}}</p>
+            </div>
+        </accordion-group>
+    </ng-container>
+    <accordion-group>
+        <div accordion-heading class="clearfix">
+            Dernier résultat des Soumissions de BTA <i class="bfm-icon-arrow_drop_down"></i>
+        </div>
+        <div class="soumission">
+            <div *ngIf="dernierOperationDate !='' && dernierOperationMontantFirst != '' && dernierOperationTauxPonderer?.length > 0 ; else other_result">
+                <h3>Montants <span>(en milliards d’Ariary)</span></h3>
+                <p class="date p-2" *ngIf="dernierOperationDate != ''">Date du {{dernierOperationDate}}</p>
+                <table class="table table-soumission">
+                    <tr>
+                        <th colspan="2" class="br-w">Annoncé</th>
+                        <th colspan="2" class="br-w">Soumis</th>
+                        <th colspan="2" class="br-w">Adjugé</th>
+                        <th colspan="2" rowspan="2">Tombées</th>
+                    </tr>
+                    <tr>
+                        <td class="odd">OC</td>
+                        <td class="even">ONC</td>
+                        <td class="odd">OC</td>
+                        <td class="even">ONC</td>
+                        <td class="odd">OC</td>
+                        <td class="even">ONC</td>
+                    </tr>
+                    <tr class="tr-bg-dark txt-bold" *ngIf="dernierOperationMontantFirst != ''" >
+                        <td colspan="2" *ngFor="let val of dernierOperationMontantFirst; let i = index" [ngClass]="{'br-w' : i!= 3}" [attr.rowspan]="i == 3 ? 2 : 1">{{val}}</td>
+                    </tr>
+                    <tr class="txt-bold" *ngIf="dernierOperationMontantSecond != ''">
+                        <td  *ngFor="let val of dernierOperationMontantSecond; let j = index;" [ngClass] ="{ 'odd' : (j%2) == 0,'even' : (j%2) == 1 }"  >{{val}}</td>
+                    </tr>
+                </table>
+                <p class="legend p-2">OC : Offres Compétitives &nbsp;&nbsp; ONC : Offres Non Compétitives</p>
+                <h3 class="bt-b">Taux moyens ponderes <span>(En %)</span></h3>
+                <table class="table table-soumission table-ponderes">
+                    <tr class="txt-bold">
+                        <th>4 sem.</th>
+                        <th>12 sem.</th>
+                        <th>24 sem.</th>
+                        <th>36 sem.</th>
+                        <th>52 sem.</th>
+                    </tr>
+                    <tr class="tr-bg-dark txt-bold"  *ngIf="dernierOperationTauxPonderer?.length > 0">
+                        <td *ngFor="let val of dernierOperationTauxPonderer" >{{val}}</td>
+
+                    </tr>
+                </table>
+            </div>
+            <ng-template #other_result><p class="warning">Aucune donnée disponible pour le moment, veuillez revenir plus tard.</p></ng-template>
+            <p class="link-all pr-2" *ngIf="infosDescription?.dernier_result_desciption?.url != '' "><a href="{{infosDescription?.dernier_result_desciption?.url}}" title="Tout voir" class="link-icon link-primary-light">Tout voir</a> <i class="bfm-icon-arrow_drop_right icon-right icon-primary-light"></i></p>
+            <p class="infos" *ngIf="infosDescription?.dernier_result_desciption?.desc != '' ">{{infosDescription?.dernier_result_desciption?.desc}}</p>
+        </div>
+    </accordion-group>
+</accordion>

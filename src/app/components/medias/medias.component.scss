@@ -1,0 +1,90 @@
+@import "../../../assets/scss/variables";
+
+.galerie-media {
+	padding-left: 15px;
+    padding-right: 15px;
+    @media (min-width: 768px) {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+	h2 {
+		color: #4298cc;
+		font-size: 24px;
+		margin-bottom: 14px;
+		margin-top: 34px;
+	}
+}
+
+.item {
+	margin-bottom: 30px;
+	text-align: center;
+	a {
+		display: block;
+		position: relative;
+		span {
+			color: #293034;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 14px;
+			line-height: 18px; 
+			padding: 5px 15px;
+			width: 100%;
+			height: 62px;
+			text-transform: uppercase;
+		}
+		&:hover {
+			background: #d59c52;
+			text-decoration:none;
+			span {
+				color: #fff;
+			}
+		}
+		figure {
+			background: $primary;
+			position: relative;
+			width: 100%;
+			height: auto;
+			margin: 0;
+			@media (min-width: 768px) {
+				height: 173px;
+			}
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+			.play {
+				width: 64px;
+				height: 64px;
+				margin: -32px 0 0 -32px;
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				svg {
+					fill : #fff;
+				}
+			}
+		}
+		&:hover {
+			.play {
+				svg {
+					fill : #d59c52;
+				}
+			}
+		}
+	}
+}
+
+.all-video {
+	text-transform: uppercase;
+	.btn {
+		background: #ce8921;
+		color: #fff;
+		font-size: 14px;
+		padding: 4px 34px;
+		i {
+			color: #fff;
+		}
+	}
+}

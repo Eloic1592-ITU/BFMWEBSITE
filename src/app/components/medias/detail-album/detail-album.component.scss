@@ -1,0 +1,37 @@
+@import "../../../../assets/scss/variables";
+
+.galerie-media {
+	padding-left: 15px;
+    padding-right: 15px;
+    @media (min-width: 768px) {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    h1 {
+    	padding-left: 15px;
+	    padding-right: 15px;
+	    @media (min-width: 768px) {
+	        padding-left: 0px;
+	        padding-right: 0px;
+	    }
+
+    }
+	.date {
+		font-size : 18px;
+	}
+	.ngx-gallery-image.ngx-gallery-active[_ngcontent-c10] {
+		z-index: 0;
+	}
+	.ngx-gallery-image-text {
+		background: $primary!important;
+	}
+}
+.ngx-gallery-image.ngx-gallery-active {
+	z-index: 0!important;
+}
+.ngx-gallery-arrow-wrapper{
+	z-index: 10!important;
+	@media (min-width: 768px) {
+		z-index: 0!important;
+	}
+}

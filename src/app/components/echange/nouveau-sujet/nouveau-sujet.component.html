@@ -1,0 +1,103 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a> / <a [routerLink]="[urlBaseEchange]" title="{{title}}">{{title}}</a> / {{subTitle}}
+</div>
+<div class="page-content page-echange">
+    <h1>{{title}}</h1>
+    <div class="header-with-btn d-flex justify-content-between align-items-end mb-4">
+        <h2>{{subTitle}}</h2>
+    </div>
+    <form [formGroup]="sujetForm" (ngSubmit)="onSubmitSujet(sujetForm.value)">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>THEMATIQUE*</label>
+                    <div class="form-wrapper select-wrapper">
+                        <select class="form-control"  formControlName="theme">
+                            <option value="">Sélectionner</option>
+                            <option *ngFor="let item of listeThematique" value="{{item.slug}}" [selected]="item.slug == thematique "   >{{item.value}}</option>
+                        </select>
+                    </div>
+                    <p *ngFor="let validation of account_validation_messages.theme">
+                    <span class="error-message" *ngIf="sujetForm.get('theme').hasError(validation.type) && (sujetForm.get('theme').dirty || sujetForm.get('theme').touched)">{{validation.message}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>VOTRE PSEUDO *</label>
+                    <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="pseudo"></div>
+                   <p *ngFor="let validation of account_validation_messages.pseudo">
+                        <span class="error-message" *ngIf="sujetForm.get('pseudo').hasError(validation.type) && (sujetForm.get('pseudo').dirty || sujetForm.get('pseudo').touched)">{{validation.message}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>SEXE*</label>
+                    <div class="form-wrapper select-wrapper">
+                        <select class="form-control"  formControlName="sex">
+                            <option value="">Sélectionner</option>
+                            <option value="masculin">Masculin</option>
+                            <option value="feminin">Féminin</option>
+                        </select>
+                    </div>
+                    <p *ngFor="let validation of account_validation_messages.sex">
+                    <span class="error-message" *ngIf="sujetForm.get('sex').hasError(validation.type) && (sujetForm.get('sex').dirty || sujetForm.get('sex').touched)">{{validation.message}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>VOTRE QUESTION *</label>
+                    <div class="form-wrapper">
+                        <textarea class="form-control textarea" rows="10" formControlName="message"></textarea>
+                        <p class="obligatoires">* Mention obligatoire</p>
+                    </div>
+                    <p *ngFor="let validation of account_validation_messages.message">
+                    <span class="error-message" *ngIf="sujetForm.get('message').hasError(validation.type) && (sujetForm.get('message').dirty || sujetForm.get('message').touched)">{{validation.message}}</span>
+                    </p>
+                    <div class="form-wrapper text-center">
+                        <ngx-recaptcha2 #captchaElem
+                        [size]="changeSize"
+                        [hl]="setLanguage"
+                        [theme]="changeTheme"
+                        [type]="changeType"
+                        (expire)="handleExpire()"
+                        (load)="handleLoad()"
+                        (success)="handleSuccess($event)">
+                        </ngx-recaptcha2>
+                    </div>
+                    <p *ngIf="errorCaptcha !='' ">
+                    <span class="error-message">{{errorCaptcha}}</span>
+                    </p>
+                    <p>&nbsp;</p>
+                    <div class="form-wrapper text-right">
+                        <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                            <ng-container *ngIf="loader">
+                                <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                            </ng-container>
+                        </div>
+                        <button class="btn btn-with-icon" type="submit" [disabled]="!sujetForm.valid">ENVOYER <i class="bfm-icon-arrow_drop_right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<ng-template #template>
+<div class="confirm-form">
+    <div class="modal-body">
+        Nous venons d'enregistrer votre sujet, il sera soumis à modération et sera publié sur le forum par la suite.<br>
+        Merci pour votre collaboration
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">FERMER</button>
+    </div>
+</div>
+</ng-template>

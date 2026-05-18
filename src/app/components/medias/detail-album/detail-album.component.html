@@ -1,0 +1,30 @@
+
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    / <a href="/{{titlePrema}}">{{titleTop}}</a> / {{title}}
+</div>
+
+<div class="page-content galerie-media">
+
+	<!-- Titre de la gallerie -->
+	 <h1> {{ title }}</h1>
+	<!-- Titre de la gallerie -->
+
+	<!-- Date de la gallerie -->
+	<p class="date">Date :  {{ date | date:'d/M/yy' }}</p>
+	<!-- Date de la gallerie -->
+
+	<hr>
+	<div class="detail-album">
+		<!--  Gallerie -->
+		<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+		<!-- Gallerie -->
+	</div>
+	<hr>
+	<section class="RTE-footer nav-social d-flex">
+		<ng-container *ngIf="!viewPartage">
+			<div class="social">Partager sur :  <a href="https://www.facebook.com/sharer/sharer.php?u={{url}}" title="Facebook" target="_blank"><i class="bfm-icon-facebook"></i></a> <a href="https://twitter.com/intent/tweet?url={{url}}" title="Twitter" target="_blank"><i class="bfm-icon-twitter"></i></a> <a href="https://plus.google.com/share?url={{url}}" title="Google plus" target="_blank"><i class="bfm-icon-googleplus"></i></a> <a href="mailto:?subject=[Mailto BFM] Partage de contenu&body={{title}}: %0A {{url}}%0A%0AL'équipe BFM,"><i class="bfm-icon-envelope"></i></a></div>
+		</ng-container>
+		<div class="print">Imprimer :  <a [routerLink]="[]" shareButton="print" title="print"><i class="bfm-icon-printer-text"></i></a></div>
+	</section>
+
+</div>

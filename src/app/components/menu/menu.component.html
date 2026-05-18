@@ -1,0 +1,151 @@
+<ng-template   [ngIf]="mobile" [ngIfElse]="desktop">
+    <nav class="navbar navbar-mobile navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="row flex-grow-1 align-items-center">
+                <div class="col-6 offset-3">
+                    <figure class="logo mb-0 text-center"><a [routerLink]="['/']"><img src="assets/images/logo-normal.png"></a></figure>
+                </div>
+                <div class="col-3 text-center">
+                    <button class="navbar-toggler" type="button" aria-controls="navbarNav-mobile" (click)="openMenu()" [attr.aria-expanded]="!isCollapsed">
+                        <i class="bfm-icon-menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav-mobile" [ngbCollapse]="isCollapsed">
+            <ul class="navbar-nav">
+                <ng-container *ngFor="let menuitem of menuList; let i = index">
+                    <ng-container *ngIf="menuitem.child">
+                        <li class="nav-item" ngbDropdown  [class.dropdown]="menuitem.child" [class.active]="parentActive === menuitem.title">
+                            <a class="nav-link" ngbDropdownToggle title="{{menuitem.title}}">
+                                <i ngClass="{{ menuitem.icon }}" *ngIf="menuitem.icon !== ''"></i>
+                                <span class="wraped"><span *ngFor="let title of titleMenus[i]">{{title}}</span></span>
+                            </a>
+                            <div class="dropdown-menu" ngbDropdownMenu>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="nav-submenu">
+                                                <ul class="row">
+                                                    <li *ngFor="let childitem of menuitem.child" class="col-lg-6"><a [routerLink]="[childitem.url]" routerLinkActive="active" class="nav-link" title="{{childitem.title}}" (click)="openMenu()">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>{{childitem.title}}</span><i class="bfm-icon-arrow_drop_right"></i>
+                                                        </div>
+                                                    </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ng-container>
+                    <ng-container *ngIf="!menuitem.child">
+                        <li class="nav-item" routerLinkActive="active">
+                            <a class="nav-link" title="{{menuitem.title}}" [routerLink]="[menuitem.url]"  (click)="openMenu()">
+                                <i ngClass="{{ menuitem.icon }}" *ngIf="menuitem.icon !== ''"></i>
+                                <span class="wraped"><span *ngFor="let title of titleMenus[i]">{{title}}</span></span>
+                            </a>
+                        </li>
+                    </ng-container>
+                </ng-container>
+            </ul>
+        </div>
+    </nav>
+</ng-template>
+
+<!-- Desktop template -->
+<ng-template  #desktop>
+    <nav class="navbar navbar-expand-lg">
+    <div class="search-bar search-wrapper" [class.searchOpen]="isSearch">
+        <div class="container-fluid">
+            <form (submit)="doSearch()">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon bfm-icon-search"></i></span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Recherche" aria-label="Recherche" [(ngModel)]="term" [ngModelOptions]="{standalone: true}">
+                    <div class="input-group-append">
+                        <a class="btn btn-close" (click)="isSearch=false;"><i class="icon bfm-icon-close"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" aria-controls="navbarNav" (click)="openMenu()" [attr.aria-expanded]="!isCollapsed">
+            <i class="bfm-icon-menu"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
+            <ul class="navbar-nav">
+                <li class="nav-item nav-close">
+                    <button class="navbar-toggler navbar-close" type="button" aria-controls="navbarNav" (click)="openMenu()" [attr.aria-expanded]="!isCollapsed">
+                        <i class="bfm-icon-close"></i>
+                    </button>
+                </li>
+                    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link nav-home" [routerLink]="['/']"title="Accueil" (click)="openMenu()"><img src="../../../assets/images/picto-home.png"><span>Accueil</span></a>
+                </li>
+                <li class="nav-item" ngbDropdown  *ngFor="let menuitem of menuList; let i = index" [class.dropdown]="menuitem.child" [class.active]="parentActive === menuitem.title">
+                    <a class="nav-link" ngbDropdownToggle title="{{menuitem.title}}"><span class="wraped"><span *ngFor="let title of titleMenus[i]">{{title}}&nbsp;</span></span></a>
+                    <div class="dropdown-menu" *ngIf="menuitem.child" ngbDropdownMenu>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="nav-menu-desc">
+                                        <h4><span *ngFor="let title of titleMenus[i]">{{title}}</span></h4>
+                                        <p>{{menuitem.description}}</p>
+                                        <figure *ngIf="menuitem?.image != ''">
+                                            <img src="{{menuitem.image}}" alt="{{menuitem.title}}" title="{{menuitem.title}}">
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="nav-submenu">
+                                        <ul class="row">
+                                            <li *ngFor="let childitem of menuitem.child" class="col-lg-6" routerLinkActive="active"><a [routerLink]="[childitem.url]" routerLinkActive="active" class="nav-link" title="{{childitem.title}}" (click)="openMenu()">{{childitem.title}}<i class="bfm-icon-arrow_drop_right"></i></a>
+                                                <div *ngIf="childitem.child" class="d-none">
+                                                    <div *ngFor="let childitem of childitem.child">
+                                                        <a [routerLink]="[childitem.url]" routerLinkActive="active" class="nav-link" title="{{childitem.title}}" (click)="openMenu()">{{childitem.title}}<i class="bfm-icon-arrow_drop_right"></i></a>
+                                                        <div *ngIf="childitem.child">
+                                                            <div *ngFor="let childitem of childitem.child">
+                                                                <a [routerLink]="[childitem.url]" routerLinkActive="active" class="nav-link" title="{{childitem.title}}" (click)="openMenu()">{{childitem.title}}<i class="bfm-icon-arrow_drop_right"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link  nav-search" (click)="isSearch=true;" title="Faire une recherche">
+                        <i class="icon bfm-icon-search"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-footer">
+                <div class="form-wrapper search-wrapper">
+                    <form (submit)="doSearch()">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Recherche" aria-label="Recherche" [(ngModel)]="term" [ngModelOptions]="{standalone: true}">
+                            <div class="input-group-append">
+                                <button class="btn" type="submit">&nbsp;</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="social">
+                <app-socials></app-socials>
+            </div>
+        </div>
+
+    </div>
+    </nav>
+</ng-template>
+

@@ -1,0 +1,51 @@
+@import "../../../assets/scss/variables";
+
+.nav-social {
+    padding: 50px 0 20px;
+    p {
+        color: #4b555c;
+        text-align: right;
+        margin-right: 38px;
+        margin-bottom: 10px;
+    }
+
+    a {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        line-height: 34px;
+        color: #fff;
+        background-color: $primary-light;
+        margin: 0 5px;
+
+        .social-app & {
+            background-color: #899cab;
+            color: $primary;
+        }
+
+        &:hover {
+            text-decoration: none;
+            background-color: $secondary;
+        }
+    }
+
+    .header-right & {
+        text-align: right;
+        margin-right: -5px;
+    }
+
+    .header-right & {
+        text-align: right;
+        margin-right: -5px;
+    }
+
+    .social-app & {
+        padding-top: 0;
+        margin-right: 0;
+        margin-left: -5px;
+        p {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,68 @@
+<div class="breadcrumb"  id="element"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+  /
+  Offres d'emploi
+</div>
+<div class="page-content list-offre">
+  <h1>Offres d'emploi</h1>
+    <ul class="list" *ngIf="contentData?.length > 0; else other_list">
+      <li *ngFor="let item of contentData">
+
+        <!--type offre-->
+        <p class="type-offre">{{item.type_offre}}</p>
+        <!--type offres-->
+        
+        <!--date de publication-->
+        <p class="date" *ngIf="item?.date != ''">Date de publication : {{item.date}}</p>
+        <!--date de publication-->
+
+        <!--date de limite-->
+        <p class="date" *ngIf="item?.dateExpired != ''">Date limite : {{ getDateLast(item.dateExpired)}}</p>
+        <!--date de limite-->
+
+        <!--titre-->
+        <h2><a href="{{item.link}}" title="{{item.title}}">{{item.title}}</a></h2>
+
+        <!--titre-->
+
+        <!--catégorie offre-->
+        <p class="secteur"  *ngIf="item?.cat_offre != ''">Secteur : {{item.cat_offre}}</p>
+        <!--catégorie offres-->
+
+        <!-- Lieu -->
+        <p class="lieu"  *ngIf="item?.lieu_offre != ''">Lieu : {{item.lieu_offre}}</p>
+        <!--/Lieu -->  
+
+        
+        <!--description offre-->
+        <p class="description">{{item.resume}}</p>
+        <!--description offres-->
+
+        <!--lien offre-->
+        <p class="btn-consulter"><i  class="bfm-icon-arrow_drop_right"></i> <a [routerLink]="[item.link]" title="Consulter">Consulter</a></p>
+        <!--lien offre-->
+
+      </li>
+    </ul>
+    <ng-template #other_list>
+        <p class="not-element">Aucune offre n'est disponible pour le moment, merci de revenir plus tard.</p>
+        <p class="link-secondary">
+            <i class="bfm-icon-arrow_drop_right"></i><a [routerLink]="['/candidature-spontanee']"
+            title="Déposez votre candidature spontanée">Déposez votre candidature spontanée</a>
+        </p>
+    </ng-template>
+
+    <div class="row" *ngIf="itemsCount > itemsPerPage ">
+      <div class="col-xs-12 col-12 d-none d-xl-block">
+        <pagination [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage" class="justify-content-center" [nextText]="nextText" [previousText]="previousText" [firstText]="firstText" [lastText]="lastText" [boundaryLinks]="true" [maxSize]="maxSize" ></pagination>
+      </div>
+
+    <!-- Pagination pour mobile  --> 
+    <div class="col-xs-12 col-12 d-block d-xl-none">
+      <div class="pager-mobile">
+        <pagination class="justify-content-center" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage"   [nextText]="mobileNextText" [previousText]="mobilePreviousText" [firstText]="mobileFirstText" [lastText]="mobileLastText" [boundaryLinks]="true" [maxSize]="mobileMaxSize" ></pagination>
+      </div>
+    </div>
+    <!-- For mobile  -->
+
+    </div>
+</div>

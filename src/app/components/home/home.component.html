@@ -1,0 +1,7 @@
+<!-- Doc : https://ng-bootstrap.github.io/#/components/carousel/examples -->
+<ng-template [ngIf]="isMobile" [ngIfElse]="desktop">
+    <app-home-mobile></app-home-mobile>
+</ng-template>
+<ng-template  #desktop>
+    <app-home-desktop></app-home-desktop>
+</ng-template>

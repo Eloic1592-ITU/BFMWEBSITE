@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Miniature - TAHA</title>
+    <link rel="stylesheet" href="./assets/css/taha_miniature.css" />
+  </head>
+  <body style="overflow: hidden;">
+    <header>
+      <header class="container">
+        <img src="./assets/img/taha_logo.png" alt="logo" />
+        <div class="title">
+          <h1>TAHA</h1>
+          <h3>
+            (<b>T</b>aha mi<b>A</b>ntoka ny <b>H</b>erin'ny <b>A</b>riary)
+          </h3>
+        </div>
+        <div class="stats">
+          <div class="stats-content">
+            <div class="graph">
+              <img src="./assets/img/taha_side_donut.png" alt="graph" />
+              <span id="dernierTauxRef"></span>
+            </div>
+            <h2 class="date" id="dernierDateTauxRef" ></h2>
+          </div>
+        </div>
+      </header>
+    </header>
+    <main style="position: relative; width: 410px; left: -40px;">
+      <canvas id="moisChart" width="800" height="400"></canvas>
+    </main>
+
+    <script src="./assets/js/taha_chart.js"></script>
+
+    <script>
+      const convertirFormatDate = (date) => {
+        // Découper la date en jour, mois et année
+        let elementsDate = date.split('-');
+        
+        // Tableau des noms de mois en anglais
+        const moisEnAnglais = {
+            "JAN": "01", "FEB": "02", "MAR": "03", "APR": "04",
+            "MAY": "05", "JUN": "06", "JUL": "07", "AUG": "08",
+            "SEP": "09", "OCT": "10", "NOV": "11", "DEC": "12"
+        };
+
+        // Convertir le mois en format numérique
+        let mois = moisEnAnglais[elementsDate[1]];
+
+        // Concaténer la nouvelle date dans le format désiré
+        let nouvelleDate = elementsDate[0] + "|" + mois + "|" + "20" + elementsDate[2];
+        
+        return nouvelleDate;
+      }
+
+      const dateFrToEngDate = (dateStr) => {
+        // Séparer les parties du jour, du mois et de l'année
+        let [day, month, year] = dateStr.split('/');
+
+        // Recréer une date au format 'yyyy-mm-dd' que JavaScript comprend
+        let formattedDateStr = `${year}-${month}-${day}`;
+
+        return formattedDateStr;
+      }
+
+    </script>
+
+
+    <script>
+
+      const apiUrl2 =
+        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire";
+        // Make a GET request
+        fetch(apiUrl2)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            var items = data.data.data;
+            document.getElementById("dernierDateTauxRef").innerHTML = convertirFormatDate(items.D_DATE);
+            document.getElementById("dernierTauxRef").innerHTML = items.TAUX+" %";
+
+          });      
+    </script>
+
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Données des mois de l'année
+        const periode = [];
+        const tauxFPM = [];
+        const tauxFDD = [];
+        const tauxREF = [];
+
+        //const labelsX = Array.from({ length: 5 }, (_, i) => (i + 8.5).toFixed(1));
+        const labelsX = [8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12];
+
+        const apiUrl =
+          "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=30";
+
+        // Make a GET request
+        fetch(apiUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Configuration du graphique
+            var items = data.data.data[0];
+            var k = 0;
+            var date1 = new Date(dateFrToEngDate("07/08/2024"));
+            var valTAuxFPM = "";
+            var valTAuxFDD = "";
+
+            for (let i = items.length - 1; i >= 0; i--) {
+              
+              var date2 = new Date(dateFrToEngDate(items[i].D_DATE));
+              if(date2 >= date1) {
+                valTAuxFPM = "11.5";
+                valTAuxFDD = "9.5";
+              } else {
+                valTAuxFPM = "11";
+                valTAuxFDD = "9";
+              }
+
+
+              periode[k] = items[i].D_DATE;
+              tauxFPM[k] = valTAuxFPM;
+              tauxFDD[k] = valTAuxFDD;
+              tauxREF[k] = parseFloat(items[i].TAUX);
+              k += 1;
+            }
+
+            const config = {
+              type: "line",
+
+              data: {
+                labels: periode,
+                datasets: [
+                  {
+                    label: "TAUX DES FACILITES DE PRET MARGINAL",
+                    data: tauxFPM,
+                    fill: false,
+                    borderColor: "#2f62bd",
+                    borderWidth: 2,
+                    pointRadius: 1,
+                  },
+                  {
+                    label: "TAUX DES FACILITES DES DEPOTS",
+                    data: tauxFDD,
+                    fill: false,
+                    borderColor: "#cf8a00",
+                    borderWidth: 2,
+                    pointRadius: 1,
+                  },
+                  {
+                    label: "TAUX DE REFERENCE",
+                    data: tauxREF,
+                    fill: false,
+                    borderColor: "#a4a4a4",
+                    borderWidth: 2,
+                    pointRadius: 1,
+                  },
+                ],
+              },
+              options: {
+                plugins: {
+                  legend: {
+                    display: false,
+                    position: "top",
+                  },
+                },
+                elements: {
+                  line: {
+                    tension: 0, // Pour rendre les lignes droites
+                  },
+                },
+                layout: {
+                  padding: {
+                    left: 50,
+                    right: 50,
+                    top: 10,
+                    bottom: 10,
+                  },
+                },
+                scales: {
+                  x: {
+                    display: true, // Pour cacher les lignes de grille de l'axe x
+                    grid: {
+                      display: false,
+                    },
+                  },
+                  y: {
+                    display: true, // Pour cacher les lignes de grille de l'axe y
+                    grid: {
+                      display: false,
+                    },
+                  },
+                },
+              },
+            };
+
+            // Création du graphique
+            const ctx = document.getElementById("moisChart").getContext("2d");
+            new Chart(ctx, config);
+          });
+      });
+    </script>
+  </body>
+</html>

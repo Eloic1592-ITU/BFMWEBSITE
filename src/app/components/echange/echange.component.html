@@ -1,0 +1,31 @@
+<!--<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <a  *ngFor="let item of filArianeData" href="{{item.url}}" title="{{item.title}}">{{item.title}} /</a>
+    </ng-container>{{title}}
+</div>-->
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    / {{title}}
+</div>
+<div class="page-content page-echange">
+    <div class="header-with-btn d-flex justify-content-between align-items-end mb-4">
+        <h1>{{title}}</h1>
+        <p class="btn-wrapper"><button class="btn btn-with-icon" type="submit" (click)="createNewSujet()">CRÉER UN SUJET <i class="bfm-icon-arrow_drop_right"></i></button></p>
+    </div>
+    <div class="echange-wrapper" *ngIf="(categories|json) != '{}'; else empty_thematique">
+        <ul class="liste-echange liste-categories">
+            <li class="liste-item wrapper-list d-flex" *ngFor="let category of categories">
+                <div class="liste-texte">
+                    <h2 class="titre-cat"><a [routerLink]="[category.url]">{{ category.categorie }}</a></h2>
+                    <div class="desc-cat">{{ category.description }}</div>
+                    <p class="link-wrapper"><i class="bfm-icon-arrow_drop_right icon-left icon-secondary"></i> <a [routerLink]="[category.url]" title="consulter" class="link-icon link-secondary">Consulter</a></p>
+                </div>
+                <div class="liste-info d-flex">
+                    <span class="nombre">{{ category.sujets }}</span> Sujet<ng-container *ngIf="category.sujets >1;">s</ng-container>
+                </div>
+            </li>
+        </ul>
+        <p class="btn-wrapper"><button class="btn btn-with-icon" type="submit" (click)="createNewSujet()">CRÉER UN SUJET <i class="bfm-icon-arrow_drop_right"></i></button></p>
+    </div>
+    <ng-template #empty_thematique >Aucune thématique à afficher pour le moment</ng-template>
+</div>

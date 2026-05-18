@@ -1,0 +1,63 @@
+<!-- ===== FAQ SECTION ===== -->
+<section class="faq-section" id="faq">
+    <div class="container">
+        <div class="faq-header">
+          <h2>
+            {{ currentLang === 'fr'
+                ? 'Questions fréquentes'
+                : 'Ireo fanontaniana mipetraka matetika' }}
+          </h2>
+          <p>
+            {{ currentLang === 'fr'
+                ? 'Tout ce que vous devez savoir sur l\'eAriary'
+                : 'Ny zavatra rehetra tokony ho fantatrao momba ny eAriary' }}
+          </p>
+
+            <!-- Onglets langue (même style que la section Inscription) -->
+            <div class="form-lang-tabs">
+                <button class="form-lang-tab" [class.active]="currentLang === 'fr'" (click)="switchLang('fr')">Français</button>
+                <button class="form-lang-tab" [class.active]="currentLang === 'mg'" (click)="switchLang('mg')">Malagasy</button>
+            </div>
+        </div>
+
+        <!-- Version FR : données depuis l'API -->
+        <div class="faq-list" *ngIf="currentLang === 'fr'">
+            <div class="faq-item" *ngFor="let item of frenchFaq; let i = index">
+                <button class="faq-question" [attr.aria-expanded]="isOpen(i)" (click)="toggle(i)">
+                    <span>{{ item.question }}</span>
+                    <i class="fas fa-chevron-down faq-icon"></i>
+                </button>
+                <div class="faq-answer" [class.open]="isOpen(i)">
+                    <ng-container *ngIf="item.html; else frText">
+                        <div class="faq-table-wrapper" [innerHTML]="item.html"></div>
+                    </ng-container>
+                    <ng-template #frText>
+                        <ul>
+                            <li *ngFor="let ans of item.answers">{{ ans }}</li>
+                        </ul>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <!-- Version Malagasy : questions/réponses chargées via l'API -->
+        <div class="faq-list" *ngIf="currentLang === 'mg'">
+          <div class="faq-item" *ngFor="let item of malagasyFaq; let i = index">
+            <button class="faq-question" [attr.aria-expanded]="isOpen(i)" (click)="toggle(i)">
+              <span>{{ item.question }}</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </button>
+            <div class="faq-answer" [class.open]="isOpen(i)">
+              <ng-container *ngIf="item.html; else mgText">
+                <div class="faq-table-wrapper" [innerHTML]="item.html"></div>
+              </ng-container>
+              <ng-template #mgText>
+                <ul>
+                  <li *ngFor="let ans of item.answers">{{ ans }}</li>
+                </ul>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>

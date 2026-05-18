@@ -1,0 +1,55 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+  /
+  <ng-container *ngIf="filArianeData?.length > 0 ">
+    <ng-container *ngFor="let item of filArianeData" >
+      <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+        <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+      </ng-container>
+      <ng-template #other_menu>
+        <span class="noLink">{{item.title.replace('/', '')}}</span> /
+      </ng-template>
+    </ng-container>
+  </ng-container>{{title}}
+</div>
+<div class="page-content cours-du-mid">
+  <h1>{{title}}</h1>
+  <h2>( jusqu'à la date du {{dateLimit}} )</h2>
+  <section>
+    <form [formGroup]="filterDateForm" (ngSubmit)="onSubmitFiltre(filterDateForm.value)">
+      <label>Choisir une date :</label>
+      <div class="form-wrapper ">
+        <input class="form-control" style="float:none" [(ngModel)]="model" ngx-mydatepicker name="reactiveFormsDate" formControlName="dateFilter" [options]="optionDate" #dp="ngx-mydatepicker" autocomplete="off" (click)="dp.toggleCalendar()"/>
+        <button class="btn btn-with-icon" type="submit" [disabled]="!filterDateForm.valid">Consulter <i class="bfm-icon-arrow_drop_right"></i></button>
+      </div>
+    </form>
+
+  </section>
+  <section class="result">
+    <p *ngIf="dateNow != ''">Cours des devises en date du <span>{{dateNow}}</span></p>
+    <hr>
+    <div>
+      <table width="100%" align="center" cellpadding="2" cellspacing="2" style="margin: 0;" *ngIf="dataVolume?.length > 0">
+        <tr *ngFor="let key of dataHeadVolume">
+          <td>{{key}}</td>
+          <td>{{dataVolume[0][key]}}</td>
+        </tr>
+      </table>
+      <table width="100%" align="center" cellpadding="2" cellspacing="2" style="margin: 0;" *ngIf="dataReference?.length > 0">
+        <tr>
+          <ng-container *ngFor="let key of dataReferenceHead; let i =index">
+            <ng-container *ngIf="i==0;else other_head">
+              <th>&nbsp;</th>
+            </ng-container>
+            <ng-template #other_head><th>{{key}}</th></ng-template>
+          </ng-container>
+        </tr>
+        <tr *ngFor="let data of dataReference">
+          <ng-container *ngFor="let key of dataReferenceHead">
+              <td>{{data[key]}}</td>
+          </ng-container>
+        </tr>
+      </table>
+    </div>
+    <div class="no-result" *ngIf="result">Données non disponibles !!</div>
+  </section>
+</div>

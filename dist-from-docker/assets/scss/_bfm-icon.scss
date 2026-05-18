@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'bfm-icon';
+  src:
+    url('assets/fonts/bfm-icon.ttf?ko9mq4') format('truetype'),
+    url('assets/fonts/bfm-icon.woff?ko9mq4') format('woff'),
+    url('assets/fonts/bfm-icon.svg?ko9mq4#bfm-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="bfm-icon-"], [class*=" bfm-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'bfm-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bfm-icon-chevron-right:before {
+  content: "\e900";
+}
+.bfm-icon-chevron-left:before {
+  content: "\e901";
+}
+.bfm-icon-googleplus:before {
+  content: "\ea8b";
+}
+.bfm-icon-facebook:before {
+  content: "\ea90";
+}
+.bfm-icon-twitter:before {
+  content: "\ea96";
+}
+.bfm-icon-youtube:before {
+  content: "\ea9d";
+}
+.bfm-icon-linkedin:before {
+  content: "\eaca";
+}
+.bfm-icon-pinterest:before {
+  content: "\ead2";
+}
+.bfm-icon-instagram:before {
+  content: "\ea92";
+}
+.bfm-icon-envelope:before {
+  content: "\e904";
+}
+.bfm-icon-upload:before {
+  content: "\e906";
+}
+.bfm-icon-calendar:before {
+  content: "\e907";
+}
+.bfm-icon-reply:before {
+  content: "\e908";
+}
+.bfm-icon-play-button:before {
+  content: "\e90a";
+}
+.bfm-icon-search:before {
+  content: "\e90b";
+}
+.bfm-icon-pdf:before {
+  content: "\e90c";
+}
+.bfm-icon-arrow_drop_up:before {
+  content: "\e5c7";
+}
+.bfm-icon-arrow_drop_down:before {
+  content: "\e5c5";
+}
+.bfm-icon-arrow_drop_left:before {
+  content: "\e5c8";
+}
+.bfm-icon-arrow_drop_right:before {
+  content: "\e5c6";
+}
+.bfm-icon-expand:before {
+  content: "\e909";
+}
+.bfm-icon-collapse:before {
+  content: "\e146";
+}
+.bfm-icon-menu:before {
+  content: "\e905";
+}
+.bfm-icon-printer-text:before {
+  content: "\e902";
+}
+.bfm-icon-close:before {
+  content: "\e903";
+}
+.bfm-icon-excel:before {
+  content: "\e90d";
+}
+
+

@@ -1,0 +1,11 @@
+@import "../../../assets/scss/variables";
+
+.gallery-RTE {
+	margin: 20px 0;
+	.ngx-gallery-image.ngx-gallery-active[_ngcontent-c11] {
+		z-index: 0;
+	}
+	.ngx-gallery-image-text {
+		background: $primary!important;
+	}
+}

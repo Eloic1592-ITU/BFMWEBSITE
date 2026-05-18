@@ -1,0 +1,81 @@
+@import "../../../assets/scss/variables";
+
+.faq {
+	accordion {
+		&.panel-group {
+			.panel {
+				.card-header, 
+				.card-body {
+					background-color: transparent;
+				}
+				.panel-title {
+					color: #4298cc;
+					font-size: 18px;
+					font-weight: $font-semibold;
+					padding: 0 30px;
+					text-transform: none;
+					.accordion-toggle {
+						padding: 5px 0;
+						&:before {
+							content: "\e146";
+							font-family: 'bfm-icon';
+							font-size: 23px;
+							position: absolute;
+							left: 0;
+							top: 1px;
+						}
+					}
+				}
+				&.panel-open {
+					.card-header {
+						background-color: transparent;
+					}
+					.panel-title { 
+						color: #ce8921;
+					}
+					.accordion-toggle {
+						&:before {
+							content: "\e909";
+							font-family: 'bfm-icon';
+						}
+					}
+				}
+
+				.card-body {
+					padding: 0 30px;
+					.panel-title {
+						color: #90a9bb;
+					}
+					p {
+						font-size: 14px;
+						font-weight: $font-semibold;
+					}
+					.panel-title {
+						.accordion-toggle {
+							&:before {
+								content: "\e146";
+								font-family: 'bfm-icon';
+							}
+						}
+					}
+					.panel-open {
+						.panel-title {
+							color: #ce8921;
+							.accordion-toggle {
+								&:before {
+									content: "\e909";
+									font-family: 'bfm-icon';
+								}
+							}
+						}
+					}
+				}
+			} 
+		}
+		
+	}
+
+}
+
+
+

@@ -1,0 +1,361 @@
+/* ====================================================
+   SIGNUP SECTION
+   ==================================================== */
+.signup-section {
+    padding: 100px 0;
+    background: var(--off-white);
+    border-top: 1px solid var(--gray-100);
+}
+
+.signup-wrapper {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* ===== FORM LANGUAGE TABS ===== */
+.form-lang-tabs {
+    display: inline-flex;
+    gap: 4px;
+    margin-top: 16px;
+    background: var(--gray-100);
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.form-lang-tab {
+    padding: 7px 20px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--gray-400);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-lang-tab.active {
+    background: var(--white);
+    color: var(--gray-900);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* Account Access Info */
+.account-access-info {
+    background: linear-gradient(135deg, rgba(4, 150, 168, 0.05) 0%, rgba(0, 121, 158, 0.05) 100%);
+    border-left: 4px solid var(--teal);
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--gray-600);
+}
+
+.account-access-info p {
+    margin-bottom: 10px;
+}
+
+.account-access-info p:last-child {
+    margin-bottom: 0;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.signup-header h2 {
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gray-900);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+}
+
+.signup-highlight {
+    color: #000000;
+}
+
+.signup-header .signup-subtitle {
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+/* Form */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--gray-100);
+    box-shadow: var(--shadow-md);
+}
+
+.form-row {
+    display: grid;
+    /* minmax(0,1fr) évite les débordements dus au min-width:auto */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0; /* autorise les inputs à rétrécir dans la grille */
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    letter-spacing: 0.2px;
+}
+
+.required-star {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.form-error {
+    font-size: 0.75rem;
+    color: var(--red);
+    font-weight: 500;
+    margin-top: 2px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 16px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--gray-800);
+    background: var(--white);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group input[type="email"]::placeholder,
+.form-group input[type="tel"]::placeholder {
+    color: var(--gray-400);
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="date"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(0, 75, 76, 0.08);
+}
+
+.form-group select {
+    appearance: none;
+    cursor: pointer;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--gray-400) 50%),
+        linear-gradient(135deg, var(--gray-400) 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(50% - 3px),
+        calc(100% - 14px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 42px;
+}
+
+/* Account type cards */
+.account-type-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+}
+
+/* Tablette / petits laptops : éviter 4 colonnes trop serrées */
+@media (max-width: 980px) {
+    .account-type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.account-type-card {
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    min-width: 0; /* évite le débordement dans la grille */
+}
+
+.account-type-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.account-type-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    padding: 20px 12px;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    transition: all 0.2s ease;
+    justify-content: center;
+    flex: 1;
+    min-width: 0; /* autorise le wrapping du texte */
+}
+
+.account-type-card:hover .account-type-inner {
+    border-color: var(--gray-200);
+    background: var(--gray-50);
+}
+
+.account-type-card input[type="radio"]:checked + .account-type-inner {
+    border-color: var(--teal);
+    background: rgba(0, 75, 76, 0.04);
+    box-shadow: 0 0 0 3px rgba(0, 75, 76, 0.08);
+}
+
+.account-type-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--gray-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    transition: all 0.2s ease;
+}
+
+.account-type-card input[type="radio"]:checked + .account-type-inner .account-type-icon {
+    background: rgba(0, 75, 76, 0.1);
+    color: var(--teal);
+}
+
+.account-type-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gray-800);
+    overflow-wrap: anywhere;
+}
+
+.account-type-desc {
+    font-size: 0.65rem;
+    color: var(--gray-400);
+    line-height: 1.4;
+}
+
+.signup-submit {
+    width: 100%;
+    margin-top: 8px;
+    justify-content: center;
+}
+
+/* ===== SUCCESS POPUP ===== */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+}
+
+.popup-content {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-xl);
+    animation: popupIn 0.3s ease;
+}
+
+@keyframes popupIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.popup-icon {
+    font-size: 3rem;
+    color: var(--teal);
+    margin-bottom: 20px;
+}
+
+.popup-icon--error {
+    color: var(--red);
+}
+
+.popup-content h3 {
+    font-family: 'Maven Pro', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gray-900);
+    margin-bottom: 16px;
+}
+
+.popup-content p {
+    font-size: 0.95rem;
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 28px;
+}
+
+/* Responsive form */
+@media (max-width: 640px) {
+    .signup-form {
+        padding: 24px 20px;
+    }
+
+    .form-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .account-type-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .account-type-inner {
+        flex-direction: row;
+        text-align: left;
+        padding: 14px 16px;
+    }
+
+    .account-type-desc {
+        display: none;
+    }
+}

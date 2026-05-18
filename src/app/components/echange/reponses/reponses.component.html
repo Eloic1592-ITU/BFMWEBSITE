@@ -1,0 +1,167 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a> / <a [routerLink]="[urlBaseEchange]" title="{{title}}">{{title}}</a> / <a [routerLink]="[urlBaseEchange+currentTheme]" title="{{themathique}}">{{themathique}}</a> / {{ sujet?.sujet }}
+</div>
+<div class="page-content page-echange">
+    <h1>{{title}}</h1>
+    <h2>{{themathique}}</h2>
+    <div class="echange-wrapper">
+        <ul class="liste-echange liste-categories">
+            <li class="liste-item wrapper-list active d-flex">
+                <div class="liste-texte">
+                    <div class="d-flex">
+                        <figure>
+                            <img src="assets/images/man.svg" width="65" height="65" *ngIf="sujet?.sex === 'm'"><img src="assets/images/girl.svg" width="65" height="65" *ngIf="sujet?.sex === 'f'">
+                        </figure>
+                        <div>
+                            <h2 class="titre-cat">{{ sujet?.user }}</h2>
+                            <div class="desc-cat">{{ sujet?.sujet }}</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <p class="date">posté le <span>{{ sujet?.date }}</span></p>
+                    </div>
+                </div>
+                <div class="liste-info d-flex">
+                    <span class="nombre">{{ sujet?.echange }}</span> Echange<ng-container *ngIf="sujet?.echange >1;">s</ng-container>
+                </div>
+            </li>
+        </ul>
+        <div class="header-with-btn border-bottom d-flex justify-content-between align-items-end mb-4 pb-3">
+            <h3>Echanges sur le sujet</h3>
+            <p class="btn-wrapper">
+                <button class="btn btn-with-icon" type="submit" (click)="showResponseForm(0,'');">RÉPONDRE À CE SUJET +</button>
+            </p>
+        </div>
+        <ul class="liste-echange liste-categories" *ngIf="itemsCount > 0; else empty_reponse">
+            <li class="liste-item wrapper-list d-flex" *ngFor="let rep of listReponses">
+                <div class="liste-texte">
+                    <div class="d-flex">
+                        <figure>
+                            <img src="assets/images/man.svg" width="65" height="65" *ngIf="rep.sex === 'm'"><img src="assets/images/girl.svg" width="65" height="65" *ngIf="rep.sex === 'f'">
+                        </figure>
+                        <div>
+                            <div class="d-flex justify-content-between"><h2 class="titre-cat">{{ rep.user }}</h2>
+                                <p class="date mr-0">posté le <span>{{ rep.date }}</span></p></div>
+                            <div class="desc-cat">{{ rep.reponse }}</div>
+                        </div>
+                    </div>
+                    <p class="link-wrapper text-right">
+                        <a title="Répondre à ce commentaire" class="btn btn-with-icon" (click)="showResponseForm(rep.id,rep.user);">Répondre à ce commentaire
+                            <i class="bfm-icon-reply icon-right"></i></a></p>
+                    <div class="sub-reponses" *ngIf="rep.reponses?.length > 0">
+                        <ul class="liste-echange liste-categories">
+                            <li class="liste-item wrapper-list d-flex" *ngFor="let com of rep?.reponses">
+                                <div class="liste-texte">
+                                    <div class="d-flex">
+                                        <figure>
+                                            <img src="assets/images/man.svg" width="65" height="65" *ngIf="com.sex === 'm'"><img src="assets/images/girl.svg" width="65" height="65" *ngIf="com.sex === 'f'">
+                                        </figure>
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <h2 class="titre-cat">{{ com.user }}</h2>
+                                                <p class="date mr-0">posté le <span>{{ com.date }}</span></p></div>
+                                            <div class="desc-cat">{{ com.reponse }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    <ng-template #empty_reponse >Aucune échange effectuée  pour l'instant</ng-template>
+        <a name="form-resp" #formResp></a>
+        <div class="border-top border-bottom pt-3 pb-0 mb-4" *ngIf="itemsCount > itemsPerPage ">
+        <div class="row">
+            <div class="col-xs-12 col-12">
+                <pagination class="justify-content-center" page="currentPage" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage" [nextText]="nextText" [previousText]="previousText" [firstText]="firstText" [lastText]="lastText" [boundaryLinks]="true" [maxSize]="maxSize"></pagination>
+            </div>
+        </div>
+        </div>
+        <p class="btn-wrapper">
+            <button class="btn btn-with-icon" type="submit" (click)="showResponseForm(0,'');">RÉPONDRE À CE SUJET +</button>
+        </p>
+        <section class="form-reponses" [hidden]="!formIsOpen" #sectResponse>
+            <hr class="separator">
+            <form [formGroup]="reponseForm" (ngSubmit)="onSubmitReponse(reponseForm.value)">
+                <input type="hidden" formControlName="reponseParent"  />
+                <input type="hidden" formControlName="sujetId"   />
+                <h2 *ngIf="reponseTo">Répondre à <span class="reponseTo">{{reponseTo}}</span></h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>VOTRE PSEUDO *</label>
+                            <div class="form-wrapper"><input type="text" class="form-control" placeholder="" formControlName="pseudo"></div>
+                            <p *ngFor="let validation of account_validation_messages.pseudo">
+                                <span class="error-message" *ngIf="reponseForm.get('pseudo').hasError(validation.type) && (reponseForm.get('pseudo').dirty || reponseForm.get('pseudo').touched)">{{validation.message}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>SEXE*</label>
+                            <div class="form-wrapper select-wrapper">
+                                <select class="form-control"  formControlName="sex">
+                                    <option value="">Sélectionner</option>
+                                    <option value="masculin">Masculin</option>
+                                    <option value="feminin">Féminin</option>
+                                </select>
+                            </div>
+                            <p *ngFor="let validation of account_validation_messages.sex">
+                                <span class="error-message" *ngIf="reponseForm.get('sex').hasError(validation.type) && (reponseForm.get('sex').dirty || reponseForm.get('sex').touched)">{{validation.message}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>VOTRE RÉPONSE *</label>
+                            <div class="form-wrapper">
+                                <textarea class="form-control textarea" rows="10" formControlName="message"></textarea>
+                                <p class="obligatoires">* Mention obligatoire</p>
+                            </div>
+                            <p *ngFor="let validation of account_validation_messages.message">
+                            <span class="error-message" *ngIf="reponseForm.get('message').hasError(validation.type) && (reponseForm.get('message').dirty || reponseForm.get('message').touched)">{{validation.message}}</span>
+                            </p>
+                            <div class="form-wrapper text-center">
+                                <ngx-recaptcha2 #captchaElem
+                                [size]="changeSize"
+                                [hl]="setLanguage"
+                                [theme]="changeTheme"
+                                [type]="changeType"
+                                (expire)="handleExpire()"
+                                (load)="handleLoad()"
+                                (success)="handleSuccess($event)">
+                                </ngx-recaptcha2>
+                            </div>
+                            <p *ngIf="errorCaptcha !='' ">
+                            <span class="error-message">{{errorCaptcha}}</span>
+                            </p>
+                            <div class="form-wrapper text-right">
+                                <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                                    <ng-container *ngIf="loader">
+                                        <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                                    </ng-container>
+                                </div>
+                                <button class="btn btn-with-icon" type="submit" [disabled]="!reponseForm.valid">ENVOYER <i class="bfm-icon-arrow_drop_right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+<ng-template #template>
+<div class="confirm-form">
+    <div class="modal-body">
+        Votre commentaire a été enregistré mais sera d'abord soumis à validation avant d’apparaître sur le sujet.
+    </div>
+    <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-default" (click)="hideModal()">FERMER</button>
+    </div>
+</div>
+</ng-template>

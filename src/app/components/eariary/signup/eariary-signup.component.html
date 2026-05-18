@@ -1,0 +1,150 @@
+<!-- ========== FORMULAIRE SECTION ========== -->
+<section class="signup-section" id="inscription">
+    <div class="container">
+        <div class="signup-wrapper">
+
+            <!-- Header -->
+            <div class="signup-header">
+                <h2 [innerHTML]="getText('title')"></h2>
+                <p class="signup-subtitle">{{ getText('subtitle') }}</p>
+
+                <!-- Onglets langue -->
+                <div class="form-lang-tabs">
+                    <button class="form-lang-tab" [class.active]="currentLang === 'fr'" (click)="switchLang('fr')">Français</button>
+                    <button class="form-lang-tab" [class.active]="currentLang === 'mg'" (click)="switchLang('mg')">Malagasy</button>
+                </div>
+            </div>
+
+            <!-- Account Access Info -->
+            <div class="account-access-info">
+                <p>{{ getText('account_access_info') }}</p>
+            </div>
+
+            <form class="signup-form" (ngSubmit)="onSubmit()" novalidate>
+
+                <!-- Nom & Prénom -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nom">{{ getText('label_nom') }} <span class="required-star">*</span></label>
+                        <input type="text" id="nom" name="nom" [(ngModel)]="formData.nom"
+                               [placeholder]="getPlaceholder('nom')" />
+                        <span class="form-error" *ngIf="formErrors['nom']">{{ formErrors['nom'] }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">{{ getText('label_prenom') }} <span class="required-star">*</span></label>
+                        <input type="text" id="prenom" name="prenom" [(ngModel)]="formData.prenom"
+                               [placeholder]="getPlaceholder('prenom')" />
+                        <span class="form-error" *ngIf="formErrors['prenom']">{{ formErrors['prenom'] }}</span>
+                    </div>
+                </div>
+
+                <!-- Date de naissance -->
+                <div class="form-group">
+                    <label for="dob">{{ getText('label_dob') }} <span class="required-star">*</span></label>
+                    <input type="date" id="dob" name="dob" [(ngModel)]="formData.dob" />
+                    <span class="form-error" *ngIf="formErrors['dob']">{{ formErrors['dob'] }}</span>
+                </div>
+
+                <!-- Région -->
+                <div class="form-group">
+                    <label for="region">{{ getText('label_region') }} <span class="required-star">*</span></label>
+                    <select id="region" name="region" [(ngModel)]="formData.region">
+                        <option value="">{{ getPlaceholder('region') }}</option>
+                        <option *ngFor="let region of regions" [value]="region.id">{{ region.name }}</option>
+                    </select>
+                    <span class="form-error" *ngIf="formErrors['region']">{{ formErrors['region'] }}</span>
+                </div>
+
+                <!-- Lieu de résidence -->
+                <div class="form-group">
+                    <label for="lieu">{{ getText('label_lieu') }} <span class="required-star">*</span></label>
+                    <input type="text" id="lieu" name="lieu" [(ngModel)]="formData.lieu"
+                           [placeholder]="getPlaceholder('lieu')" />
+                    <span class="form-error" *ngIf="formErrors['lieu']">{{ formErrors['lieu'] }}</span>
+                </div>
+
+                <!-- Email & Téléphone -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">{{ getText('label_email') }}</label>
+                        <input type="email" id="email" name="email" [(ngModel)]="formData.email"
+                               [placeholder]="getPlaceholder('email')" />
+                        <span class="form-error" *ngIf="formErrors['email']">{{ formErrors['email'] }}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">{{ getText('label_telephone') }}</label>
+                        <input type="tel" id="telephone" name="telephone" [(ngModel)]="formData.telephone"
+                               [placeholder]="getPlaceholder('telephone')" />
+                        <span class="form-error" *ngIf="formErrors['telephone']">{{ formErrors['telephone'] }}</span>
+                    </div>
+                </div>
+
+                <!-- Type de compte -->
+                <div class="form-group">
+                    <label>{{ getText('label_type') }} <span class="required-star">*</span></label>
+                    <div class="account-type-grid">
+                        <label class="account-type-card">
+                            <input type="radio" name="type" value="particulier" [(ngModel)]="formData.type" />
+                            <div class="account-type-inner">
+                                <div class="account-type-icon"><i class="fas fa-user"></i></div>
+                                <span class="account-type-label">{{ getText('type_particulier') }}</span>
+                                <span class="account-type-desc">{{ getText('type_particulier_desc') }}</span>
+                            </div>
+                        </label>
+                        <label class="account-type-card">
+                            <input type="radio" name="type" value="marchand" [(ngModel)]="formData.type" />
+                            <div class="account-type-inner">
+                                <div class="account-type-icon"><i class="fas fa-store"></i></div>
+                                <span class="account-type-label">{{ getText('type_marchand') }}</span>
+                                <span class="account-type-desc">{{ getText('type_marchand_desc') }}</span>
+                            </div>
+                        </label>
+                        <label class="account-type-card">
+                            <input type="radio" name="type" value="epicerie" [(ngModel)]="formData.type" />
+                            <div class="account-type-inner">
+                                <div class="account-type-icon"><i class="fas fa-shopping-basket"></i></div>
+                                <span class="account-type-label">{{ getText('type_epicerie') }}</span>
+                                <span class="account-type-desc">{{ getText('type_epicerie_desc') }}</span>
+                            </div>
+                        </label>
+                        <label class="account-type-card">
+                            <input type="radio" name="type" value="grande_entreprise" [(ngModel)]="formData.type" />
+                            <div class="account-type-inner">
+                                <div class="account-type-icon"><i class="fas fa-building"></i></div>
+                                <span class="account-type-label">{{ getText('type_grande_entreprise') }}</span>
+                                <span class="account-type-desc">{{ getText('type_grande_entreprise_desc') }}</span>
+                            </div>
+                        </label>
+                    </div>
+                    <span class="form-error" *ngIf="formErrors['type']">{{ formErrors['type'] }}</span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg signup-submit" [disabled]="submitInProgress">
+                    <i class="fas" [ngClass]="submitInProgress ? 'fa-spinner fa-spin' : 'fa-rocket'"></i>
+                    <span class="btn-label">{{ submitInProgress ? getText('btn_sending') : getText('btn_submit') }}</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Success Popup -->
+<div class="popup-overlay" *ngIf="showSuccessPopup" (click)="closePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+        <div class="popup-icon"><i class="fas fa-check-circle"></i></div>
+        <h3>{{ getText('popup_success_title') }}</h3>
+        <p>{{ getText('popup_success_body') }}</p>
+        <button class="btn btn-primary" (click)="closePopup()">{{ getText('popup_close') }}</button>
+    </div>
+</div>
+
+<!-- Error Popup -->
+<div class="popup-overlay" *ngIf="showErrorPopup" (click)="closeErrorPopup()">
+    <div class="popup-content popup-content--error" (click)="$event.stopPropagation()">
+        <div class="popup-icon popup-icon--error"><i class="fas fa-exclamation-circle"></i></div>
+        <h3>{{ getText('popup_error_title') }}</h3>
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-primary" (click)="closeErrorPopup()">{{ getText('popup_close') }}</button>
+    </div>
+</div>

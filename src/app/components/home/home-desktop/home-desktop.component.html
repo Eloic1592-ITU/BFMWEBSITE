@@ -1,0 +1,164 @@
+<div class="alaune">
+    <div class="swiper-container" [swiper]="config">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let alauneItem of blocAlaUne">
+                <figure class="sticky" *ngIf="alauneItem?.is_one == 1"></figure>
+                <a [routerLink]="[alauneItem.link]" title="{{alauneItem?.title}}"><img src="{{alauneItem?.vignette}}"
+                                                                                       alt="Random first slide"></a>
+                <div class="carousel-caption">
+                    <a [routerLink]="[alauneItem.link]" title="{{alauneItem?.title}}">
+                        <h3>{{alauneItem?.title}}</h3>
+                        <div [innerHTML]="alauneItem?.description" class="description"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-controls">
+            <div class="swiper-button-prev"><i class="bfm-icon-chevron-left"></i></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"><i class="bfm-icon-chevron-right"></i></div>
+        </div>
+    </div>
+</div>
+<!-- https://ng-bootstrap.github.io/#/components/tabs/examples -->
+<div class="home-last-infos">
+    <ngb-tabset>
+        <ngb-tab title="DERNIÈRES INFORMATIONS" *ngIf="bloc3onglet?.derniere_information?.length > 0">
+            <ng-template ngbTabContent>
+                <ul>
+                    <li *ngFor="let derniereinformationItem of bloc3onglet.derniere_information">
+                        <a [routerLink]="[derniereinformationItem?.link]" title="{{derniereinformationItem.title}}">
+                            <span class="date">{{ derniereinformationItem.date }}</span>
+                            {{derniereinformationItem.title}}
+                        </a>
+                    </li>
+                </ul>
+                <p class="link-all"><a [routerLink]="['/actualite/page/1']" title="Tout voir"
+                                       class="link-icon link-secondary">Tout voir</a> <i
+                        class="bfm-icon-arrow_drop_right icon-right icon-secondary"></i></p>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="LOIS ET RÈGLEMENTS" *ngIf="bloc3onglet?.texte_reglemente?.length > 0">
+            <ng-template ngbTabContent>
+                <ul>
+                    <li *ngFor="let textereglementeItem of bloc3onglet.texte_reglemente">
+                        <a [attr.href]="[textereglementeItem.link]" title="{{textereglementeItem.title}}"
+                           *ngIf="textereglementeItem.link | test : 'http': 'gm'">
+                            <span class="date">{{textereglementeItem.date}}</span>
+                            {{textereglementeItem.title}}
+                        </a>
+                        <a [routerLink]="[textereglementeItem.link]" title="{{textereglementeItem.title}}"
+                           *ngIf="textereglementeItem.link | test : '^(?!http).*': 'gm'">
+                            <span class="date">{{textereglementeItem.date}}</span>
+                            {{textereglementeItem.title}}
+                        </a>
+                    </li>
+                </ul>
+                <p class="link-all"><a [routerLink]="['/texte-reglementaire/page/1']" title="Tout voir"
+                                       class="link-icon link-secondary">Tout voir</a> <i
+                        class="bfm-icon-arrow_drop_right icon-right icon-secondary"></i></p>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab title="COMMUNIQUÉS" *ngIf="bloc3onglet?.communique?.length > 0">
+            <ng-template ngbTabContent>
+                <ul>
+                    <li *ngFor="let communiqueItem of bloc3onglet.communique">
+                        <a [attr.href]="[communiqueItem.link]" title="{{communiqueItem.title}}"
+                           *ngIf="communiqueItem.link | test : 'http': 'gm'">
+                            <span class="date">{{communiqueItem.date}}</span>
+                            {{communiqueItem.title}}
+                        </a>
+                        <a [routerLink]="[communiqueItem.link]" title="{{communiqueItem.title}}"
+                           *ngIf="communiqueItem.link | test : '^(?!http).*': 'gm'"><span class="date">{{communiqueItem.date}}</span>{{communiqueItem.title}}</a>
+                    </li>
+                </ul>
+                <p class="link-all"><a [routerLink]="['/communique/page/1']" title="Tout voir"
+                                       class="link-icon link-secondary">Tout voir</a> <i
+                        class="bfm-icon-arrow_drop_right icon-right icon-secondary"></i></p>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+<hr class="separator">
+<div class="home-billets" *ngIf="blocNewGammeBillet?.affichage">
+    <div class="row">
+        <div class="col-md-6">
+            <figure><img src="{{ blocNewGammeBillet?.visuel }}" title="{{  blocNewGammeBillet?.title }}"
+                         alt="{{  blocNewGammeBillet?.title }}"></figure>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="bloc-card border-left">
+                <h2 [innerHTML]="blocNewGammeBillet?.title"></h2>
+                <p [innerHTML]="blocNewGammeBillet?.description" class="description"></p>
+                <ul class="list-link link-secondary">
+                    <li *ngFor="let item of blocNewGammeBillet?.links">
+                        <i class="bfm-icon-arrow_drop_right"></i>
+                        <a [attr.href]="[item.link]" title="{{item.title}}" target="{{item.target}}" *ngIf="item.link | test : 'http': 'gm'">
+                            {{ item.title }}
+                        </a>
+                        <a [routerLink]="[item.link]" title="{{item.title}}" target="{{item.target}}" *ngIf="item.link | test : '^(?!http).*': 'gm'">
+                            {{ item.title }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home-join-bfm" *ngIf="blocEquipe?.affichage">
+    <div class="row">
+        <div class="col-md-6">
+            <figure><img src="{{ blocEquipe?.visuel }}" title="{{  blocEquipe?.title }}"></figure>
+        </div>
+        <div class="col-md-6 d-flex">
+            <div class="bloc-card border-left">
+                <h2 [innerHTML]="blocEquipe?.title"></h2>
+                <ul class="list-link link-primary">
+                    <li *ngFor="let item of blocEquipe?.links">
+                        <a [routerLink]="[item.link]" title="{{ item.title }}">
+                            <i class="bfm-icon-arrow_drop_right"></i> {{ item.title }}
+                        </a>
+                        <span class="date">{{ item.date }}</span>
+                    </li>
+                </ul>
+                <div class="link-group clearfix">
+                    <!--<div class="float-left"><i class="bfm-icon-arrow_drop_right icon-left icon-secondary"></i><a
+                            [routerLink]="['/candidature-spontanee']" class="link-icon link-secondary"
+                            title="Candidature spontanée">Candidature spontanée</a></div>
+                    -->        
+                    <div class="float-right text-right"><a [routerLink]="['/offre/page/1']"
+                                                           class="link-icon link-secondary" title="Tout voir">Tout
+                        voir</a><i class="bfm-icon-arrow_drop_right icon-right icon-secondary"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="home-espace" *ngIf="blocEchange?.length > 0">
+    <div class="row">
+        <div class="col-md-6 d-flex" *ngIf="urlImageBlocEchange != ''">
+            <ng-container *ngIf="urlBlocEchange != '';else other_link">
+                <figure class="illustration">
+                    <a [routerLink]="[urlBlocEchange]">
+                        <img src="{{urlImageBlocEchange}}">
+                    </a>
+                </figure>
+            </ng-container>
+            <ng-template #other_link>
+                <figure class="illustration">
+                    <img src="{{urlImageBlocEchange}}">
+                </figure>
+            </ng-template>
+
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <ul>
+                <li *ngFor="let item of blocEchange">
+                    &bull; <a [routerLink]="[item.link]" title="{{ item.title }}">{{ item.title }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  front-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bfm-front-app
+    ports:
+      - "4200:4200"
+    volumes:
+      # Bind mount for live code changes (hot reload)
+      - .:/app
+      # Named volume to preserve node_modules built inside the container
+      # (prevents conflict with host OS node_modules)
+      - node_modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  node_modules:

@@ -1,0 +1,90 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+
+<div class="page-content cours-du-mid">
+    <h1>{{title}}</h1>
+    <section class="RTE-standard" *ngIf=" descriptionPage !=''">
+        <div [innerHTML]="descriptionPage| safe:'html' "></div>
+    </section>
+    <section>
+        <form [formGroup]="filterDateForm" (ngSubmit)="onSubmitFiltre(filterDateForm.value)">
+            <label>Choisir l'année :</label>
+            <div class="form-wrapper select-wrapper">
+                <select class="form-control" formControlName="filterDoc">
+                    <option [selected]="yearSelected == ''" value="">Séléctionnez</option>
+                    <ng-container *ngFor="let item of filterPdf">
+                        <option value={{item.value}} [selected]="item.value == yearSelected ">{{item.key}}</option>
+                    </ng-container>
+                </select>
+                <button class="btn btn-with-icon" type="submit" [disabled]="!filterDateForm.valid">Consulter <i
+                        class="bfm-icon-arrow_drop_right"></i></button>
+                <div [attr.class]="( loader ) ? 'loading-wrapper wrapper-download':'wrapper-download'">
+                    <ng-container *ngIf="loader">
+                        <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                    </ng-container>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section class="result">
+        <div>
+            <div class="row" *ngIf="!loader">
+                <div class="col-sm-12">
+                    <ng-container *ngIf="pathPdf !=''">
+                        <div class="down-file">
+                            <a href="{{pathPdf}}" title="Télécharger le fichier PDF"><span class="text">Télécharger le fichier PDF</span> <span class="icon"> <i class="bfm-icon-pdf"></i>({{pdfSizeFile}})</span></a>
+                        </div>
+                    </ng-container>
+                </div>
+                <div class="col-sm-12">
+                    <ng-container *ngIf="pathExcel !=''">
+                        <div class="down-file">
+                            <a href="{{pathExcel}}" title="Télécharger  le fichier EXCEL"><span class="text">Télécharger  le fichier EXCEL</span> <span class="icon"> <i class="bfm-icon-excel"></i>({{excelSize}})</span></a>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <ng-container *ngIf="urlPdf">
+                <pdf-viewer [src]="urlPdf"
+                            [render-text]="true"
+                            style="display: block;"
+                            [show-all]="true"
+                            [external-link-target]="'blank'"
+                            [original-size]="false"
+                            [zoom] = "zoomCount"
+                            (page-rendered)="pageRendered($event)"
+                ></pdf-viewer>
+                <div class="bouton-zoom"  *ngIf="urlPdf && !loader">
+                    <figure  (click)="incZoom()"><img src="assets/images/zoom.png" /></figure>
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</div>
+
+<ng-template #template>
+    <div class="confirm-form">
+        <div class="modal-body">
+            <pdf-viewer [src]="urlPdf"
+                        [render-text]="true"
+                        style="display: block;"
+                        [show-all]="true"
+                        [external-link-target]="'blank'"
+                        [original-size]="false"
+                        [zoom] = "zoomCount"
+                        (page-rendered)="pageRendered($event)"
+            ></pdf-viewer>
+        </div>
+    </div>
+</ng-template>

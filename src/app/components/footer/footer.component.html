@@ -1,0 +1,56 @@
+<div class="main-footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="footer-about">
+                    <figure><img src="{{themeOptions?.logo_footer}}" alt="Logo du site" title="Banky foiben'i Madagascar"></figure>
+                    <p [innerHTML]="themeOptions?.adresse">
+                    </p>
+                    <p [innerHTML]="themeOptions?.contact_tel">
+                    </p>
+                    <p [innerHTML]="themeOptions?.contact_numerique">
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-4" *ngFor="let menuitem of menuList" >
+                        <div class="menu-footer">
+                            <h4>{{menuitem.title}}</h4>
+                            <ul>
+                                <li *ngFor="let childitem of menuitem.child"> 
+                                    <!--<a href="{{childitem.url}}" title="{{childitem.title}}">&bull; {{childitem.title}}</a>-->
+                                    <a [routerLink]="[childitem.url]" title="{{childitem.title}}" *ngIf=" childitem.title != 'Candidature spontanée'">&bull; {{childitem.title}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-app">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>SUIVEZ-NOUS</h4>
+                            <app-socials></app-socials>
+                        </div>
+                        <div class="col-lg-6" *ngIf="themeOptions?.google_play != '' || themeOptions?.app_store != ''">
+                            <h4>APPLICATION  DISPONIBLE SUR</h4>
+                            <a href="{{themeOptions?.google_play}}" title="Google Play Store" class="btn-app" target="_blank" *ngIf="themeOptions?.google_play != ''">
+                                <img src="../../../assets/images/app-google.png">
+                            </a>
+                            <a href="{{themeOptions?.app_store}}" title="Apple Store" class="btn-app" target="_blank" *ngIf="themeOptions?.app_store != ''">
+                                <img src="../../../assets/images/app-ios.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="cookie" *ngIf=" cookieValue == '' || cookieValue !='098f6bcd4621d373cade4e832627b4f6' ">
+    <div class="container">
+        <p>En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de cookies.
+        </p>
+        <a id="closeCookie" (click)="acceptCookie()" class="btn border">Accepter</a>
+    </div>
+</section>

@@ -1,0 +1,15 @@
+<!-- ===== SIDE NAV ===== -->
+<nav class="side-nav" aria-label="Navigation sections">
+    <a *ngFor="let section of sections; let i = index"
+       [href]="'#' + section.id"
+       class="side-nav-item"
+       [class.active]="i === activeIndex"
+       (click)="scrollTo($event, section.id)">
+        <span class="side-nav-dot"></span>
+        <span class="side-nav-label"
+              [style.color]="i === activeIndex ? '#004B4C' : '#9CA3AF'"
+              [style.fontWeight]="i === activeIndex ? '700' : '400'">
+            {{ section.label }}
+        </span>
+    </a>
+</nav>

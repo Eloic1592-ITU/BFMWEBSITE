@@ -1,0 +1,206 @@
+@import "../../../assets/scss/variables";
+
+:host {
+    width: 100%;
+    display: block;
+}
+
+.sidebar {
+    border-left: 1px solid #e3ebf1;
+    padding-left: 1px;
+    height: 100%;
+    padding-bottom: 35px;
+
+    .sidebar-item {
+        border-top: 1px solid #e3ebf1;
+        &:first-of-type {
+            border-top: transparent;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: normal;
+            color: #4b555c;
+            text-transform: uppercase;
+            padding: 10px 5px;
+            margin-bottom: 0;
+
+            img {
+                vertical-align: -10px;
+                margin-right: 5px;
+            }
+        }
+
+        &.indicateur, &.taux-inflation {
+            border-top: none;
+        }
+
+        &.taux-inflation {
+            padding: 30px 15px 30px 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            @media (min-width: 768px) {
+                padding: 30px 0 30px 30px;
+            }
+
+            > div {
+                flex: 1 auto;
+            }
+
+            .titre {
+                text-transform: uppercase;
+            }
+
+            .valeur {
+                background: url(../../../assets/images/taux_mainbg.png) 0 0 no-repeat;
+                flex:0 0 114px;
+                font-weight: $font-semibold;
+                color: $secondary;
+                text-align: center;
+                padding-top: 36px;
+                position: relative;
+                overflow: hidden;
+                height: 57px;
+
+                span.chiffre {
+                    //visibility: hidden;
+                    position: relative;
+                    z-index: 10;
+                    font-size: 16px;
+                }
+
+                .instrum {
+                    position: absolute;
+                    top: 0; left: 0;
+                    display: block;
+                    width: 114px;
+                    height: 114px;
+                    background: url(../../../assets/images/indicateur-aiguille.png) 0 0 no-repeat;
+                }
+            }
+        }
+
+        &.liste-lien {
+            padding-bottom: 15px;
+
+            ul {
+                list-style: none;
+                padding-left: 40px;
+                li {
+                    margin-bottom: 5px;
+                    padding-bottom: 4px;
+                    a {
+                        font-size: 14px;
+                        color: #7b8186;
+
+                        &:hover {
+                            color: $secondary;
+                            font-weight: $font-bold;
+                            text-decoration: none;
+                        }
+                    }
+                }
+            }
+            &.menu-inflation {
+                background-color: #eff4f7;
+                padding: 18px 30px;
+                ul {
+                    padding: 0;
+                    li {
+                        line-height: 20px;
+                        a {
+                            display: block;
+                            color: #4298cc;
+                            &:hover {
+                                color: $secondary;
+                                font-weight: $font-bold;
+                                text-decoration: none;
+                            }
+                        }
+                        &.active {
+                            a {
+                                color: $secondary;
+                                font-weight: $font-bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.faq {
+            padding-bottom: 20px;
+
+            p {
+                font-size: 14px;
+                color: #7b8186;
+                padding-left: 40px;
+                margin-bottom: 10px;
+
+                i {
+                    font-size: 28px;
+                    vertical-align: -7px;
+                    width: 27px;
+                    display: inline-block;
+                    margin-left: -11px;
+                    color: $secondary;
+                }
+
+                a {
+                    color: $secondary;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &.newsletter {
+            padding-bottom: 20px;
+            padding-right: 20px;
+
+            @media (min-width: 768px) {
+                padding-right: 0;
+                padding-bottom: 40px;
+            }
+
+            p {
+                font-size: 14px;
+                color: #7b8186;
+                padding-left: 40px;
+                margin-bottom: 10px;
+            }
+
+            .form-wrapper {
+                margin-left: 20px;
+
+                .form-control {
+                    margin-bottom: 15px;
+                }
+            }
+            div.message{
+                color: #004877;
+                text-align: center;
+            }
+        }
+
+    }
+    .inscriptionNewsleter{
+        .form-wrapper {
+            p{
+                padding: 0;
+                .error-message {
+                    color: red;
+                    font-size: 12px;
+                }
+            }
+
+        }
+    }
+
+
+}
+
+
+
+

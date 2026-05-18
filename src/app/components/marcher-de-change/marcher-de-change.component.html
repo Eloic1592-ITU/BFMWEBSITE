@@ -1,0 +1,131 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData">
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>
+    {{title}}
+</div>
+<div class="page-content marcher-change">
+    <h1>{{title}}</h1>
+    <ng-container *ngIf="contentDesc != ''">
+        <section class="RTE-standard">
+            <div [innerHTML]="contentDesc| safe:'html' "></div>
+        </section>
+    </ng-container>
+    <section class="data-result result">
+        <ngb-tabset #t="ngbTabset" (tabChange)="changeHash($event)">
+            <ngb-tab id="taux-change-intra-journaliers">
+                <ng-template ngbTabTitle>Taux de change <br> intra-journalier</ng-template>
+                <ng-template ngbTabContent>
+                    <h2>DERNIERE OPERATION BOUCLEE DU {{ dateNow | date : 'd LLLL yyyy' }}</h2>
+                    <ng-container *ngIf="operationOps && operationOps?.length > 0; else other_operation">
+                        <table width="100%" class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Cours</th>
+                                <th>Montant</th>
+                                <th>Heure</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let devise of operationOps">
+                                <td data-label=""> {{devise.devises}}</td>
+                                <td data-label="Cours"><span>Ar</span> {{devise.cours}}</td>
+                                <td data-label="Montant">{{devise.min}}</td>
+                                <td data-label="Heure">{{devise.max}}</td>
+                            </tbody>
+                        </table>
+                    </ng-container>
+                    <ng-template #other_operation><p class="warning">Aucune donnée disponible pour le moment, veuillez
+                        revenir plus tard.</p></ng-template>
+                    <div class="timeline-wrapper"
+                         *ngIf="( contentDevise| json) != '[]' || referenceUsd?.length > 0 || referenceEur?.length > 0; else other_timeline">
+                        <h2>En date du {{ dateNow | date : 'd LLLL yyyy' }}</h2>
+                        <div class="timeline-inner">
+                            <ul class="columns clearfix">
+                                <ng-container *ngFor=" let hourItem of hoursKey">
+                                    <li *ngIf=" referenceEur[hourItem]?.length > 0 || referenceUsd[hourItem]?.length > 0 || contentDevise[hourItem]?.length > 0">
+                                        <div class="time">
+                                            {{hourItem}}
+                                        </div>
+                                        <div class="timeliner-element">
+                                            <ng-container *ngIf="referenceUsd[hourItem]?.length > 0">
+                                                <ng-container *ngFor="let data of referenceUsd[hourItem]">
+                                                    <ng-container
+                                                            *ngFor="let dataElt of data | keysVal; let i = index">
+                                                        <ng-container *ngIf="i==0">
+                                                            <h2>{{ dataElt.key }}</h2>
+                                                            <div class="timeliner-content">
+                                                                <p>{{ dataElt.value }}</p>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="i==1">
+                                                            <div class="timeliner-content">
+                                                                <p>{{ dataElt.key }} : {{dataElt.value }}</p>
+
+                                                            </div>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="referenceEur[hourItem]?.length > 0 ">
+                                                <ng-container *ngFor="let data of referenceEur[hourItem]">
+                                                    <ng-container
+                                                            *ngFor="let dataElt of data | keysVal; let i = index">
+                                                        <ng-container *ngIf="i==0">
+                                                            <h2>{{ dataElt.key }}</h2>
+                                                            <div class="timeliner-content">
+                                                                <p>{{ dataElt.value }}</p>
+                                                            </div>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="i==1">
+                                                            <div class="timeliner-content">
+                                                                <p>{{ dataElt.key }} : {{dataElt.value }}</p>
+
+                                                            </div>
+                                                        </ng-container>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="contentDevise[hourItem]?.length > 0">
+                                                <h2>Taux de change :</h2>
+                                                <div class="timeliner-content">
+                                                    <p *ngFor="let taux of contentDevise[hourItem]">
+                                                        <span>{{taux.devises}}</span>
+                                                        Ar {{ taux.mid }}
+                                                    </p>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                    <ng-template #other_timeline><p class="warning">Aucune opération effectuée pour le moment sur le marché, veuillez consulter <a [routerLink]="['/marche_marche-de-change']" fragment="resultat-marche" title="Résultats du marché">les Résultats du marché</a> d'hier.</p></ng-template>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="resultat-marche">
+            <ng-template ngbTabTitle>Résultat du marché</ng-template>
+                <ng-template ngbTabContent>
+                    <app-resultat-du-marche></app-resultat-du-marche>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="recherche-taux-de-change">
+            <ng-template ngbTabTitle>Recherche de taux <br> de change</ng-template>
+                <ng-template ngbTabContent>
+                    <app-cours-devises-filter [elementRechercheTaux]="elementRechercheTaux"></app-cours-devises-filter>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </section>
+
+</div>

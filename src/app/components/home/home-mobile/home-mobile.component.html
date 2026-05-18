@@ -1,0 +1,56 @@
+<div class="mobile-home">
+  <div class="taux-change">
+    <h2>Taux de change du {{ dateNow | date : 'd/MM/yyyy' }}</h2>
+    <ul>
+      <li *ngFor="let devise of operationOps" class="d-flex justify-content-between">
+        <span class="devise"> {{devise.devises}}
+        <ng-container *ngIf="devise.devises == 'USD'">&nbsp;($)</ng-container>
+        <ng-container *ngIf="devise.devises == 'EUR'">&nbsp;(€)</ng-container>
+        </span>
+        <span class="value">{{devise.cours}} Ar</span>
+      </li>
+    </ul>
+  </div>
+  <div class="menu-home">
+    <ul class="row">
+      <ng-container *ngFor="let menuitem of menuHomeList; let i = index">
+        <ng-container *ngIf="menuitem.child">
+          <li class="col-4" routerLinkActive="active" ngbDropdown>
+            <a ngbDropdownToggle><i [class]="[menuitem.icon]"></i> <span>{{menuitem.title}}</span></a>
+            <div class="dropdown-menu" *ngIf="menuitem.child" ngbDropdownMenu>
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="nav-submenu">
+                      <ul class="row">
+                        <li *ngFor="let childitem of menuitem.child" class="col-12"><a [routerLink]="[childitem.url]" routerLinkActive="active" class="nav-link" title="{{childitem.title}}">
+                          <div class="d-flex justify-content-between">
+                            <span>{{childitem.title}}</span><i class="bfm-icon-arrow_drop_right"></i>
+                          </div>
+                        </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!menuitem.child">
+          <li class="col-4" routerLinkActive="active">
+            <a [routerLink]="[menuitem.url]"><i [class]="[menuitem.icon]"></i> <span>{{menuitem.title}}</span></a>
+          </li>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+  <ng-container *ngIf="linkCta != ''">
+    <a [routerLink]="[linkCta]" title="{{titleCta}}" target="_blank" class="nouveau-billet d-flex align-items-center">
+      <figure *ngIf="imageCta != ''"><img src="{{imageCta}}" title="{{titleCta}}" alt="{{titleCta}}"></figure>
+      <span *ngIf="titleCta != ''">{{titleCta}}</span>
+      <i class="fa fa-chevron-right"></i>
+    </a>
+  </ng-container>
+
+</div>

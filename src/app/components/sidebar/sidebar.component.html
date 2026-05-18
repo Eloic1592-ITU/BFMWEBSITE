@@ -1,0 +1,71 @@
+<div class="sidebar">
+    <app-submenu></app-submenu>
+    <div style="width: 100%;height: 206px;">
+        <iframe src="../../assets/pages/or/banner-or.html" frameborder="0" style="width: 100%; height: 206px; border: none;"></iframe>
+    </div>
+
+    <!--
+    <div style="width: 100%;margin-block: 16px;">
+        <iframe src="../../assets/pages/video/video.html" height="315" width="560" style="border: 5px solid #737373;width:100%;height: 300px;"></iframe>
+    </div>
+    -->
+    <ng-container  *ngFor="let sidebarItem of sidebarList">
+        <div class="sidebar-item liste-lien menu-inflation" *ngIf="sidebarItem.type == 'menu_right' && sidebarItem.menu_key == keyMenuRigh ">
+            <div class="sidebar-content">
+                <ul class="list-link">
+                    <li *ngFor="let linkItem of sidebarItem.liens" [class]="linkItem.url == lienActive ? 'active': ''"><a [routerLink]="[linkItem.url]" title="{{linkItem.texte}}">{{linkItem.texte}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-item indicateur" *ngIf="sidebarItem.type == 'indicateur'">
+            <h2><img src="{{sidebarItem.icon}}" alt="{{sidebarItem.titre}}" title="{{sidebarItem.titre}}">{{sidebarItem.titre}}</h2>
+            <div class="sidebar-content">
+                <app-indicateurs [infosDescription]="sidebarItem?.descElement"></app-indicateurs>
+            </div>
+        </div>
+        <div class="sidebar-item taux-inflation" *ngIf="sidebarItem.type == 'taux_inflation'">
+            <div class="titre">{{sidebarItem.titre}}</div>
+            <div class="valeur">
+                <span class="instrum" [ngStyle]="{'transform':'rotate('+ angleValue + 'deg)'}"></span>
+                <span class="chiffre">{{sidebarItem.pourcentage}}%</span>
+            </div>
+        </div>
+        <div class="sidebar-item liste-lien" *ngIf="sidebarItem.type == 'collaborer'">
+            <h2><img src="{{sidebarItem.icon}}" alt="{{sidebarItem.titre}}" title="{{sidebarItem.titre}}">{{sidebarItem.titre}}</h2>
+            <div class="sidebar-content">
+                <ul class="list-link">
+                    <li *ngFor="let linkItem of sidebarItem.liens"><a [routerLink]="[linkItem.url]" title="{{linkItem.texte}}" target="{{linkItem.target}}" >{{linkItem.texte}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="sidebar-item faq" *ngIf="sidebarItem.type == 'faq'">
+            <h2><img src="{{sidebarItem.icon}}" alt="{{sidebarItem.titre}}" title="{{sidebarItem.titre}}">{{sidebarItem.titre}}</h2>
+            <div class="sidebar-content faq">
+                <p>{{sidebarItem.sous_titre}}</p>
+                <p><i  class="bfm-icon-arrow_drop_right"></i> <a [routerLink]="[sidebarItem.url]" title="{{sidebarItem.titre_lien}}">{{sidebarItem.titre_lien}}</a></p>
+            </div>
+        </div>
+        <div class="sidebar-item newsletter" *ngIf="sidebarItem.type == 'newsletter'">
+            <h2><img src="{{sidebarItem.icon}}" alt="{{sidebarItem.titre}}" title="{{sidebarItem.titre}}">{{sidebarItem.titre}}</h2>
+            <div class="sidebar-content">
+                <p>{{sidebarItem?.sous_titre}}</p>
+                <div class="message" *ngIf="formSubmit; else theForm">Merci pour votre inscription</div>
+                <ng-template #theForm>
+                    <form [formGroup]="inscriptionNewsleter" class="inscriptionNewsleter" (ngSubmit)="onSubmitInscriptionNewsleterForm(inscriptionNewsleter.value)"  >
+                        <div class="form-wrapper">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Votre e-mail" aria-label="Votre e-mail">
+                            <p *ngFor="let validation of newsletter_validation_messages.email">
+                                <span class="error-message" *ngIf="inscriptionNewsleter.get('email').hasError(validation.type) && (inscriptionNewsleter.get('email').dirty || inscriptionNewsleter.get('email').touched)">{{validation.message}}</span>
+                            </p>
+                            <div class="input-group-append">
+                                <button class="btn btn-with-icon btn-block" type="submit" [disabled]="!inscriptionNewsleter.valid">ENVOYER <i class="bfm-icon-arrow_drop_right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+
+                </ng-template>
+            </div>
+        </div>
+    </ng-container>
+</div>

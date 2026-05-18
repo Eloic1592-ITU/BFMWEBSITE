@@ -1,0 +1,113 @@
+<!-- ===== USE CASES SECTION ===== -->
+<section class="use-cases-section" id="use-cases">
+    <div class="container">
+        <div class="use-cases-header">
+            <h2>Situations d'<span class="use-cases-highlight">utilisation</span></h2>
+            <p>L'eAriary s'adapte à vos besoins, personnels ou professionnels</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="use-cases-tabs">
+            <button class="use-cases-tab" [class.active]="activeTab === 'particuliers'" (click)="switchTab('particuliers')">
+                <i class="fas fa-user"></i>
+                Particuliers
+            </button>
+            <button class="use-cases-tab" [class.active]="activeTab === 'professionnel'" (click)="switchTab('professionnel')">
+                <i class="fas fa-building"></i>
+                Professionnel
+            </button>
+        </div>
+
+        <!-- Particuliers Panel -->
+        <div class="use-cases-panel" [class.active]="activeTab === 'particuliers'">
+            <div class="use-cases-grid">
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3>Cash-in</h3>
+                    <p>Déposez de l'argent ou convertissez votre solde en eAriary</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-wallet"></i></div>
+                    <h3>Cash-out</h3>
+                    <p>Retirez votre argent quand vous en avez besoin</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-user-friends"></i></div>
+                    <h3>P2P</h3>
+                    <p>Envoyez de l'argent à un proche en quelques secondes</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-store"></i></div>
+                    <h3>Paiements marchands</h3>
+                    <p>Payez chez vos marchands avec eAriary</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-bus"></i></div>
+                    <h3>Transport public digitalisé</h3>
+                    <p>Payez vos trajets simplement et rapidement</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-clinic-medical"></i></div>
+                    <h3>Mutuelles de santé</h3>
+                    <p>Payez vos cotisations et recevez vos remboursements</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Aide humanitaire</h3>
+                    <p>Recevez des aides monétaires ou en nature directement</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-university"></i></div>
+                    <h3>Aides gouvernementales</h3>
+                    <p>Recevez vos bourses, subventions et transferts publics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Professionnel Panel -->
+        <div class="use-cases-panel" [class.active]="activeTab === 'professionnel'">
+            <div class="use-cases-grid">
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>P2B</h3>
+                    <p>Recevez les paiements de vos clients en eAriary</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-briefcase"></i></div>
+                    <h3>B2B</h3>
+                    <p>Transactions commerciales entre entreprises</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-store"></i></div>
+                    <h3>Paiements marchands</h3>
+                    <p>Acceptez les paiements eAriary dans votre commerce</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Transferts & paiements de masse</h3>
+                    <p>Gérez les salaires et paiements en volume</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-university"></i></div>
+                    <h3>Flux financiers gouvernementaux</h3>
+                    <p>Distribuez les aides et collectez les taxes</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Aide humanitaire – transferts monétaires</h3>
+                    <p>Distribuez les aides rapidement et de manière traçable</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-boxes"></i></div>
+                    <h3>Aide humanitaire – transferts en nature</h3>
+                    <p>Gérez la distribution d'aide matérielle et alimentaire</p>
+                </div>
+                <div class="use-case-card fade-in-up">
+                    <div class="use-case-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Chaînes de valeur agricoles</h3>
+                    <p>Tracez les paiements dans vos filières (ex. vanille)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

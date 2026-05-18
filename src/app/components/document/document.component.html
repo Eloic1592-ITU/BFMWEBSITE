@@ -1,0 +1,119 @@
+<div class="list" *ngIf="listeDocs?.length > 0;">
+    <h2 *ngIf="titleBlocDoc?.titleBlocDoc != '' ">{{titleBlocDoc}}</h2>
+    <div class="bloc-consultation">
+        <p class="infos" *ngIf="descBlocDoc?.descBlocDoc != '' ">{{descBlocDoc}}</p>
+
+        <ul>
+            <li *ngFor="let item of listeDocs">
+                <label>
+                    <input type="checkbox" class="checkdoc" value="{{item.title}}" id="doc_{{item.id}}"
+                           (change)="addToListeSelected($event,item.title)" [checked]="item.checked"/>
+                    <span class="checkmark"></span>
+                    &nbsp;{{item.title}}
+                    <a href="{{item.link}}" target="_blank" class="pdf"><i class="bfm-icon-pdf"></i></a>
+                </label>
+            </li>
+        </ul>
+        <!--<div class="form-wrapper text-right">
+            <button class="btn" type="button" (click)="updateListSelected()" [disabled]="!listeDocsSelected?.length">
+                COMMANDER LES DOCUMENTS SÉLÉCTIONNÉS <i class="bfm-icon-arrow_drop_right"></i></button>
+        </div>-->
+    </div>
+
+    <div class="page-content bulletin-form" *ngIf="showForm">
+        <hr>
+        <h2>Formulaire de vente de bulletins</h2>
+        <div>
+            <form [formGroup]="bulletinForm" (ngSubmit)="onSubmitBulletin(bulletinForm.value); loaderElement();">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>NOM OU RAISON SOCIALE *</label>
+                            <div class="form-wrapper"><input type="text" class="form-control" placeholder=""
+                                                             formControlName="name"></div>
+                            <p *ngFor="let validation of account_validation_messages.name">
+                                <span class="error-message"
+                                      *ngIf="bulletinForm.get('name').hasError(validation.type) && (bulletinForm.get('name').dirty || bulletinForm.get('name').touched)">{{validation.message}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>E-MAIL *</label>
+                            <div class="form-wrapper"><input type="text" class="form-control" placeholder=""
+                                                             formControlName="email"></div>
+                            <p *ngFor="let validation of account_validation_messages.email">
+                                <span class="error-message"
+                                      *ngIf="bulletinForm.get('email').hasError(validation.type) && (bulletinForm.get('email').dirty || bulletinForm.get('email').touched)">{{validation.message}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>TÉLÉPHONE *</label>
+                            <div class="form-wrapper"><input type="text" class="form-control" placeholder=""
+                                                             formControlName="telephone"></div>
+                            <p *ngFor="let validation of account_validation_messages.telephone">
+                                <span class="error-message"
+                                      *ngIf="bulletinForm.get('telephone').hasError(validation.type) && (bulletinForm.get('telephone').dirty || bulletinForm.get('telephone').touched)">{{validation.message}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>DOCUMENTS SÉLÉCTIONNÉS *</label>
+                            <div class="form-wrapper">
+                                <textarea class="form-control textarea" rows="10" formControlName="liste_documents"
+                                          [(ngModel)]="liste_documents" readonly disabled="disabled"></textarea>
+                                <p class="obligatoires">* Mention obligatoire</p>
+                            </div>
+                            <p *ngFor="let validation of account_validation_messages.message">
+                                <span class="error-message"
+                                      *ngIf="bulletinForm.get('message').hasError(validation.type) && (bulletinForm.get('message').dirty || bulletinForm.get('message').touched)">{{validation.message}}</span>
+                            </p>
+                            <div class="form-wrapper text-center">
+                                <ngx-recaptcha2 #captchaElem
+                                                [size]="changeSize"
+                                                [hl]="setLanguage"
+                                                [theme]="changeTheme"
+                                                [type]="changeType"
+                                                (expire)="handleExpire()"
+                                                (load)="handleLoad()"
+                                                (success)="handleSuccess($event)">
+                                </ngx-recaptcha2>
+                            </div>
+                            <p *ngIf="errorCaptcha !='' ">
+                                <span class="error-message">{{errorCaptcha}}</span>
+                            </p>
+                            <p>&nbsp;</p>
+                            <div class="form-wrapper text-right select-wrapper">
+                                <div [attr.class]="( loader ) ? 'loading-wrapper':''">
+                                    <ng-container *ngIf="loader">
+                                        <div class="ajax-loader"><img src="assets/images/loader2-1s-100px.svg"></div>
+                                    </ng-container>
+                                </div>
+                                <button class="btn btn-with-icon" type="submit" [disabled]="!bulletinForm.valid">ENVOYER
+                                    <i class="bfm-icon-arrow_drop_right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="confirm-form">
+        <div class="modal-body">
+            Merci, votre commande a bien été envoyée, nous reviendrons vers vous rapidement.
+        </div>
+        <div class="modal-footer justify-content-center">
+            <button type="button" class="btn btn-default" (click)="modalRef.hide()">FERMER</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,158 @@
+<div class="breadcrumb" id="element"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+  /
+  <ng-container *ngIf="filArianeData?.length > 0 ">
+    <ng-container *ngFor="let item of filArianeData" >
+      <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+        <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a> /
+      </ng-container>
+      <ng-template #other_menu>
+        <span class="noLink">{{item.title.replace('/', '')}}</span> /
+      </ng-template>
+    </ng-container>
+  </ng-container>Lois et Règlements
+</div>
+<div class="page-content actus">
+  <h1>Lois et Règlements</h1>
+  <!-- filtres -->
+  <div class="filter">
+    <label>Filtrer par</label>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-wrapper select-wrapper">
+            <select class="form-control" (change)="filter_by_theme($event.target.value  , currentPage  )">
+              <option   value="0">Tous les thèmes</option>
+              <option  *ngFor="let item of listetheme" value={{item.slug}} [selected]="item.slug == theme ">
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-wrapper select-wrapper">
+            <select  class="form-control" (change)="filter_by_type_texte($event.target.value  , currentPage  )">
+              <option   value="0">Tous les types de texte </option>
+              <option  *ngFor="let item of typetexte"  value={{item.slug}} [selected]="item.slug == type "  >
+                {{item.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- filtres -->
+  <ul *ngIf="contentData?.length > 0; else othe_list">
+    <li *ngFor="let item of contentData">
+      <a [attr.href]="[item?.link]"  class="wrapper-list" *ngIf="item?.link | test : 'http': 'gm'" >
+
+        <!--Date du texte reglementaire-->
+        <div class="day">
+
+          <!-- jour -->
+          <p class="date">{{ item.date_day  }}</p>
+          <!-- jour -->
+
+          <!-- mois -->
+          <p class="month">{{ item.date_month }}</p>
+          <!-- mois -->
+
+          <!-- annee -->
+          <p class="year">{{ item.date_year }}</p>
+          <!-- annee -->
+
+        </div>
+        <!--Date du texte reglementaire-->
+
+
+
+
+        <!--titre-->
+        <div class="text-content">
+          <!-- Categories de themes et type de texte-->
+          <div class="type">
+
+            <p *ngFor="let theme_item of item.themes">
+              {{ theme_item.name }}
+            </p>
+
+            <p *ngFor="let theme_item of item.typeTexte">
+              {{ theme_item.name }}
+            </p>
+
+          </div>
+          <!-- Categories de themes et type de texte-->
+
+          <p>{{item.title}}</p>
+        </div>
+        <!--titre-->
+
+      </a>
+      <a [routerLink]="[item?.link]"  class="wrapper-list"  *ngIf="item.link | test : '^(?!http).*': 'gm'">
+
+        <!--Date du texte reglementaire-->
+        <div class="day">
+
+          <!-- jour -->
+          <p class="date">{{ item.date_day  }}</p>
+          <!-- jour -->
+
+          <!-- mois -->
+          <p class="month">{{ item.date_month }}</p>
+          <!-- mois -->
+
+          <!-- annee -->
+          <p class="year">{{ item.date_year }}</p>
+          <!-- annee -->
+
+        </div>
+        <!--Date du texte reglementaire-->
+
+
+
+
+        <!--titre-->
+        <div class="text-content">
+          <!-- Categories de themes et type de texte-->
+          <div class="type">
+
+            <p *ngFor="let theme_item of item.themes">
+              {{ theme_item.name }}
+            </p>
+
+            <p *ngFor="let theme_item of item.typeTexte">
+              {{ theme_item.name }}
+            </p>
+
+          </div>
+          <!-- Categories de themes et type de texte-->
+
+          <p>{{item.title}}</p>
+        </div>
+        <!--titre-->
+
+      </a>
+    </li>
+  </ul>
+
+  <ng-template #othe_list><p class="not-element">Aucune loi et règlement n'est disponible pour le moment, merci de revenir plus tard.</p></ng-template>
+
+  <div class="row"   *ngIf="itemsCount > itemsPerPage ">
+    <div class="col-xs-12 col-12 d-none d-xl-block">
+      <pagination class="justify-content-center" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage"   [nextText]="nextText" [previousText]="previousText" [firstText]="firstText" [lastText]="lastText" [boundaryLinks]="true" [maxSize]="maxSize" ></pagination>
+    </div>
+
+    <!-- Pagination pour mobile  --> 
+    <div class="col-xs-12 col-12 d-block d-xl-none">
+      <div class="pager-mobile">
+        <pagination class="justify-content-center" [totalItems]="itemsCount" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" [itemsPerPage]="itemsPerPage"   [nextText]="mobileNextText" [previousText]="mobilePreviousText" [firstText]="mobileFirstText" [lastText]="mobileLastText" [boundaryLinks]="true" [maxSize]="mobileMaxSize" ></pagination>
+      </div>
+    </div>
+    <!-- For mobile  -->
+
+
+  </div>
+
+</div>

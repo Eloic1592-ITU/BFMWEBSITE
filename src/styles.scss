@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+@import "assets/scss/variables";
+@import "~bootstrap/scss/bootstrap.scss";
+@import "~angular-notifier/styles.scss";
+@import "assets/scss/bfm-icon";
+@import "assets/scss/global";
+@import "assets/scss/print-page";
+
+/* Select2 used in eAriary signup (global because plugin DOM is outside Angular style encapsulation) */
+.signup-form .select2-container {
+  width: 100% !important;
+}
+
+.signup-form .select2-container .select2-selection--single {
+  height: 49px;
+  min-height: 49px;
+  padding: 0 16px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.signup-form .select2-container--default .select2-selection--single .select2-selection__rendered {
+  padding-left: 0;
+  padding-right: 32px;
+  line-height: 46px;
+  font-size: 0.875rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--gray-800);
+  display: block;
+  text-align: left;
+}
+
+.signup-form .select2-container--default .select2-selection--single .select2-selection__placeholder {
+  color: var(--gray-400);
+}
+
+.signup-form .select2-container--default .select2-selection--single .select2-selection__arrow {
+  height: 100%;
+  right: 14px;
+  top: 0;
+  width: 18px;
+}
+
+.signup-form .select2-container--default .select2-selection--single .select2-selection__arrow b {
+  margin-top: -3px;
+}
+
+.signup-form .select2-container--default.select2-container--open .select2-selection--single,
+.signup-form .select2-container--default.select2-container--focus .select2-selection--single {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(0, 75, 76, 0.08);
+}
+
+.select2-dropdown {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.select2-results__option {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background: var(--teal);
+}

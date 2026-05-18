@@ -1,0 +1,132 @@
+@import "../../../assets/scss/variables";
+@import "../../components/liste-actualites/liste-actualites.component.scss";
+
+.total-item {
+    font-size: 14px;
+    font-weight: $font-semibold;
+    padding: 0 15px;
+
+    strong {
+        font-size: 18px;
+        color: $primary;
+        font-weight: $font-semibold;
+    }
+
+    @media (min-width: 768px) {
+        padding: 0;
+    }
+}
+
+.search-wrapper {
+    padding: 0 15px;
+    .input-group {
+        margin-bottom: 10px;
+    }
+
+    @media (min-width: 768px) {
+        padding: 0;
+    }
+}
+
+.separator {
+    margin: 20px 0;
+}
+
+.filtre-wrapper {
+    padding: 0 15px 30px;
+
+    @media (min-width: 768px) {
+        padding: 0 0 30px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: $primary-light;
+        line-height: 1;
+        cursor: pointer;
+
+        i {
+            font-size: 32px;
+            vertical-align: -5px;
+            line-height: 24px;
+        }
+    }
+}
+
+.filter-types {
+    padding: 20px 15px;
+    background: #eff4f7;
+    border: 1px solid #dae3e8;
+
+    h3 {
+        font-size: 14px;
+        font-weight: $font-semibold;
+        color: #293034;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 0;
+
+        li {
+            .pt_nombre {
+                float: right;
+                font-size: 14px;
+                color: #293034;
+                font-weight: $font-semibold;
+            }
+
+            label {
+                font-size: 14px;
+            }
+
+            .custom-control {
+                padding-left: 17px;
+
+                &.custom-checkbox {
+                    padding-left: 22px;
+                }
+            }
+
+            .custom-control-label::before, .custom-control-label::after {
+                top: 3px;
+                left: -25px;
+            }
+
+            .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+            .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+                background-color: $secondary;
+            }
+        }
+    }
+
+    .col-md-4 {
+        padding-top: 20px;
+
+        @media (min-width: 768px) {
+            padding-top: 0;
+        }
+    }
+}
+
+.btn-wrapper {
+    margin-top: 15px;
+
+    .btn-reset {
+        background: $primary-light;
+        font-size: 14px;
+        color: #fff;
+        text-transform: uppercase;
+        min-width: 195px;
+    }
+}
+
+.actus ul li a.wrapper-list .type p:first-child {
+    border-right: none !important;
+}
+
+li.pagination-first.disabled {visibility: hidden!important;}
+li.pagination-last.disabled {visibility: hidden!important;}
+li.pagination-next.disabled {visibility: hidden!important;}
+li.pagination-prev.disabled {visibility: hidden!important;}

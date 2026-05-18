@@ -1,0 +1,71 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+  /
+  <ng-container *ngIf="filArianeData?.length > 0 ">
+    <ng-container *ngFor="let item of filArianeData" >
+      <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+        <a [routerLink]="[item.url]" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+      </ng-container>
+      <ng-template #other_menu>
+        <span class="noLink">{{item.title.replace('/', '')}}</span> /
+      </ng-template>
+    </ng-container>
+  </ng-container>{{title}}
+</div>
+<div class="page-content cours-du-mid">
+  <h1>{{title}}</h1>
+
+  <section>
+    <form [formGroup]="filterDateForm" (ngSubmit)="onSubmitFiltre(filterDateForm.value)">
+      <label>Choisir une date :</label>
+      <div class="form-wrapper select-wrapper">
+        <select class="form-control" formControlName="yearFilter">
+          <option [selected]="yearSelected == ''" value="">Séléctionnez</option>
+          <option *ngFor="let year of years" value={{year}} [selected]="year == yearSelected ">{{year}}</option>
+        </select>
+        <button class="btn btn-with-icon" type="submit" [disabled]="!filterDateForm.valid">Consulter <i class="bfm-icon-arrow_drop_right"></i></button>
+      </div>
+    </form>
+  </section>
+
+  <section _ngcontent-c10="" class="result">
+    <div class="first-table">
+      <table _ngcontent-c10="" align="center" width="100%" class="table" *ngIf="headDevise?.length > 0">
+          <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <ng-container *ngFor="let item of headDevise">
+              <th title="{{item.label}}">
+                {{ item.code }}
+              </th>
+            </ng-container>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let data of dataDevise">
+            <td>{{data.key}}</td>
+            <ng-container *ngFor="let item of headDevise">
+              <td [attr.data-label]="item.code">{{data.value[item.code]}}</td>
+            </ng-container>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+
+    <table _ngcontent-c10="" align="center" width="100%" class="table" *ngIf="headDevise?.length > 0">
+      <thead>
+      <tr>
+        <th colspan="3">Moyenne Annuelle :{{yearSelected}}</th>
+      </tr>
+      </thead>
+      <tbody _ngcontent-c10="">
+      <tr *ngFor="let item of headDevise">
+        <td [attr.data-label]="'Nom du devise'">{{item.label}}</td>
+        <td [attr.data-label]="'Code du devise'">{{item.code}}</td>
+        <td [attr.data-label]="'Moyenne Annuelle : '+ yearSelected">{{dataMoyenne[item.code]}}</td>
+      </tr>
+      </tbody>
+    </table>
+<!---->
+</section>
+
+</div>

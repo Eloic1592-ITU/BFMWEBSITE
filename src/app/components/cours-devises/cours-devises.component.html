@@ -1,0 +1,91 @@
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    /
+    <ng-container *ngIf="filArianeData?.length > 0 ">
+        <ng-container *ngFor="let item of filArianeData" >
+            <ng-container *ngIf="item.url !='' && item.url != '#'; else other_menu ">
+                <a href="{{item.url}}" title="{{item.title.replace('/', '')}}">{{item.title.replace('/', '')}} </a>/
+            </ng-container>
+            <ng-template #other_menu>
+                <span class="noLink">{{item.title.replace('/', '')}}</span> /
+            </ng-template>
+        </ng-container>
+    </ng-container>{{title}}
+</div>
+<div class="page-content cours-du-mid filter">
+    <h1>{{title}}</h1>
+    <h2>Journaliers en Ariary (à partir de l’année 2005 )</h2>
+    <section>
+        <form [formGroup]="filterDateForm" (ngSubmit)="onSubmitFiltre(filterDateForm.value)">
+            <label>Choisir une date :</label>
+            <div class="form-wrapper devise-journalier">
+                <div class="col-sm-3">
+                    <div class="wrap-datePicker">
+                        <div class="row">
+                            <div class="datePicker">
+                                <input class="form-control" style="float:none" [(ngModel)]="model" ngx-mydatepicker name="reactiveFormsDate" formControlName="dateFilter" [options]="optionDate" #dp="ngx-mydatepicker" autocomplete="off" (click)="dp.toggleCalendar()"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                <button class="btn btn-with-icon" type="submit" [disabled]="!filterDateForm.valid">Consulter <i
+                        class="bfm-icon-arrow_drop_right"></i>
+                </button>
+                </div>
+            </div>
+
+        </form>
+
+    </section>
+    <hr>
+    <section class="result">
+        <p>Cours des devises en date du <span>{{dateNow}}</span></p>
+        <hr>
+        <div *ngIf=" tableFirstEur?.length > 0 || tableFirstUsd?.length > 0 || tableSecond?.length > 0 || tableThird.length > 0; else other_element  ">
+            <table width="100%" align="center" cellpadding="2" cellspacing="2" style="margin: 0;"
+                   *ngIf="tableFirstEur?.thead?.length > 0 && tableFirstEur?.value?.length > 0 ">
+                <tr>
+                    <th width="50%" *ngFor="let theadEuro of tableFirstEur?.thead">{{theadEuro}}</th>
+                </tr>
+                <tr>
+                    <td align="right" *ngFor="let item of tableFirstEur?.value"><strong>{{item}}</strong></td>
+                </tr>
+            </table>
+            <table width="100%" align="center" cellpadding="2" cellspacing="2"
+                   *ngIf="tableFirstUsd?.thead?.length > 0 && tableFirstUsd?.value?.length > 0 ">
+                <tr>
+                    <th width="50%" *ngFor="let theadUsd of tableFirstUsd?.thead">{{theadUsd}}</th>
+                </tr>
+                <tr>
+                    <td align="right" *ngFor="let item of tableFirstUsd?.value"><strong>{{item}}</strong></td>
+                </tr>
+            </table>
+            <table width="100%" align="center" cellpadding="2" cellspacing="2">
+                <tr>
+                    <th *ngFor="let item of tableSecondHead " [attr.width]="item.key == 'desc'? '50%' : ''">
+                        {{item.key == 'desc' ? '&nbsp;': item.value }}
+                    </th>
+                </tr>
+                <tr *ngFor="let data of tableSecond">
+                    <td *ngFor="let item of tableSecondHead " [attr.width]="item.key == 'desc'? '50%' : ''">
+                        <i class="bfm-icon-arrow_drop_{{item.key}}" *ngIf="item.key != 'desc'"></i>
+                        <span *ngIf="item.key != 'desc'">&nbsp;Ar&nbsp;</span>
+                        <strong>{{data[item.key]}}</strong>
+                    </td>
+                </tr>
+            </table>
+
+            <table width="100%" align="center" cellpadding="2" cellspacing="2">
+                <tr>
+                    <th colspan="2">Cours de référence</th>
+                </tr>
+                <tr *ngFor="let itemData of tableThird">
+                    <td width="33%"><strong>{{itemData.code}}</strong></td>
+                    <td align="right">Ar <strong>{{itemData.value}}</strong></td>
+                </tr>
+            </table>
+        </div>
+        <ng-template #other_element>Jours sans marché.</ng-template>
+    </section>
+</div>
+

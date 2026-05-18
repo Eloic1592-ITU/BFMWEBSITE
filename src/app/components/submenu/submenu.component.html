@@ -1,0 +1,20 @@
+<div class="submenu-sidebar" *ngIf="submenuList.length > 0">
+    <h2>Voir aussi ...</h2>
+  <ul>
+      <ng-container  *ngFor="let menuitem of submenuList">
+          <li class="nav-item" ngbDropdown [class.dropdown]="menuitem.child" *ngIf="menuitem.child; else noChild" routerLinkActive="show">
+              <i class="bfm-icon-collapse"></i><i class="bfm-icon-expand"></i><a class="nav-link" ngbDropdownToggle title="{{menuitem.title}}">{{menuitem.title}}</a>
+              <div class="dropdown-menu" routerLinkActive="show" ngbDropdownMenu>
+                  <ul>
+                      <li *ngFor="let childitem of menuitem.child"><a [routerLink]="[childitem.url]" class="nav-link" title="{{childitem.title}}"  routerLinkActive="active">{{childitem.title}}</a></li>
+                  </ul>
+              </div>
+          </li>
+          <ng-template #noChild>
+              <li class="nav-item">
+                  <a class="nav-link" title="{{menuitem.title}}" [routerLink]="[menuitem.url]"  routerLinkActive="active">{{menuitem.title}}</a>
+              </li>
+          </ng-template>
+      </ng-container>
+  </ul>
+</div>

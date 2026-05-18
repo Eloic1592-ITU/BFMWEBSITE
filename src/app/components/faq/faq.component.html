@@ -1,0 +1,28 @@
+
+<div class="breadcrumb"><a [routerLink]="['/']" title="Accueil">Accueil</a>
+    / Faq
+</div>
+
+<div  class="page-content faq">
+  <h1>Foire aux questions</h1>
+  <accordion *ngFor="let item of foireAuxQuestion">
+    <accordion-group *ngIf="item.post?.length>0" >
+     <!-- <div *ngFor="let item_post of item.post">
+        <p> {{ item_post.title }}</p>
+      </div>-->
+      <div  accordion-heading class="clearfix">
+           {{ item.category }}
+      </div>
+      <accordion>
+        <accordion-group *ngFor="let item_post of item.post">
+          <div accordion-heading class="clearfix">
+            {{ item_post.title }}
+        </div>
+          <div [innerHtml]="item_post?.content"></div>
+        </accordion-group>
+      </accordion>
+    </accordion-group>
+  </accordion>
+</div>
+
+
