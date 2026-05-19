@@ -27,4 +27,9 @@ COPY . .
 EXPOSE 4200
 
 # Start Angular dev server
-CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
+# Version pour Windows et Mac
+CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check", "--poll=2000"]
+
+# Version pour Linux
+# CMD ["ng", "serve", "--host", "0.0.0.0", "--disable-host-check"]
+
