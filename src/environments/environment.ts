@@ -5,14 +5,15 @@
 export const environment = {
     production: false,
     mobile: false,
-    
+    /*
     webServiceURL : 'https://www.banky-foibe.mg/admin/wp-json',
     webServiceSITEURL : 'https://www.banky-foibe.mg/admin',
+    */
     
-    /*
+    
     webServiceURL : 'https://preprod.banky-foibe.mg/admin/wp-json',
     webServiceSITEURL : 'https://preprod.banky-foibe.mg/admin',
-    */
+    
  
    /*
     webServiceURL : 'http://localhost/admin/index.php/wp-json',

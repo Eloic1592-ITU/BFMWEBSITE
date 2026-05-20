@@ -148,7 +148,7 @@ async function generateChartFromAPI(apiUrl, chartElementId) {
 
 
 async function getAutreTaux(date) {
-  const baseUrl = "https://www.banky-foibe.mg/admin/wp-json/bfm/autres_taux_pomi_by_date";
+const baseUrl = `${window.APP_CONFIG.API_URL}/wp-json/bfm/autres_taux_pomi_by_date`;
   const items = [];
   try {
     // Restriction simple: le backend attend un format de date "YYYY-MM-DD"

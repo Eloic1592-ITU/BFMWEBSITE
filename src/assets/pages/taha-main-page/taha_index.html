@@ -164,20 +164,27 @@
           <p>Télécharger historique-du-taux-de-référence</p>
           <img src="taha_exel.png" alt="exel" />
         </a>
-        <a href="https://www.banky-foibe.mg/admin/wp-content/uploads/2024/02/METHODOLOGIE-CALCUL-DE-PUBLICATION-TAUX-DE-REF.pdf" target="_blank" class="pdf">
+        <a id="pdfLink" target="_blank" class="pdf">
           <p>Télécharger document-explicatif-du-taux-de-référence</p>
           <img src="taha_pdf.png" alt="pdf" />
         </a>
       </div>
     </main>
 
+    <script src="../../js/config.js"></script>
+    <script>
+      const pdfUrl =
+        `${window.APP_CONFIG.API_URL}/wp-content/uploads/2024/02/METHODOLOGIE-CALCUL-DE-PUBLICATION-TAUX-DE-REF.pdf`;
+
+      document.getElementById("pdfLink").href = pdfUrl;
+    </script>
     <script src="taha_index.js"></script>
     <script src="taha_chart.js"></script>
     <script src="taha_tooltip.js"></script>
 
     <script>
       const apiUrl =
-        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=7";
+        `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire_tous?limit=7`;
 
         // Make a GET request
         fetch(apiUrl)
@@ -215,7 +222,7 @@
     <script>
 
       const apiUrl2 =
-        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire";
+        `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire`;
 
         // Make a GET request
         fetch(apiUrl2)
@@ -236,7 +243,7 @@
 
 
   <script>
-    const apiUrl3 = "https://www.banky-foibe.mg/admin/wp-json/bfm/autres_taux_pomi";
+    const apiUrl3 = `${window.APP_CONFIG.API_URL}/wp-json/bfm/autres_taux_pomi`;
 
       // Make a GET request
       fetch(apiUrl3)
@@ -274,7 +281,7 @@
         // Appelle la fonction async à l'intérieur d'une IIFE (Immediately Invoked Function Expression)
         (async () => {
               await generateChartFromAPI(
-                "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=30&order=DESC",
+                `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire_tous?limit=30&order=DESC`,
                 "moisChart"
               );
         })();

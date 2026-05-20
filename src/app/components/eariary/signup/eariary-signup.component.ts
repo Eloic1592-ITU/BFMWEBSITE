@@ -1,11 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
-const API_INSCRIPTION = 'https://www.banky-foibe.mg/admin/wp-json/bfm/eariary/inscription';
-const API_ALREADY_EXIST = 'https://www.banky-foibe.mg/admin/wp-json/bfm/eariary/already_exist';
-const API_REGION = 'https://www.banky-foibe.mg/admin/wp-json/bfm/eariary/region';
+const BASE_URL=environment.webServiceSITEURL;
+
+// const API_INSCRIPTION = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/eariary/inscription';
+// const API_ALREADY_EXIST = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/eariary/already_exist';
+// const API_REGION = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/eariary/region';
+
+const API_INSCRIPTION = `${BASE_URL}/bfm/eariary/inscription`;
+const API_ALREADY_EXIST = `${BASE_URL}/bfm/eariary/already_exist`;
+const API_REGION = `${BASE_URL}/bfm/eariary/region`;
 
 /** Mapping type de compte formulaire → cpte_id API */
 const CPTE_ID_MAP: { [key: string]: number } = {

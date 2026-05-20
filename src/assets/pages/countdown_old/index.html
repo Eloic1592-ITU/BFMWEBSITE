@@ -47,6 +47,7 @@
       </iframe>
     </div>
 
+    <script src="../../js/config.js"></script>
     <script>
       // Définir la date de fin
       const _jour = "02";
@@ -100,7 +101,7 @@
           liveDorElement.style.width = "100%";
           liveDorElement.style.height = "206px";
 
-          const apiUrl = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/get_or_validation';
+          const apiUrl = `${window.APP_CONFIG.API_URL}/wp-json/bfm/get_or_validation`;
 
           // Make a GET request
           fetch(apiUrl)

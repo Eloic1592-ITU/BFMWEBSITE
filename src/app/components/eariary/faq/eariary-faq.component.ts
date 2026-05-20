@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+const BASE_URL=environment.webServiceURL;
 
 interface FaqDisplayItem {
     question: string;
@@ -25,7 +28,7 @@ export class EariaryFaqComponent implements OnInit {
     ngOnInit() {
         // Charge la FAQ dès l'arrivée sur la section (version FR + MG depuis l'API).
         this.loadFaq();
-    }y
+    }
 
     switchLang(lang: 'fr' | 'mg') {
         if (this.currentLang === lang) {
@@ -36,7 +39,7 @@ export class EariaryFaqComponent implements OnInit {
     }
 
     private loadFaq() {
-        const url = 'https://www.banky-foibe.mg/admin/wp-json/bfm/eariary/faq';
+        const url = `${BASE_URL}/bfm/eariary/faq`;
         this.http.get<any>(url).subscribe({
             next: (res) => {
                 // L'API renvoie { code, message, data: { status, data: [...] } }

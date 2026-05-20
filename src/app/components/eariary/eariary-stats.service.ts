@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
-const API_STATS = 'https://www.banky-foibe.mg/admin/wp-json/bfm/eariary/stats';
+const BASE_URL=environment.webServiceURL;
+
+const API_STATS = `${BASE_URL}/bfm/eariary/stats`;
 const STORAGE_KEY_PAGE_PREFIX = 'eariary_stats_page_';
 const STORAGE_KEY_SECTION_PREFIX = 'eariary_stats_section_';
 const STORAGE_KEY_SESSION_ID = 'eariary_stats_session_id';
