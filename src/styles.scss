@@ -5,6 +5,10 @@
 @import "assets/scss/bfm-icon";
 @import "assets/scss/global";
 @import "assets/scss/print-page";
+@import 'assets/fonts/maven-pro/maven-pro.css';
+@import 'assets/fonts/poppins/poppins.css';
+@import 'assets/fonts/inter/inter.css';
+@import 'assets/fonts/open-sans-v15/open-sans-v15.css';
 
 /* Select2 used in eAriary signup (global because plugin DOM is outside Angular style encapsulation) */
 .signup-form .select2-container {
