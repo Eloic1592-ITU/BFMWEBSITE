@@ -28,15 +28,15 @@
       </header>
     </header>
     <main style="position: relative; width: 410px; left: -40px;">
-      <canvas id="moisChart" width="512" height="256" style="display: block; box-sizing: border-box; height: 205px; width: 410px;"></canvas>
+      <canvas id="moisChart" width="800" height="400"></canvas>
     </main>
 
     <script src="taha_chart.js"></script>
-
+    <script src="../../js/config.js"></script>
     <script>
 
       const apiUrl2 =
-        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire";
+        `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire`;
         // Make a GET request
         fetch(apiUrl2)
           .then((response) => {
@@ -61,8 +61,8 @@
 
         // Appelle la fonction async à l'intérieur d'une IIFE (Immediately Invoked Function Expression)
         (async () => {
-              await generateChartFromAPI(
-                "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=30&order=DESC",
+              await generateChartFromAPI(              
+                `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire_tous?limit=30&order=DESC`,
                 "moisChart"
               );
         })();

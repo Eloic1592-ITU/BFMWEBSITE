@@ -31,6 +31,7 @@
       <canvas id="moisChart" width="800" height="400"></canvas>
     </main>
 
+    <script src="../../js/config.js"></script>
     <script src="./assets/js/taha_chart.js"></script>
 
     <script>
@@ -69,8 +70,8 @@
 
     <script>
 
-      const apiUrl2 =
-        "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire";
+      const apiUrl2 = 
+        `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire`;
         // Make a GET request
         fetch(apiUrl2)
           .then((response) => {
@@ -99,8 +100,8 @@
         //const labelsX = Array.from({ length: 5 }, (_, i) => (i + 8.5).toFixed(1));
         const labelsX = [8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12];
 
-        const apiUrl =
-          "https://www.banky-foibe.mg/admin/wp-json/bfm/taux_interbancaire_tous?limit=30";
+        const apiUrl = 
+        `${window.APP_CONFIG.API_URL}/wp-json/bfm/taux_interbancaire_tous?limit=30`;
 
         // Make a GET request
         fetch(apiUrl)
