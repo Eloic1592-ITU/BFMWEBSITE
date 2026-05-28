@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
-const BASE_URL=environment.webServiceSITEURL;
+const BASE_URL=environment.webServiceURL;
 
 // const API_INSCRIPTION = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/eariary/inscription';
 // const API_ALREADY_EXIST = 'https://preprod.banky-foibe.mg/admin/wp-json/bfm/eariary/already_exist';
