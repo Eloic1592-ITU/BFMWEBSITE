@@ -1,4 +1,5 @@
 node_modules/
+dist-from-docker/
 dist/
 .env
 npm-debug.log
